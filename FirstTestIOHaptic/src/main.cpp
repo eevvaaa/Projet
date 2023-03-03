@@ -7,6 +7,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   //soso est trop chaud en arduino
+  //c'est meme pas vrai d'abord
 }
 
 void loop() {
