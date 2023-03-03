@@ -21,7 +21,7 @@ import androidx.core.content.ContextCompat
 
 @SuppressLint("SetTextI18n")
 class MainActivity : AppCompatActivity() {
-
+//teststszhjgfejgf
     val statusText : TextView = findViewById(R.id.StatusText)
     val enableBluetooth : Button = findViewById(R.id.enableBluetooth)
     val connectSystem : Button = findViewById(R.id.connect)
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     val scanBluetooth : ToggleButton = findViewById(R.id.toggleScan)
 
     val bluetoothManager = this.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-    val bluetoothAdapter = bluetoothManager.getAdapter()
+    val bluetoothAdapter = bluetoothManager.adapter
 
     val btArrayAdapter = ArrayAdapter<Any>(this, android.R.layout.simple_list_item_1)
     val btPairedDevice = ArrayAdapter<Any>(this,android.R.layout.simple_list_item_1)
