@@ -2,6 +2,7 @@
 
 #include <Arduino.h>
 #include <M5Stack.h>
+#include <sensors.h>
 
 
 /*VIBRATION MOTOR MODULE PINOUT
