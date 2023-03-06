@@ -21,7 +21,7 @@ import androidx.core.content.ContextCompat
 //blabbalbalb
 @SuppressLint("SetTextI18n")
 class MainActivity : AppCompatActivity() {
-
+        // Heyyyyy
     val statusText : TextView = findViewById(R.id.StatusText)
     val enableBluetooth : Button = findViewById(R.id.enableBluetooth)
     val connectSystem : Button = findViewById(R.id.connect)
