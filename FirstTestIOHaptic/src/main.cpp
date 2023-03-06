@@ -1,5 +1,4 @@
 /* PARTIE HAPTIQUE DU PROJET */
-/*test*/
 
 #include <Arduino.h>
 
