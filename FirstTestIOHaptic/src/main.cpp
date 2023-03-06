@@ -1,6 +1,8 @@
 /* PARTIE HAPTIQUE DU PROJET */
 
 #include <Arduino.h>
+#include <M5Stack.h>
+
 
 /*VIBRATION MOTOR MODULE PINOUT
 
