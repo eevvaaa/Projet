@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">WheelApp</string>
-    <string name="connect">Connect</string>
-    <string name="enablebluetooth">enableBluetooth</string>
-    <string name="StatusText">Status</string>
-    <string name="ToggleScan">Scan</string>
-</resources>
