@@ -6,9 +6,7 @@
 
 
 /*VIBRATION MOTOR MODULE PINOUT
-
 This module has 3 pins:
-
     VCC: Module power supply – 5 V
     GND: Ground
     IN: Input
