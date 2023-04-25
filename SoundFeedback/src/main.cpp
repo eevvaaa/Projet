@@ -1,55 +1,43 @@
 #include <M5Stack.h>
 #include <sensors.h>
-#include <BluetoothSerial.h>
-#include <SoftwareSerial.h>
+#include "BluetoothA2DPSource.h"
 
-#define LIMITE_DANGER 30
-#define LIMITE_WARNING 60
+#define c3_frequency  130.81
+BluetoothA2DPSource a2dp_source;
 
-SoftwareSerial BTSerial(2,3); // 2 et 3 : broches de la carte Arduino
-BluetoothSerial SerialBT;
-int mode;
+int32_t get_data_channels(Frame *frame, int32_t channel_len) {
+    static double m_time = 0.0;
+    double m_amplitude = 10000.0;  // -32,768 to 32,767
+    double m_deltaTime = 1.0 / 44100.0;
+    double m_phase = 0.0;
+    double double_Pi = PI * 2.0;
+    // fill the channel data
+    for (int sample = 0; sample < channel_len; ++sample) {
+        double angle = double_Pi * c3_frequency * m_time + m_phase;
+        frame[sample].channel1 = m_amplitude * sin(angle);
+        frame[sample].channel2 = frame[sample].channel1;
+        m_time += m_deltaTime;
+    }
 
-void setup(){
-    SerialBT.begin("M5Stack");
-    Serial.begin(9600); //vitesse : 9600 bauds
-    BTSerial.begin(9600);
-    pinMode(9,OUTPUT); // mettre la bonne broche
+    return channel_len;
 }
 
-void bluetooth(){
-    if (BTSerial.available()) { // Le casque émet déjà un son quand on le connecte donc pas utile je pense
-        char command = BTSerial.read();
-        if (command == 's') { // si la commande reçue est 's'
-        tone(9, 1000); // émettre un signal sonore à 1 kHz
-        delay(500); // attendre 500 millisecondes
-        noTone(9); // arrêter le signal sonore
-        }
+void setup() {
+    // Init de la M5STack
+    M5.begin(true, false, true, true);
+    
+    // Démarrage de la M5Stack
+    M5.Power.begin();
+
+    M5.Lcd.println("Hello");
+    
+    a2dp_source.start("OpenMove by Shokz", get_data_channels);  
+    if(a2dp_source.is_connected()){
+        M5.Lcd.println("Connexion réussie");
     }
+    a2dp_source.set_volume(30);
 }
 
 void loop(){
-    M5.update();
-    if(mode == 0){
-        bluetooth();
-    }
-    processSensors(); //On récupère les données des capteurs
-    for(int i = 0 ; i<2 ; i++){ //i : numéro de la trame
-        int values[6];
-        if(getNewSensorValues(i,values)){
-            for(int j = 0 ; j < 6 ; j++){ //j : différents capteurs sur la barre
-                if(values[j]<=LIMITE_DANGER){ //Emettre un son en continu
-                    tone(9, 1000) //envoyer le son, broche 9, fréquence 1000Hz
-                    break; //car dès qu'il y a un capteur trop proche, on envoie le son, quelque soit le capteur
-                }
-
-                else if(values[j]<=LIMITE_WARNING && values[j]>LIMITE_DANGER){ //Emettre un bip sonore pas en continu
-                    tone(9, 1000); //Fréquence de 1000 Hz mais à déterminer
-                    delay(500); //On émet le son 500 ms
-                    noTone(9); //On arrête le son 
-                    break;
-                }
-            }
-        }
-    }
+    delay(10);
 }
