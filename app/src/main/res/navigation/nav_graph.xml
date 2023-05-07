@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homepageFragment">
+
+    <fragment
+        android:id="@+id/homepageFragment"
+        android:name="com.example.testtt.HomepageFragment"
+        android:label="fragment_homepage"
+        tools:layout="@layout/fragment_homepage" >
+        <action
+            android:id="@+id/action_homepageFragment_to_visualFragment"
+            app:destination="@id/visualFragment" />
+        <action
+            android:id="@+id/action_homepageFragment_to_soundFragment"
+            app:destination="@id/soundFragment" />
+        <action
+            android:id="@+id/action_homepageFragment_to_soundFragment2"
+            app:destination="@id/soundFragment" />
+        <action
+            android:id="@+id/action_homepageFragment_to_soundFragment3"
+            app:destination="@id/soundFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/visualFragment"
+        android:name="com.example.testtt.VisualFragment"
+        android:label="VisualFragment" >
+        <action
+            android:id="@+id/action_visualFragment_to_homepageFragment"
+            app:destination="@id/homepageFragment" />
+        <action
+            android:id="@+id/action_visualFragment_to_urgencesFragment"
+            app:destination="@id/urgencesFragment" />
+        <action
+            android:id="@+id/action_visualFragment_to_soundFragment"
+            app:destination="@id/soundFragment" />
+        <action
+            android:id="@+id/action_visualFragment_to_persoFragment"
+            app:destination="@id/persoFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/urgencesFragment"
+        android:name="com.example.testtt.UrgencesFragment"
+        android:label="fragment_urgences"
+        tools:layout="@layout/fragment_urgences" >
+        <action
+            android:id="@+id/action_urgencesFragment_to_visualFragment"
+            app:destination="@id/visualFragment" />
+        <action
+            android:id="@+id/action_urgencesFragment_to_soundFragment"
+            app:destination="@id/soundFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/soundFragment"
+        android:name="com.example.testtt.SoundFragment"
+        android:label="SoundFragment" >
+        <action
+            android:id="@+id/action_soundFragment_to_homepageFragment"
+            app:destination="@id/homepageFragment" />
+        <action
+            android:id="@+id/action_soundFragment_to_visualFragment"
+            app:destination="@id/visualFragment" />
+        <action
+            android:id="@+id/action_soundFragment_to_urgencesFragment"
+            app:destination="@id/urgencesFragment" />
+        <action
+            android:id="@+id/action_soundFragment_to_persoFragment"
+            app:destination="@id/persoFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/persoFragment"
+        android:name="PersoFragment"
+        android:label="PersoFragment" >
+        <action
+            android:id="@+id/action_persoFragment_to_visualFragment"
+            app:destination="@id/visualFragment" />
+        <action
+            android:id="@+id/action_persoFragment_to_homepageFragment3"
+            app:destination="@id/homepageFragment" />
+        <action
+            android:id="@+id/action_persoFragment_to_soundFragment"
+            app:destination="@id/soundFragment" />
+        <action
+            android:id="@+id/action_persoFragment_to_homepageFragment4"
+            app:destination="@id/homepageFragment" />
+    </fragment>
+
+</navigation>

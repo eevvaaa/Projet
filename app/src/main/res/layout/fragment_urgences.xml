@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/urgences_fragment_background">
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/back_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:backgroundTint="@color/urgences_fragment_background"
+        app:cornerRadius="8dp"
+        app:icon="@drawable/back_button_icon"
+        app:iconSize="30dp"
+        app:iconTint="@color/black"
+        app:rippleColor="@color/purple_200"
+        app:strokeColor="@color/purple_500"
+        app:strokeWidth="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+    <TextView
+        android:id="@+id/script_urgence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/times_new_roman"
+        android:gravity="center"
+        android:text="NOTIFYING EMERGENCY CONTACT"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toBottomOf="@id/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/countdown_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="96sp"
+        android:textColor="@color/red"
+        android:text="5"
+        android:layout_marginTop="70dp"
+        android:layout_below="@id/script_urgence"
+        android:fontFamily="@font/times_new_roman"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/script_urgence"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_stop"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/countdown_textview"
+        android:layout_marginTop="185dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/montserrat_black"
+        android:text="I CALL..."
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/countdown_textview"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/perso"
+        android:icon="@drawable/information_perso_icon"
+        app:showAsAction="ifRoom"
+        tools:ignore="MenuTitle"
+        />
+
+    <item
+        android:id="@+id/sound"
+        android:icon="@drawable/sound_icon"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/eyes"
+        android:icon="@drawable/eyes_icon"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/urgences"
+        android:icon="@drawable/urgence_icon"
+        app:showAsAction="ifRoom"/>
+
+</menu>

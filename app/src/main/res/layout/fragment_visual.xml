@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#E0CDA9"
+        app:titleTextColor="@color/black"
+        app:title="VISUAL MODE"
+        app:titleCentered="true"
+        android:fontFamily="@font/montserrat_bold"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/back_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="8dp"
+        app:icon="@drawable/back_button_icon"
+        app:iconSize="30dp"
+        app:iconTint="@color/black"
+        app:rippleColor="@color/purple_200"
+        app:strokeColor="@color/purple_500"
+        app:strokeWidth="2dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toTopOf="@id/color_pallet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/setting"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="8dp"
+        app:icon="@drawable/setting_icon"
+        app:iconSize="30dp"
+        app:iconTint="@color/black"
+        app:rippleColor="@color/purple_200"
+        app:strokeColor="@color/purple_500"
+        app:strokeWidth="2dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@id/color_pallet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
+    <TextView
+        android:id="@+id/color_pallet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Color Pallet"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/montserrat_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggle_group_visual"
+        android:layout_width="390dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        app:singleSelection="true"
+        app:checkedButton="@id/sound_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/color_pallet">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/far"
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            app:backgroundTint="#00FF00"
+            app:cornerRadius="24dp"
+            android:text="FAR"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:fontFamily="@font/montserrat_bold"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/middle"
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            app:backgroundTint="#FFFF00"
+            app:cornerRadius="24dp"
+            android:text="NEXT TO"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:fontFamily="@font/montserrat_bold"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/close"
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            app:backgroundTint="#FF0000"
+            app:cornerRadius="24dp"
+            android:text="CLOSE"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:fontFamily="@font/montserrat_bold"
+            />
+
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+    <ViewAnimator
+        android:id="@+id/view_animator"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/toggle_group_visual">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/visual_icon"
+             />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@drawable/image1"
+         />
+
+    </ViewAnimator>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:menu="@menu/menu_bottom"
+        style="@style/BottomNavigationStyle"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/message_already_there"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vous êtes déjà dans la zone visual"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:background="#E0CDA9"
+        android:padding="18dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:layout_marginBottom="90dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fontFamily="@font/montserrat_bold"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
