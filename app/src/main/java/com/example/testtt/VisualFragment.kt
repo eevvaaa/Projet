@@ -26,6 +26,22 @@ class VisualFragment : Fragment() {
             return binding.root
         }
 
+    
+    
+    //fonction pour afficher distance
+    fun retour(valeur: Int){
+        if(valeur<30){
+            binding.capteur1.setColorFilter(Color.RED,PorterDuff.Mode.MULTIPLY)
+        }
+        if(valeur in 30..59){
+            binding.capteur1.setColorFilter(Color.YELLOW,PorterDuff.Mode.MULTIPLY)
+        }
+        if(valeur >= 60){
+            binding.capteur1.setColorFilter(Color.GREEN,PorterDuff.Mode.MULTIPLY)
+        }
+    }
+    
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -34,6 +50,31 @@ class VisualFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        
+        
+          // pour afficher la distance quand la valeur change
+        val delay = 2000L // 2 secondes
+        val handler = Handler(Looper.getMainLooper())
+
+        val runnable = object : Runnable {
+            val capteur = arrayOf<Int>(1,32,93,4,45,68)
+            var i=0
+            override fun run() {
+               retour(capteur[i])
+                i++
+                if (i == capteur.size) {
+                    i = 0
+                }
+                // post the runnable again after 2 seconds
+                handler.postDelayed(this, delay)
+            }
+        }
+        // start the runnable
+        handler.postDelayed(runnable, delay)
+        
+
+               
+        
         binding.setting.setOnClickListener {
             // Créer une AlertDialog pour afficher le bouton on/off
             val dialogBuilder = AlertDialog.Builder(requireContext())
@@ -71,7 +112,7 @@ class VisualFragment : Fragment() {
                 R.id.eyes -> {
                     binding.messageAlreadyThere.visibility = View.VISIBLE
                     Handler(Looper.getMainLooper()).postDelayed({
-                        binding.messageAlreadyThere.visibility = View.GONE
+                        binding.messageAlreadyThere.visibility = View.INVISIBLE
                     }, 3000)
                     true
                 }
