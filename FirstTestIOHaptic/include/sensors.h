@@ -2,7 +2,8 @@
 #define SENSORS_H
 
 bool initSensors();
-void processSensors();
-bool getNewSensorValues(unsigned int id, int values[6]);
+bool processSensors();
+bool getNewSensorValues();
+bool motorState(int numMotor);
 
 #endif
