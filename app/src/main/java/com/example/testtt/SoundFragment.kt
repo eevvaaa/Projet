@@ -63,8 +63,8 @@ class SoundFragment : Fragment() {
         binding.settingVisual.setOnClickListener {
             // Créer une AlertDialog pour afficher le bouton on/off
             val dialogBuilder = AlertDialog.Builder(requireContext())
-            dialogBuilder.setTitle("Sound Option")
-            val switchView = layoutInflater.inflate(R.layout.fragment_sound_option, null)
+            dialogBuilder.setTitle("Visual Option")
+            val switchView = layoutInflater.inflate(R.layout.fragment_visual_option, null)
             dialogBuilder.setView(switchView)
             val toggleSwitch = switchView.findViewById<Switch>(R.id.toggleSwitch)
 
@@ -72,12 +72,15 @@ class SoundFragment : Fragment() {
             dialogBuilder.setPositiveButton("OK") { _, _ ->
                 // Naviguer vers le fragment approprié en fonction de l'état du bouton on/off
                 if (toggleSwitch.isChecked) {
-                    findNavController().navigate(R.id.visualFragment)
+                    findNavController().navigate(R.id.soundAndVisualFragment)
                 } else {
-                    findNavController().navigate(R.id.homepageFragment)
+                    findNavController().navigate(R.id.soundFragment)
                 }
             }
 
+            // Créer et afficher la fenêtre
+            val dialog = dialogBuilder.create()
+            dialog.show()
 
         }
     }
