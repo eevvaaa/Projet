@@ -87,9 +87,9 @@ class VisualFragment : Fragment() {
             dialogBuilder.setPositiveButton("OK") { _, _ ->
                 // Naviguer vers le fragment approprié en fonction de l'état du bouton on/off
                 if (toggleSwitch.isChecked) {
-                    findNavController().navigate(R.id.visualFragment)
+                    findNavController().navigate(R.id.soundAndVisualFragment)
                 } else {
-                    findNavController().navigate(R.id.homepageFragment)
+                    findNavController().navigate(R.id.visualFragment)
                 }
             }
 
