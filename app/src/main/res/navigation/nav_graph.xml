@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_visualFragment_to_persoFragment"
             app:destination="@id/persoFragment" />
+        <action
+            android:id="@+id/action_visualFragment_to_soundAndVisualFragment"
+            app:destination="@id/soundAndVisualFragment" />
 
     </fragment>
     <fragment
@@ -69,9 +72,11 @@
         <action
             android:id="@+id/action_soundFragment_to_persoFragment"
             app:destination="@id/persoFragment" />
+        <action
+            android:id="@+id/action_soundFragment_to_soundAndVisualFragment"
+            app:destination="@id/soundAndVisualFragment" />
 
     </fragment>
-    
     <fragment
         android:id="@+id/persoFragment"
         android:name="PersoFragment"
@@ -89,7 +94,6 @@
             android:id="@+id/action_persoFragment_to_homepageFragment4"
             app:destination="@id/homepageFragment" />
     </fragment>
-    
     <fragment
         android:id="@+id/soundAndVisualFragment"
         android:name="com.example.testtt.SoundAndVisualFragment"
@@ -100,6 +104,9 @@
         <action
             android:id="@+id/action_soundAndVisualFragment_to_homepageFragment"
             app:destination="@id/homepageFragment" />
+        <action
+            android:id="@+id/action_soundAndVisualFragment_to_soundFragment"
+            app:destination="@id/soundFragment" />
     </fragment>
 
 </navigation>
