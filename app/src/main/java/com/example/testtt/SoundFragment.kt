@@ -64,9 +64,9 @@ class SoundFragment : Fragment() {
             // Créer une AlertDialog pour afficher le bouton on/off
             val dialogBuilder = AlertDialog.Builder(requireContext())
             dialogBuilder.setTitle("Visual Option")
-            val switchView = layoutInflater.inflate(R.layout.fragment_visual_option, null)
+            val switchView = layoutInflater.inflate(R.layout.fragment_sound_option, null)
             dialogBuilder.setView(switchView)
-            val toggleSwitch = switchView.findViewById<Switch>(R.id.toggleSwitch)
+            val toggleSwitch = switchView.findViewById<Switch>(R.id.toggleSwitchVis)
 
             // Ajouter un bouton OK pour fermer la fenêtre
             dialogBuilder.setPositiveButton("OK") { _, _ ->

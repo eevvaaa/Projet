@@ -21,6 +21,8 @@
         android:textColor="#000000"
         android:textSize="22sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toggleSwitchSo"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
@@ -37,6 +39,8 @@
         android:textColor="#000000"
         android:textSize="22sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
