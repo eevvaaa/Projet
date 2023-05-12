@@ -1,22 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:theme="@style/FenetreStyle"
-    tools:context=".SoundOptionFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:theme="@style/FenetreStyle"
+        tools:context=".SoundOptionFragment">
 
     <Switch
-        android:id="@+id/toggleSwitch"
+            android:id="@+id/toggleSwitchSo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:checked="true"
+            android:text="@string/with_sound_option"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@id/radioButtonD"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.166"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/colorPalet"
+            app:layout_constraintVertical_bias="0.111">
+
+            <RadioButton
+                android:id="@+id/radioButtonD"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:buttonTint="#000000"
+                android:checked="true"
+                android:text="@string/defaut"
+                android:textAlignment="center" />
+
+            <RadioButton
+                android:id="@+id/radioButtonPro"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/recommended_for_protanopia"
+                android:textAlignment="center" />
+
+            <RadioButton
+                android:id="@+id/radioButtonDeut"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/recommended_for_deuteranopia"
+                android:textAlignment="center" />
+
+            <RadioButton
+                android:id="@+id/radioButtonTri"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/recommended_for_tritanopia"
+                android:textAlignment="center" />
+
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/def_pal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/default_palette1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.676"
+            app:layout_constraintStart_toEndOf="@+id/radioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/colorPalet"
+            app:layout_constraintVertical_bias="0.096" />
+
+        <ImageView
+            android:id="@+id/deut_pal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/deuteranopia_palette"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.676"
+            app:layout_constraintStart_toEndOf="@+id/radioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/pro_pal"
+            app:layout_constraintVertical_bias="0.12" />
+
+    <TextView
+        android:id="@+id/colorPalet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/with_visual_option"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        android:layout_marginTop="32dp"
+        android:text="@string/color_palette"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleSwitchSo" />
+
+    <ImageView
+            android:id="@+id/tri_pal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/tritanopia_palette"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.676"
+            app:layout_constraintStart_toEndOf="@+id/radioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/deut_pal"
+            app:layout_constraintVertical_bias="0.137" />
+
+        <ImageView
+            android:id="@+id/pro_pal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/protanopia_palette"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.676"
+            app:layout_constraintStart_toEndOf="@+id/radioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/def_pal"
+            app:layout_constraintVertical_bias="0.061" />
+
+        <TextView
+            android:id="@+id/proche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/close"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/def_pal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/colorPalet"
+            app:layout_constraintVertical_bias="0.478" />
+
+        <TextView
+            android:id="@+id/loin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/far"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/def_pal"
+            app:layout_constraintEnd_toStartOf="@+id/fleche"
+            app:layout_constraintTop_toBottomOf="@+id/colorPalet" />
+
+        <ImageView
+            android:id="@+id/fleche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="5dp"
+            android:rotationY="180"
+            android:src="?attr/actionModeCloseDrawable"
+            app:layout_constraintBottom_toTopOf="@+id/def_pal"
+            app:layout_constraintEnd_toStartOf="@+id/proche"
+            app:layout_constraintTop_toBottomOf="@+id/colorPalet"
+            app:tint="#000000" />
 
 
-</FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
