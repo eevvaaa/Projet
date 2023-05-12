@@ -2,4 +2,15 @@
     <string name="app_name">testtt</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_deja_visu">Vous êtes déjà dans la zone visual</string>
+    <string name="with_visual_option">WITH VISUAL OPTION</string>
+    <string name="with_sound_option">WITH SOUND OPTION</string>
+    <string name="hello">hello</string>
+    <string name="defaut">default</string>
+    <string name="color_palette">Color palette</string>
+    <string name="recommended_for_protanopia">protanopia</string>
+    <string name="recommended_for_tritanopia">tritanopia</string>
+    <string name="recommended_for_deuteranopia">deuteranopia</string>
+    <string name="close">Close</string>
+    <string name="far">Far</string>
 </resources>
