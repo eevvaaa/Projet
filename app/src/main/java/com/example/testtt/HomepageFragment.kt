@@ -26,7 +26,7 @@ class HomepageFragment : Fragment() {
     private lateinit var binding: FragmentHomepageBinding
 
     // array of image IDs
-    private val images = arrayOf(R.drawable.image1, R.drawable.image2, R.drawable.image3)
+    private val images = arrayOf(R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4, R.drawable.image5)
 
     // global variables to store button state and ID of last clicked button
     private var isSoundButtonSelected = false
