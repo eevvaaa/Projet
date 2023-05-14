@@ -38,58 +38,297 @@ class SoundAndVisualFragment : Fragment() {
         return binding.root
     }
 
-/*
-    val couleur_close : Int = resources.getColor(R.color.red)
-    var couleur_next= resources.getColor(R.color.yellow)
-    var couleur_far= resources.getColor(R.color.green)
 
-*/
-    //marche pas quand je passe couleur dans var
 
    //fonctions pour afficher distance
-    fun retourDef(valeur: Int){
-        if(valeur<30){
-            binding.capteur1.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY)
-        }
-        if(valeur in 30.. 59){
-            binding.capteur1.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
-        if(valeur >= 60){
-            binding.capteur1.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
-        }
-    }
+   fun retourDef(valeur1: Int,valeur2: Int,valeur3: Int,valeur4: Int,valeur5: Int,valeur6: Int,valeur7: Int,valeur8: Int){
+       if(valeur1<30){
+           binding.capteur1.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
+       if(valeur1 in 30.. 59){
+           binding.capteur1.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
+       if(valeur1 >= 60){
+           binding.capteur1.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
+       }
 
-    fun retourDeut(valeur: Int){
-        if(valeur<30){
-            binding.capteur1.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY)
-        }
-        if(valeur in 30.. 59){
+
+       if(valeur2<30){
+           binding.capteur2.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
+       if(valeur2 in 30.. 59){
+           binding.capteur2.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
+       if(valeur2 >= 60){
+           binding.capteur2.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
+       }
+
+
+       if(valeur3<30){
+           binding.capteur3.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
+       if(valeur3 in 30.. 59){
+           binding.capteur3.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
+       if(valeur3 >= 60){
+           binding.capteur3.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
+       }
+
+
+       if(valeur4<30){
+           binding.capteur4.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
+       if(valeur4 in 30.. 59){
+           binding.capteur4.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
+       if(valeur4 >= 60){
+           binding.capteur4.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
+       }
+
+
+       if(valeur5<30){
+           binding.capteur5.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
+       if(valeur5 in 30.. 59){
+           binding.capteur5.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
+       if(valeur5 >= 60){
+           binding.capteur5.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
+       }
+
+       if(valeur6<30){
+           binding.capteur6.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
+       if(valeur6 in 30.. 59){
+           binding.capteur6.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
+       if(valeur6 >= 60){
+           binding.capteur6.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
+       }
+
+
+       if(valeur7<30){
+           binding.capteur7.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
+       if(valeur7 in 30.. 59){
+           binding.capteur7.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
+       if(valeur7 >= 60){
+           binding.capteur7.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
+       }
+
+       if(valeur8<30){
+           binding.capteur8.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
+       if(valeur8 in 30.. 59){
+           binding.capteur8.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
+       if(valeur8 >= 60){
+           binding.capteur8.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
+       }
+   }
+
+    // fct pour deuteranopia
+    fun retourDeut(valeur1: Int,valeur2: Int,valeur3: Int,valeur4: Int,valeur5: Int,valeur6: Int,valeur7: Int,valeur8: Int){
+        if(valeur1<30){
+            binding.capteur1.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur1 in 30.. 59){
             binding.capteur1.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur >= 60){
+        if(valeur1 >= 60){
             binding.capteur1.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
         }
+
+
+        if(valeur2<30){
+            binding.capteur2.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur2 in 30.. 59){
+            binding.capteur2.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur2 >= 60){
+            binding.capteur2.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur3<30){
+            binding.capteur3.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur3 in 30.. 59){
+            binding.capteur3.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur3 >= 60){
+            binding.capteur3.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur4<30){
+            binding.capteur4.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur4 in 30.. 59){
+            binding.capteur4.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur4 >= 60){
+            binding.capteur4.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur5<30){
+            binding.capteur5.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur5 in 30.. 59){
+            binding.capteur5.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur5 >= 60){
+            binding.capteur5.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+        if(valeur6<30){
+            binding.capteur6.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur6 in 30.. 59){
+            binding.capteur6.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur6 >= 60){
+            binding.capteur6.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur7<30){
+            binding.capteur7.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur7 in 30.. 59){
+            binding.capteur7.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur7 >= 60){
+            binding.capteur7.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+        if(valeur8<30){
+            binding.capteur8.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur8 in 30.. 59){
+            binding.capteur8.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur8 >= 60){
+            binding.capteur8.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
+        }
     }
 
-    fun retourTri(valeur: Int){
-        if(valeur<30){
-            binding.capteur1.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY)
-        }
-        if(valeur in 30.. 59){
+
+    //fct pour tritanopia
+    fun retourTri(valeur1: Int,valeur2: Int,valeur3: Int,valeur4: Int,valeur5: Int,valeur6: Int,valeur7: Int,valeur8: Int){
+        if(valeur1<30){
+            binding.capteur1.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur1 in 30.. 59){
             binding.capteur1.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur >= 60){
+        if(valeur1 >= 60){
             binding.capteur1.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
         }
+
+
+        if(valeur2<30){
+            binding.capteur2.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur2 in 30.. 59){
+            binding.capteur2.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur2 >= 60){
+            binding.capteur2.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur3<30){
+            binding.capteur3.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur3 in 30.. 59){
+            binding.capteur3.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur3 >= 60){
+            binding.capteur3.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur4<30){
+            binding.capteur4.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur4 in 30.. 59){
+            binding.capteur4.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur4 >= 60){
+            binding.capteur4.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur5<30){
+            binding.capteur5.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur5 in 30.. 59){
+            binding.capteur5.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur5 >= 60){
+            binding.capteur5.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+        if(valeur6<30){
+            binding.capteur6.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur6 in 30.. 59){
+            binding.capteur6.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur6 >= 60){
+            binding.capteur6.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur7<30){
+            binding.capteur7.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur7 in 30.. 59){
+            binding.capteur7.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur7 >= 60){
+            binding.capteur7.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+        if(valeur8<30){
+            binding.capteur8.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur8 in 30.. 59){
+            binding.capteur8.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur8 >= 60){
+            binding.capteur8.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
+        }
     }
 
-    fun retourPro(valeur: Int){
-        if(valeur<30){
-            binding.capteur1.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY)
-        }
-        if(valeur in 30.. 59){
-            binding.capteur1.setColorFilter(resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur >= 60){
+    //fct pour protanopia
+    fun retourPro(valeur1: Int,valeur2: Int,valeur3: Int,valeur4: Int,valeur5: Int,valeur6: Int,valeur7: Int,valeur8: Int){
+        if(valeur1<30){
+            binding.capteur1.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur1 in 30.. 59){
+            binding.capteur1.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur1 >= 60){
             binding.capteur1.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
         }
+
+
+        if(valeur2<30){
+            binding.capteur2.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur2 in 30.. 59){
+            binding.capteur2.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur2 >= 60){
+            binding.capteur2.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur3<30){
+            binding.capteur3.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur3 in 30.. 59){
+            binding.capteur3.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur3 >= 60){
+            binding.capteur3.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur4<30){
+            binding.capteur4.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur4 in 30.. 59){
+            binding.capteur4.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur4 >= 60){
+            binding.capteur4.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur5<30){
+            binding.capteur5.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur5 in 30.. 59){
+            binding.capteur5.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur5 >= 60){
+            binding.capteur5.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+        if(valeur6<30){
+            binding.capteur6.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur6 in 30.. 59){
+            binding.capteur6.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur6 >= 60){
+            binding.capteur6.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+
+        if(valeur7<30){
+            binding.capteur7.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur7 in 30.. 59){
+            binding.capteur7.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur7 >= 60){
+            binding.capteur7.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
+        }
+
+        if(valeur8<30){
+            binding.capteur8.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
+        if(valeur8 in 30.. 59){
+            binding.capteur8.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
+        if(valeur8 >= 60){
+            binding.capteur8.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
+        }
     }
+
 
 
 
@@ -110,14 +349,43 @@ class SoundAndVisualFragment : Fragment() {
 
         //par defaut
         val runnable = object : Runnable {
-            val capteur = arrayOf<Int>(1,32,93,4,45,68)
+            val capteur = arrayOf(intArrayOf(156,32,93,44,45,168),intArrayOf(1,145,93,14,45,68),intArrayOf(1,5,25,69,84,68),intArrayOf(195,322,93,84,445,68),intArrayOf(1,32,25,4,45,68),intArrayOf(24,32,93,68,74,68),intArrayOf(45,32,93,56,45,68),intArrayOf(1,32,93,4,45,68))
             var i=0
+            var j=0
+            var k=0
+            var l=0
+            var m=0
+            var n=0
+            var p=0
+            var q=0
             override fun run() {
-                retourDef(capteur[i])
-                i++
-                if (i == capteur.size) {
+                retourDef(capteur[0][i],capteur[1][j],capteur[2][k],capteur[3][l],capteur[4][m],capteur[5][n],capteur[6][p],capteur[7][q])
+                i++;j++;k++;l++;m++;n++;p++;q++
+                if (i == capteur[0].size) {
                     i = 0
                 }
+                if (j == capteur[1].size) {
+                    j = 0
+                }
+                if (k == capteur[2].size) {
+                    k = 0
+                }
+                if (l == capteur[3].size) {
+                    l = 0
+                }
+                if (m == capteur[4].size) {
+                    m = 0
+                }
+                if (n == capteur[5].size) {
+                    n= 0
+                }
+                if (p == capteur[6].size) {
+                    p= 0
+                }
+                if (q == capteur[7].size) {
+                    q = 0
+                }
+
                 // post the runnable again after 2 seconds
                 handler.postDelayed(this, delay)
             }
@@ -128,13 +396,41 @@ class SoundAndVisualFragment : Fragment() {
 
         //quand boutton defaut
         val runnable1 = object : Runnable {
-            val capteur = arrayOf<Int>(1,32,93,4,45,68)
+            val capteur = arrayOf(intArrayOf(156,32,93,44,45,168),intArrayOf(1,145,93,14,45,68),intArrayOf(1,5,25,69,84,68),intArrayOf(195,322,93,84,445,68),intArrayOf(1,32,25,4,45,68),intArrayOf(24,32,93,68,74,68),intArrayOf(45,32,93,56,45,68),intArrayOf(1,32,93,4,45,68))
             var i=0
+            var j=0
+            var k=0
+            var l=0
+            var m=0
+            var n=0
+            var p=0
+            var q=0
             override fun run() {
-                retourDef(capteur[i])
-                i++
-                if (i == capteur.size) {
+                retourDef(capteur[0][i],capteur[1][j],capteur[2][k],capteur[3][l],capteur[4][m],capteur[5][n],capteur[6][p],capteur[7][q])
+                i++;j++;k++;l++;m++;n++;p++;q++
+                if (i == capteur[0].size) {
                     i = 0
+                }
+                if (j == capteur[1].size) {
+                    j = 0
+                }
+                if (k == capteur[2].size) {
+                    k = 0
+                }
+                if (l == capteur[3].size) {
+                    l = 0
+                }
+                if (m == capteur[4].size) {
+                    m = 0
+                }
+                if (n == capteur[5].size) {
+                    n= 0
+                }
+                if (p == capteur[6].size) {
+                    p= 0
+                }
+                if (q == capteur[7].size) {
+                    q = 0
                 }
                 // post the runnable again after 2 seconds
                 handler.postDelayed(this, delay)
@@ -143,13 +439,41 @@ class SoundAndVisualFragment : Fragment() {
 
         //quand boutton deut
         val runnable2 = object : Runnable {
-            val capteur = arrayOf<Int>(1,32,93,4,45,68)
+            val capteur = arrayOf(intArrayOf(156,32,93,44,45,168),intArrayOf(1,145,93,14,45,68),intArrayOf(1,5,25,69,84,68),intArrayOf(195,322,93,84,445,68),intArrayOf(1,32,25,4,45,68),intArrayOf(24,32,93,68,74,68),intArrayOf(45,32,93,56,45,68),intArrayOf(1,32,93,4,45,68))
             var i=0
+            var j=0
+            var k=0
+            var l=0
+            var m=0
+            var n=0
+            var p=0
+            var q=0
             override fun run() {
-                retourDeut(capteur[i])
-                i++
-                if (i == capteur.size) {
+                retourDeut(capteur[0][i],capteur[1][j],capteur[2][k],capteur[3][l],capteur[4][m],capteur[5][n],capteur[6][p],capteur[7][q])
+                i++;j++;k++;l++;m++;n++;p++;q++
+                if (i == capteur[0].size) {
                     i = 0
+                }
+                if (j == capteur[1].size) {
+                    j = 0
+                }
+                if (k == capteur[2].size) {
+                    k = 0
+                }
+                if (l == capteur[3].size) {
+                    l = 0
+                }
+                if (m == capteur[4].size) {
+                    m = 0
+                }
+                if (n == capteur[5].size) {
+                    n= 0
+                }
+                if (p == capteur[6].size) {
+                    p= 0
+                }
+                if (q == capteur[7].size) {
+                    q = 0
                 }
                 // post the runnable again after 2 seconds
                 handler.postDelayed(this, delay)
@@ -158,13 +482,41 @@ class SoundAndVisualFragment : Fragment() {
 
         //qaund boutton pro
         val runnable3 = object : Runnable {
-            val capteur = arrayOf<Int>(1,32,93,4,45,68)
+            val capteur = arrayOf(intArrayOf(156,32,93,44,45,168),intArrayOf(1,145,93,14,45,68),intArrayOf(1,5,25,69,84,68),intArrayOf(195,322,93,84,445,68),intArrayOf(1,32,25,4,45,68),intArrayOf(24,32,93,68,74,68),intArrayOf(45,32,93,56,45,68),intArrayOf(1,32,93,4,45,68))
             var i=0
+            var j=0
+            var k=0
+            var l=0
+            var m=0
+            var n=0
+            var p=0
+            var q=0
             override fun run() {
-                retourPro(capteur[i])
-                i++
-                if (i == capteur.size) {
+                retourPro(capteur[0][i],capteur[1][j],capteur[2][k],capteur[3][l],capteur[4][m],capteur[5][n],capteur[6][p],capteur[7][q])
+                i++;j++;k++;l++;m++;n++;p++;q++
+                if (i == capteur[0].size) {
                     i = 0
+                }
+                if (j == capteur[1].size) {
+                    j = 0
+                }
+                if (k == capteur[2].size) {
+                    k = 0
+                }
+                if (l == capteur[3].size) {
+                    l = 0
+                }
+                if (m == capteur[4].size) {
+                    m = 0
+                }
+                if (n == capteur[5].size) {
+                    n= 0
+                }
+                if (p == capteur[6].size) {
+                    p= 0
+                }
+                if (q == capteur[7].size) {
+                    q = 0
                 }
                 // post the runnable again after 2 seconds
                 handler.postDelayed(this, delay)
@@ -174,13 +526,41 @@ class SoundAndVisualFragment : Fragment() {
 
         //quand boutton tri
         val runnable4 = object : Runnable {
-            val capteur = arrayOf<Int>(1,32,93,4,45,68)
+            val capteur = arrayOf(intArrayOf(156,32,93,44,45,168),intArrayOf(1,145,93,14,45,68),intArrayOf(1,5,25,69,84,68),intArrayOf(195,322,93,84,445,68),intArrayOf(1,32,25,4,45,68),intArrayOf(24,32,93,68,74,68),intArrayOf(45,32,93,56,45,68),intArrayOf(1,32,93,4,45,68))
             var i=0
+            var j=0
+            var k=0
+            var l=0
+            var m=0
+            var n=0
+            var p=0
+            var q=0
             override fun run() {
-                retourTri(capteur[i])
-                i++
-                if (i == capteur.size) {
+                retourTri(capteur[0][i],capteur[1][j],capteur[2][k],capteur[3][l],capteur[4][m],capteur[5][n],capteur[6][p],capteur[7][q])
+                i++;j++;k++;l++;m++;n++;p++;q++
+                if (i == capteur[0].size) {
                     i = 0
+                }
+                if (j == capteur[1].size) {
+                    j = 0
+                }
+                if (k == capteur[2].size) {
+                    k = 0
+                }
+                if (l == capteur[3].size) {
+                    l = 0
+                }
+                if (m == capteur[4].size) {
+                    m = 0
+                }
+                if (n == capteur[5].size) {
+                    n= 0
+                }
+                if (p == capteur[6].size) {
+                    p= 0
+                }
+                if (q == capteur[7].size) {
+                    q = 0
                 }
                 // post the runnable again after 2 seconds
                 handler.postDelayed(this, delay)
@@ -208,9 +588,7 @@ class SoundAndVisualFragment : Fragment() {
                 //switch option visuel/son
 
                 if (toggleSwitchVis.isChecked) {
-                    if(toggleSwitchSo.isChecked){
-                        findNavController().navigate(R.id.soundAndVisualFragment)
-                    } else {
+                    if(!toggleSwitchSo.isChecked){
                         findNavController().navigate(R.id.visualFragment)
                     }
                 } else {
@@ -222,6 +600,7 @@ class SoundAndVisualFragment : Fragment() {
                 }
 
             }
+
 
 
             dialogBuilder.setPositiveButton("OK") { _, _ ->
@@ -303,11 +682,26 @@ class SoundAndVisualFragment : Fragment() {
                     handler.removeCallbacks(runnable2)
                     handler.removeCallbacks(runnable3)
                 }
+
+
+                if (toggleSwitchVis.isChecked) {
+                    if(!toggleSwitchSo.isChecked){
+                        findNavController().navigate(R.id.visualFragment)
+                    }
+                } else {
+                    if(toggleSwitchSo.isChecked){
+                        findNavController().navigate(R.id.soundFragment)
+                    } else {
+                        findNavController().navigate(R.id.homepageFragment)
+                    }
+                }
+
             }
 
             // Créer et afficher la fenêtre
             val dialog = dialogBuilder.create()
             dialog.show()
+
         }
 
 
