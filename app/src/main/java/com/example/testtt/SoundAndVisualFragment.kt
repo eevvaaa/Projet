@@ -571,7 +571,7 @@ class SoundAndVisualFragment : Fragment() {
         binding.setting.setOnClickListener {
             // Créer une AlertDialog pour afficher le bouton on/off
             val dialogBuilder = AlertDialog.Builder(requireContext())
-            dialogBuilder.setTitle("Options")
+            dialogBuilder.setTitle(getString(R.string.opt))
             val switchView = layoutInflater.inflate(R.layout.fragment_visual_and_sound_option, null)
             dialogBuilder.setView(switchView)
             val toggleSwitchVis = switchView.findViewById<Switch>(R.id.toggleSwitchVis)
@@ -611,7 +611,6 @@ class SoundAndVisualFragment : Fragment() {
                     binding.far.background.setTint(resources.getColor(R.color.green))
                     binding.middle.background.setTint(resources.getColor(R.color.yellow))
                     binding.close.background.setTint(resources.getColor(R.color.red))
-                    Log.d("hello", "aaaaaaaaaaaaaaaa")
 
 
                     // start the runnable
@@ -631,7 +630,6 @@ class SoundAndVisualFragment : Fragment() {
                     binding.far.background.setTint(resources.getColor(R.color.deut_far))
                     binding.middle.background.setTint(resources.getColor(R.color.deut_next))
                     binding.close.background.setTint(resources.getColor(R.color.deut_close))
-                    Log.d("hello", "bbbbbbbbbbbbbbb")
 
 
 
@@ -651,8 +649,7 @@ class SoundAndVisualFragment : Fragment() {
                     binding.far.background.setTint(resources.getColor(R.color.prota_far))
                     binding.middle.background.setTint(resources.getColor(R.color.prota_next))
                     binding.close.background.setTint(resources.getColor(R.color.prota_close))
-                    Log.d("hello", "ccccccccccccc")
-
+                   
 
                     // start the runnable
                     handler.postDelayed(runnable3, delay)
@@ -668,9 +665,8 @@ class SoundAndVisualFragment : Fragment() {
                 if (RBtritanopia.isChecked) {
                     binding.far.background.setTint(resources.getColor(R.color.tri_far))
                     binding.middle.background.setTint(resources.getColor(R.color.tri_next))
-                    binding.close.background.setTint(resources.getColor(R.color.tri_close
-                    ))
-                    Log.d("hello", "ddddddddddddddddd")
+                    binding.close.background.setTint(resources.getColor(R.color.tri_close))
+                    
 
 
                     // start the runnable
