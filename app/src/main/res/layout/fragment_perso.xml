@@ -99,8 +99,8 @@
                     android:padding="16dp"
                     android:text="John Doe"
                     android:textAlignment="viewStart"
-                    android:textAppearance="?android:textAppearanceLarge" />
-
+                    android:textAppearance="?android:textAppearanceLarge"
+                    />
             </androidx.cardview.widget.CardView>
 
             <TextView

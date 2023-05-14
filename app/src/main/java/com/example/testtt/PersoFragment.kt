@@ -1,4 +1,6 @@
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.testtt.BDInfoPerso
 import com.example.testtt.SoundFragmentDirections
 import com.example.testtt.VisualFragmentDirections
 import com.example.testtt.databinding.FragmentPersoBinding
@@ -16,15 +19,20 @@ class PersoFragment : Fragment() {
 
     private lateinit var binding: FragmentPersoBinding
 
+    private lateinit var bdperso: BDInfoPerso
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPersoBinding.inflate(inflater, container, false)
+        bdperso = BDInfoPerso(requireContext())
         return binding.root
     }
 
+    @SuppressLint("Range")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,7 +50,7 @@ class PersoFragment : Fragment() {
             val action = PersoFragmentDirections.actionPersoFragmentToVisualFragment()  
             findNavController().navigate(action)
         }
-        
+
         binding.cardviewNom.setOnClickListener {
             val builder: AlertDialog.Builder = AlertDialog.Builder(context)
             builder.setTitle("Modifier le contenu")
@@ -52,9 +60,25 @@ class PersoFragment : Fragment() {
             builder.setView(input)
             builder.setPositiveButton("Enregistrer",
                 DialogInterface.OnClickListener { dialog, which ->
-                    val nouveauContenu: String = input.getText().toString()
-                    // Mettre à jour le contenu avec le nouveau texte
-                    binding.textviewNom.setText(nouveauContenu)
+                    // Stocker dans la BD
+                    val nouveauContenu: String = input.text.toString()
+                    val bdWrite = bdperso.writableDatabase
+                    val contentValues = ContentValues()
+                    contentValues.put("nom", nouveauContenu)
+                    bdWrite.insert("MonTableau", null, contentValues)
+                    bdWrite.close()
+
+                    // Recuperer de la BD
+                    val bdRead = bdperso.readableDatabase
+                    val cursor = bdRead.rawQuery("SELECT nom FROM MonTableau ", null)
+                    if (cursor.moveToFirst()) {
+                        val contenuEnregistre = cursor.getString(cursor.getColumnIndex("nom"))
+                        // Mettre à jour le contenu avec le nouveau texte
+                        binding.textviewNom.text = contenuEnregistre
+                    }
+                    cursor.close()
+                    bdRead.close()
+
                 })
             builder.setNegativeButton("Annuler",
                 DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
@@ -72,7 +96,7 @@ class PersoFragment : Fragment() {
                 DialogInterface.OnClickListener { dialog, which ->
                     val nouveauContenu: String = input.getText().toString()
                     // Mettre à jour le contenu avec le nouveau texte
-                    binding.textviewDateNaissance.setText(nouveauContenu)
+                    binding.textviewDateNaissance.text = nouveauContenu
                 })
             builder.setNegativeButton("Annuler",
                 DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
