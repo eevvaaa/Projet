@@ -1,6 +1,8 @@
 #include <mcp_can.h>
 #include <M5Stack.h>
 #include <Arduino.h>
+#include "sonore.h"
+#include "BluetoothA2DPSource.h"
 
 //Ensemble du message que l'on reçoit 
 long unsigned int rxId; 
@@ -21,6 +23,8 @@ int sensorValues[NBBOARD][6];
 
 #define LIMITE_DANGER 30
 #define LIMITE_WARNING 60
+
+extern BluetoothA2DPSource headphones;
 
 bool initSensors()
 {
@@ -85,17 +89,17 @@ void getNewSensorValues()
             hauteur = (2 + 6 * i + j) * 16;
             M5.Lcd.setCursor(128, hauteur);
             // s'il y a update des données, alors traiter le tableau du demi capteur
-            // M5.Lcd.fillRect(130,hauteur+8,24,16,BLACK);
             M5.Lcd.print(value);
 
             // Affichage du carré représenté par le capteur
             if (value < LIMITE_DANGER){ 
                 M5.Lcd.print("danger");
+                sendDanger();
             }
             else if (value < LIMITE_WARNING && value >= LIMITE_DANGER)
             {
-                //a2dp_source.write_data(music);
                 M5.Lcd.print("warning");
+                sendWarning();
             }
         }
     }
