@@ -42,144 +42,144 @@ class SoundAndVisualFragment : Fragment() {
 
    //fonctions pour afficher distance
    fun retourDef(valeur1: Int,valeur2: Int,valeur3: Int,valeur4: Int,valeur5: Int,valeur6: Int,valeur7: Int,valeur8: Int){
-       if(valeur1<30){
+       if(valeur1< DANGER_ZONE){
            binding.capteur1.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
-       if(valeur1 in 30.. 59){
+       if(valeur1 in DANGER_ZONE.. WARNING_ZONE){
            binding.capteur1.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
-       if(valeur1 >= 60){
+       if(valeur1 > WARNING_ZONE){
            binding.capteur1.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
        }
 
 
-       if(valeur2<30){
+       if(valeur2< DANGER_ZONE){
            binding.capteur2.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
-       if(valeur2 in 30.. 59){
+       if(valeur2 in DANGER_ZONE.. WARNING_ZONE){
            binding.capteur2.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
-       if(valeur2 >= 60){
+       if(valeur2 > WARNING_ZONE){
            binding.capteur2.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
        }
 
 
-       if(valeur3<30){
+       if(valeur3< DANGER_ZONE){
            binding.capteur3.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
-       if(valeur3 in 30.. 59){
+       if(valeur3 in DANGER_ZONE.. WARNING_ZONE){
            binding.capteur3.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
-       if(valeur3 >= 60){
+       if(valeur3 > DANGER_ZONE){
            binding.capteur3.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
        }
 
 
-       if(valeur4<30){
+       if(valeur4< DANGER_ZONE){
            binding.capteur4.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
-       if(valeur4 in 30.. 59){
+       if(valeur4 in DANGER_ZONE.. WARNING_ZONE){
            binding.capteur4.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
-       if(valeur4 >= 60){
+       if(valeur4 > WARNING_ZONE){
            binding.capteur4.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
        }
 
 
-       if(valeur5<30){
+       if(valeur5< DANGER_ZONE){
            binding.capteur5.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
-       if(valeur5 in 30.. 59){
+       if(valeur5 in DANGER_ZONE.. WARNING_ZONE){
            binding.capteur5.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
-       if(valeur5 >= 60){
+       if(valeur5 > WARNING_ZONE){
            binding.capteur5.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
        }
 
-       if(valeur6<30){
+       if(valeur6< DANGER_ZONE){
            binding.capteur6.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
-       if(valeur6 in 30.. 59){
+       if(valeur6 in DANGER_ZONE.. WARNING_ZONE){
            binding.capteur6.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
-       if(valeur6 >= 60){
+       if(valeur6 > WARNING_ZONE){
            binding.capteur6.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
        }
 
 
-       if(valeur7<30){
+       if(valeur7< DANGER_ZONE){
            binding.capteur7.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
-       if(valeur7 in 30.. 59){
+       if(valeur7 in DANGER_ZONE.. WARNING_ZONE){
            binding.capteur7.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
-       if(valeur7 >= 60){
+       if(valeur7 > WARNING_ZONE){
            binding.capteur7.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
        }
 
-       if(valeur8<30){
+       if(valeur8< DANGER_ZONE){
            binding.capteur8.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
-       if(valeur8 in 30.. 59){
+       if(valeur8 in DANGER_ZONE.. WARNING_ZONE){
            binding.capteur8.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
-       if(valeur8 >= 60){
+       if(valeur8 > WARNING_ZONE){
            binding.capteur8.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
        }
    }
 
     // fct pour deuteranopia
     fun retourDeut(valeur1: Int,valeur2: Int,valeur3: Int,valeur4: Int,valeur5: Int,valeur6: Int,valeur7: Int,valeur8: Int){
-        if(valeur1<30){
+        if(valeur1< DANGER_ZONE){
             binding.capteur1.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur1 in 30.. 59){
+        if(valeur1 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur1.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur1 >= 60){
+        if(valeur1 > WARNING_ZONE){
             binding.capteur1.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur2<30){
+        if(valeur2< DANGER_ZONE){
             binding.capteur2.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur2 in 30.. 59){
+        if(valeur2 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur2.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur2 >= 60){
+        if(valeur2 > WARNING_ZONE){
             binding.capteur2.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur3<30){
+        if(valeur3< DANGER_ZONE){
             binding.capteur3.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur3 in 30.. 59){
+        if(valeur3 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur3.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur3 >= 60){
+        if(valeur3 > WARNING_ZONE){
             binding.capteur3.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur4<30){
+        if(valeur4< DANGER_ZONE){
             binding.capteur4.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur4 in 30.. 59){
+        if(valeur4 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur4.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur4 >= 60){
+        if(valeur4 > WARNING_ZONE){
             binding.capteur4.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur5<30){
+        if(valeur5< DANGER_ZONE){
             binding.capteur5.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur5 in 30.. 59){
+        if(valeur5 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur5.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur5 >= 60){
+        if(valeur5 > WARNING_ZONE){
             binding.capteur5.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
         }
 
-        if(valeur6<30){
+        if(valeur6< DANGER_ZONE){
             binding.capteur6.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur6 in 30.. 59){
+        if(valeur6 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur6.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur6 >= 60){
+        if(valeur6 > WARNING_ZONE){
             binding.capteur6.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur7<30){
+        if(valeur7< DANGER_ZONE){
             binding.capteur7.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur7 in 30.. 59){
+        if(valeur7 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur7.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur7 >= 60){
+        if(valeur7 > WARNING_ZONE){
             binding.capteur7.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
         }
 
-        if(valeur8<30){
+        if(valeur8< DANGER_ZONE){
             binding.capteur8.setColorFilter(resources.getColor(R.color.deut_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur8 in 30.. 59){
+        if(valeur8 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur8.setColorFilter( resources.getColor(R.color.deut_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur8 >= 60){
+        if(valeur8 > WARNING_ZONE){
             binding.capteur8.setColorFilter(resources.getColor(R.color.deut_far), PorterDuff.Mode.MULTIPLY)
         }
     }
@@ -187,147 +187,149 @@ class SoundAndVisualFragment : Fragment() {
 
     //fct pour tritanopia
     fun retourTri(valeur1: Int,valeur2: Int,valeur3: Int,valeur4: Int,valeur5: Int,valeur6: Int,valeur7: Int,valeur8: Int){
-        if(valeur1<30){
+        if(valeur1< DANGER_ZONE){
             binding.capteur1.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur1 in 30.. 59){
+        if(valeur1 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur1.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur1 >= 60){
+        if(valeur1 > WARNING_ZONE){
             binding.capteur1.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur2<30){
+        if(valeur2< DANGER_ZONE){
             binding.capteur2.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur2 in 30.. 59){
+        if(valeur2 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur2.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur2 >= 60){
+        if(valeur2 > WARNING_ZONE){
             binding.capteur2.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur3<30){
+        if(valeur3< DANGER_ZONE){
             binding.capteur3.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur3 in 30.. 59){
+        if(valeur3 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur3.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur3 >= 60){
+        if(valeur3 > WARNING_ZONE){
             binding.capteur3.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur4<30){
+        if(valeur4< DANGER_ZONE){
             binding.capteur4.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur4 in 30.. 59){
+        if(valeur4 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur4.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur4 >= 60){
+        if(valeur4 > WARNING_ZONE){
             binding.capteur4.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur5<30){
+        if(valeur5< DANGER_ZONE){
             binding.capteur5.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur5 in 30.. 59){
+        if(valeur5 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur5.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur5 >= 60){
+        if(valeur5 > WARNING_ZONE){
             binding.capteur5.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
         }
 
-        if(valeur6<30){
+        if(valeur6< DANGER_ZONE){
             binding.capteur6.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur6 in 30.. 59){
+        if(valeur6 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur6.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur6 >= 60){
+        if(valeur6 > WARNING_ZONE){
             binding.capteur6.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur7<30){
+        if(valeur7< DANGER_ZONE){
             binding.capteur7.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur7 in 30.. 59){
+        if(valeur7 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur7.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur7 >= 60){
+        if(valeur7 > WARNING_ZONE){
             binding.capteur7.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
         }
 
-        if(valeur8<30){
+        if(valeur8< DANGER_ZONE){
             binding.capteur8.setColorFilter(resources.getColor(R.color.tri_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur8 in 30.. 59){
+        if(valeur8 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur8.setColorFilter( resources.getColor(R.color.tri_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur8 >= 60){
+        if(valeur8 > WARNING_ZONE){
             binding.capteur8.setColorFilter(resources.getColor(R.color.tri_far), PorterDuff.Mode.MULTIPLY)
         }
     }
 
     //fct pour protanopia
     fun retourPro(valeur1: Int,valeur2: Int,valeur3: Int,valeur4: Int,valeur5: Int,valeur6: Int,valeur7: Int,valeur8: Int){
-        if(valeur1<30){
+        if(valeur1< DANGER_ZONE){
             binding.capteur1.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur1 in 30.. 59){
+        if(valeur1 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur1.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur1 >= 60){
+        if(valeur1 > WARNING_ZONE){
             binding.capteur1.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur2<30){
+        if(valeur2< DANGER_ZONE){
             binding.capteur2.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur2 in 30.. 59){
+        if(valeur2 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur2.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur2 >= 60){
+        if(valeur2 > WARNING_ZONE){
             binding.capteur2.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur3<30){
+        if(valeur3< DANGER_ZONE){
             binding.capteur3.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur3 in 30.. 59){
+        if(valeur3 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur3.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur3 >= 60){
+        if(valeur3 > WARNING_ZONE){
             binding.capteur3.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur4<30){
+        if(valeur4< DANGER_ZONE){
             binding.capteur4.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur4 in 30.. 59){
+        if(valeur4 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur4.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur4 >= 60){
+        if(valeur4 > WARNING_ZONE){
             binding.capteur4.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur5<30){
+        if(valeur5< DANGER_ZONE){
             binding.capteur5.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur5 in 30.. 59){
+        if(valeur5 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur5.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur5 >= 60){
+        if(valeur5 > WARNING_ZONE){
             binding.capteur5.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
         }
 
-        if(valeur6<30){
+        if(valeur6< DANGER_ZONE){
             binding.capteur6.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur6 in 30.. 59){
+        if(valeur6 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur6.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur6 >= 60){
+        if(valeur6 > WARNING_ZONE){
             binding.capteur6.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
         }
 
 
-        if(valeur7<30){
+        if(valeur7< DANGER_ZONE){
             binding.capteur7.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur7 in 30.. 59){
+        if(valeur7 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur7.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur7 >= 60){
+        if(valeur7 > WARNING_ZONE){
             binding.capteur7.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
         }
 
-        if(valeur8<30){
+        if(valeur8< DANGER_ZONE){
             binding.capteur8.setColorFilter(resources.getColor(R.color.prota_close), PorterDuff.Mode.MULTIPLY) }
-        if(valeur8 in 30.. 59){
+        if(valeur8 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur8.setColorFilter( resources.getColor(R.color.prota_next),PorterDuff.Mode.MULTIPLY)}
-        if(valeur8 >= 60){
+        if(valeur8 > WARNING_ZONE){
             binding.capteur8.setColorFilter(resources.getColor(R.color.prota_far), PorterDuff.Mode.MULTIPLY)
         }
     }
+
+
 
 
 
@@ -632,7 +634,6 @@ class SoundAndVisualFragment : Fragment() {
                     binding.close.background.setTint(resources.getColor(R.color.deut_close))
 
 
-
                     // start the runnable
                     handler.postDelayed(runnable2, delay)
 
@@ -649,7 +650,7 @@ class SoundAndVisualFragment : Fragment() {
                     binding.far.background.setTint(resources.getColor(R.color.prota_far))
                     binding.middle.background.setTint(resources.getColor(R.color.prota_next))
                     binding.close.background.setTint(resources.getColor(R.color.prota_close))
-                   
+
 
                     // start the runnable
                     handler.postDelayed(runnable3, delay)
@@ -666,7 +667,6 @@ class SoundAndVisualFragment : Fragment() {
                     binding.far.background.setTint(resources.getColor(R.color.tri_far))
                     binding.middle.background.setTint(resources.getColor(R.color.tri_next))
                     binding.close.background.setTint(resources.getColor(R.color.tri_close))
-                    
 
 
                     // start the runnable
