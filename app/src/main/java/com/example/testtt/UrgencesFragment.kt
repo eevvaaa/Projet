@@ -29,7 +29,8 @@ class UrgencesFragment : Fragment() {
     private lateinit var letsGoButton: MaterialButton
     private lateinit var rootView: FrameLayout
     private var countdownTimer: CountDownTimer? = null
-    private val phoneNumber = "0782000111" // numéro de téléphone à appeler
+    private val phoneNumber = "0633534469" +
+            "" // numéro de téléphone à appeler
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,9 +71,9 @@ class UrgencesFragment : Fragment() {
             }
 
 
-            @SuppressLint("ResourceAsColor")
+            @SuppressLint("ResourceAsColor", "SetTextI18n")
             override fun onFinish() {
-                binding.countdownTextview.text = "Done !"
+                binding.countdownTextview.text = getString(R.string.done)
                 binding.root.setBackgroundColor(R.color.teal_700)
                 binding.countdownTextview.isEnabled = true
                 val callIntent = Intent(Intent.ACTION_DIAL)
@@ -91,10 +92,10 @@ class UrgencesFragment : Fragment() {
 
     private fun onButtonClicked() {
         if (countdownTimer == null) {
-            binding.buttonStop.text = "Stop"
+            binding.buttonStop.text = getString(R.string.stop)
             startCountdown()
         } else {
-            binding.buttonStop.text = "I Call..."
+            binding.buttonStop.text = getString(R.string.i_call)
             binding.root.setBackgroundColor(Color.parseColor("#E0CDA9"))
             onStop()
             binding.countdownTextview.text = "5"

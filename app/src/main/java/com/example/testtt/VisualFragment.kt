@@ -565,7 +565,7 @@ class VisualFragment : Fragment() {
 
             // Créer une AlertDialog pour afficher le bouton on/off
             val dialogBuilder = AlertDialog.Builder(requireContext())
-            dialogBuilder.setTitle("Options")
+            dialogBuilder.setTitle(getString(R.string.opt))
             val switchView = layoutInflater.inflate(R.layout.fragment_visual_option, null)
             dialogBuilder.setView(switchView)
             val toggleSwitch = switchView.findViewById<Switch>(R.id.toggleSwitchSo)

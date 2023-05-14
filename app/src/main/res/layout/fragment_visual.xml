@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -11,139 +11,141 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#E0CDA9"
-        app:titleTextColor="@color/black"
-        app:title="VISUAL MODE"
-        app:titleCentered="true"
         android:fontFamily="@font/montserrat_bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:title="@string/Mode_visuel"
+        app:titleCentered="true"
+        app:titleTextColor="@color/black"
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/back_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
         app:backgroundTint="@color/white"
         app:cornerRadius="8dp"
         app:icon="@drawable/back_button_icon"
         app:iconSize="30dp"
         app:iconTint="@color/black"
-        app:rippleColor="@color/purple_200"
-        app:strokeColor="@color/purple_500"
-        app:strokeWidth="2dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="20dp"
         app:layout_constraintBottom_toTopOf="@id/color_pallet"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:rippleColor="@color/purple_200"
+        app:strokeColor="@color/purple_500"
+        app:strokeWidth="2dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/setting"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
         app:backgroundTint="@color/white"
         app:cornerRadius="8dp"
         app:icon="@drawable/setting_icon"
         app:iconSize="30dp"
         app:iconTint="@color/black"
-        app:rippleColor="@color/purple_200"
-        app:strokeColor="@color/purple_500"
-        app:strokeWidth="2dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toTopOf="@id/color_pallet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-         />
+        app:rippleColor="@color/purple_200"
+        app:strokeColor="@color/purple_500"
+        app:strokeWidth="2dp" />
 
     <TextView
         android:id="@+id/color_pallet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Color Pallet"
-        android:textSize="20sp"
-        android:textColor="#000000"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/montserrat_bold"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/color_palette"
+        android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggle_group_visual"
         android:layout_width="390dp"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
-        app:singleSelection="true"
         app:checkedButton="@id/sound_button"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/color_pallet">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/color_pallet"
+        app:singleSelection="true">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/far"
             android:layout_width="130dp"
             android:layout_height="60dp"
-            app:backgroundTint="#00FF00"
-            app:cornerRadius="24dp"
-            android:text="FAR"
-            android:textSize="20sp"
-            android:textColor="#000000"
             android:fontFamily="@font/montserrat_bold"
-            />
+            android:text="@string/far"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:backgroundTint="@color/green"
+            app:cornerRadius="24dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/middle"
             android:layout_width="130dp"
             android:layout_height="60dp"
-            app:backgroundTint="#FFFF00"
-            app:cornerRadius="24dp"
-            android:text="NEXT TO"
-            android:textSize="20sp"
-            android:textColor="#000000"
             android:fontFamily="@font/montserrat_bold"
-            />
+            android:text="@string/next_to"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:backgroundTint="@color/yellow"
+            app:cornerRadius="24dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/close"
             android:layout_width="130dp"
             android:layout_height="60dp"
-            app:backgroundTint="#FF0000"
-            app:cornerRadius="24dp"
-            android:text="CLOSE"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textColor="#000000"
             android:fontFamily="@font/montserrat_bold"
-            />
+            android:text="@string/close"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:backgroundTint="@color/red"
+            app:cornerRadius="24dp" />
 
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-<!-- Je vire ça mais je le laisse en com au cas ou
+    <!--
     <ViewAnimator
         android:id="@+id/view_animator"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="0dp"
+        android:layout_height="204dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/message_already_there"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toggle_group_visual">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/visual_icon"
-             />
+            android:layout_height="200dp"
+            android:src="@drawable/wheelchair" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@drawable/image1"
-         />
+            android:text="@drawable/image1" />
 
     </ViewAnimator>
 
--->
-    
-      <ImageView
+    -->
+
+    <ImageView
         android:id="@+id/fauteuil"
         android:layout_width="229dp"
         android:layout_height="173dp"
@@ -153,18 +155,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toggle_group_visual"
         app:layout_constraintVertical_bias="0.548" />
-    
-    
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
+        style="@style/BottomNavigationStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:menu="@menu/menu_bottom"
-        style="@style/BottomNavigationStyle"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:menu="@menu/menu_bottom" />
 
     <TextView
         android:id="@+id/message_already_there"
@@ -182,9 +182,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
-    
-      <!-- Capteurs -->
+         />
+
+
+    <!-- Capteurs -->
 
 
     <ImageView
@@ -225,7 +226,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fauteuil"
         app:srcCompat="@drawable/rond1"
-        app:tint="#00FF00" />
+        app:tint="#0FFE00" />
 
     <ImageView
         android:id="@+id/capteur4"
@@ -293,6 +294,6 @@
         app:layout_constraintVertical_bias="0.208"
         app:srcCompat="@drawable/rond1"
         app:tint="#00FF00" />
-  
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

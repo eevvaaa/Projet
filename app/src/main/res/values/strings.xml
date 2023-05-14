@@ -1,16 +1,42 @@
 <resources>
     <string name="app_name">testtt</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_deja_visu">Vous êtes déjà dans la zone visual</string>
-    <string name="with_visual_option">WITH VISUAL OPTION</string>
-    <string name="with_sound_option">WITH SOUND OPTION</string>
-    <string name="hello">hello</string>
-    <string name="defaut">default</string>
-    <string name="color_palette">Color palette</string>
-    <string name="recommended_for_protanopia">protanopia</string>
-    <string name="recommended_for_tritanopia">tritanopia</string>
-    <string name="recommended_for_deuteranopia">deuteranopia</string>
-    <string name="close">Close</string>
-    <string name="far">Far</string>
+    <string name="text_deja_visu">Vous êtes déjà dans la zone visuelle</string>
+    <string name="with_visual_option">Option visuelle</string>
+    <string name="with_sound_option">Option sonore</string>
+    <string name="defaut">défaut</string>
+    <string name="color_palette">Palette de couleur</string>
+    <string name="recommended_for_protanopia">protanopie</string>
+    <string name="recommended_for_tritanopia">tritanopie</string>
+    <string name="recommended_for_deuteranopia">deutéranopie</string>
+    <string name="close">Proche</string>
+    <string name="far">Loin</string>
+    <string name="bienvenue_sur_freewheel">BIENVENUE SUR FREEWHEEL</string>
+    <string name="avec_freewheel_au_quotidien_c_est_plus_simple_au_quotidien">Avec FreeWheel au quotidien, c\'est plus simple au quotidien :)</string>
+    <string name="sound">Sonore</string>
+    <string name="visual">Visuel</string>
+    <string name="let_s_go">C\'est parti !!</string>
+    <string name="nom_et_prenoms">NOM ET PRENOMS</string>
+    <string name="date_de_naissance">DATE DE NAISSANCE</string>
+    <string name="ma_difficulte">MA DIFFICULTE</string>
+    <string name="groupe_sanguin">GROUPE SANGUIN</string>
+    <string name="numero_d_urgence">NUMERO D\'URGENCE</string>
+    <string name="back_to_visual_mode">Retour au mode visuel</string>
+    <string name="back_to_audio_mode">Retour au mode sonore</string>
+    <string name="vous_tes_d_j_dans_la_zone_audio">Vous êtes déjà dans la zone sonore</string>
+    <string name="sound_activated">Son Activé</string>
+    <string name="next_to">A proximité</string>
+    <string name="notifying_emergency_contact">Appel du contact d\'urgence</string>
+    <string name="_5">5</string>
+    <string name="i_call">APPEL EN COURS…</string>
+    <string name="stop">STOP</string>
+    <string name="Mode_son">MODE SONORE</string>
+    <string name="Mode_visuel">MODE VISUEL</string>
+    <string name="Mode_perso">MES INFOS PERSO</string>
+    <string name="opt">Options</string>
+    <string name="done">C\'est fait !</string>
+
+
+
+    />
 </resources>

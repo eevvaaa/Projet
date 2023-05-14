@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:title="VISUAL MODE"
+        app:title="MODE SON ET VISUEL"
         app:titleCentered="true"
         app:titleTextColor="@color/black"
         tools:ignore="MissingConstraints" />
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="Color Pallet"
+        android:text="@string/color_palette"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +88,7 @@
             android:layout_width="130dp"
             android:layout_height="60dp"
             android:fontFamily="@font/montserrat_bold"
-            android:text="FAR"
+            android:text="@id/far"
             android:textColor="#000000"
             android:textSize="20sp"
             app:backgroundTint="#00FF00"
@@ -99,7 +99,7 @@
             android:layout_width="130dp"
             android:layout_height="60dp"
             android:fontFamily="@font/montserrat_bold"
-            android:text="NEXT TO"
+            android:text="@string/next_to"
             android:textColor="#000000"
             android:textSize="20sp"
             app:backgroundTint="#FFFF00"
@@ -110,7 +110,7 @@
             android:layout_width="130dp"
             android:layout_height="60dp"
             android:fontFamily="@font/montserrat_bold"
-            android:text="CLOSE"
+            android:text="@id/close"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp"
@@ -199,7 +199,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toggle_group_visual"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/rond1"
-        app:tint="#00FF00" />
+        app:tint="@color/green" />
 
     <ImageView
         android:id="@+id/capteur2"
