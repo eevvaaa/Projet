@@ -19,8 +19,14 @@ int nextToRead;
 //tableau qui contient les données des capteurs de tous les boards
 int sensorValues[NBBOARD][6];
 
-#define LIMITE_DANGER 30
-#define LIMITE_WARNING 60
+#define DANGER 30
+#define WARNING 60
+
+#define moteurGauche 17
+#define moteurDroit 25
+#define moteurDevant 2
+#define moteurDerriere 5
+
 
 bool initSensors()
 {
@@ -34,6 +40,7 @@ bool initSensors()
     // Choix de l'entrée comme étant celle de CAN0_INT
     pinMode(CAN0_INT, INPUT);
 
+    // On initialise tous les moteurs à LOW
     for (int i = 0; i<8; i++){
         digitalWrite(i,LOW);
     }
@@ -79,36 +86,150 @@ bool processSensors()
 
 void getNewSensorValues()
 {
-    int value, hauteur;
-    for (int i = 0; i < 2; i++)
-    {
-        for (int j = 0; j < 6; j++)
-        {
-            value = sensorValues[i][j];
+    int valueGauche, valueDroite, valueDevant, valueCoteGauche, valueCoteDroit;
+    int* valeurMoteur = new int[4]{0};
 
-            // affichage des distances aux capteurs
-            hauteur = (2 + 6 * i + j) * 16;
-            M5.Lcd.setCursor(128, hauteur);
-            // s'il y a update des données, alors traiter le tableau du demi capteur
-            // M5.Lcd.fillRect(130,hauteur+8,24,16,BLACK);
-            M5.Lcd.print(value);
-
-            // Affichage du carré représenté par le capteur
-            if (value < LIMITE_DANGER && !(analogRead(j)==255)){ 
-                analogWrite(j, 255);
+    /* moteur gauche */
+    valueGauche = sensorValues[0][0];
+    if (valueGauche<DANGER){
+        if (valeurMoteur[0]!=255){
+            dacWrite(moteurGauche,255);
+            valeurMoteur[0]=255;
+        }
+    } else{
+        if (valueGauche < WARNING && valueGauche >= DANGER){
+            if (valeurMoteur[0]!=127){
+                dacWrite(moteurGauche, 127);
+                valeurMoteur[0]=127;
             }
-            else
-            {
-                if (value < LIMITE_WARNING && value >= LIMITE_DANGER)
-                {
-                    analogWrite(j, 127);
-                }
-                else
-                {
-                    analogWrite(j, 0);
-                }
-            }
-
+        } else {
+            dacWrite(moteurGauche, 0);
+            valeurMoteur[0]=0;
         }
     }
+
+    /* moteur droit */
+    valueDroite = sensorValues[1][5];
+    if (valueDroite<DANGER){
+        if (valeurMoteur[2]!=255){
+            dacWrite(moteurDroit,255);
+            valeurMoteur[2]=255;
+        }
+    } else{
+        if (valueDroite < WARNING && valueDroite >= DANGER){
+            if (valeurMoteur[2]!=127){
+                dacWrite(moteurDroit, 127);
+                valeurMoteur[2]=127;
+            }
+        } else {
+            dacWrite(moteurDroit, 0);
+            valeurMoteur[2]=0;
+        }
+    } 
+
+    /* moteur devant */
+    for (int j = 3; j < 6; j++){
+        valueDevant = sensorValues[0][j];
+        if (valueDevant<DANGER){
+            if (valeurMoteur[1]!=255){
+                dacWrite(moteurDevant,255);
+                valeurMoteur[1]=255;
+            }
+        } else{
+            if (valueDevant < WARNING && valueDevant >= DANGER){
+                if (valeurMoteur[1]!=127){
+                    dacWrite(moteurDevant, 127);
+                    valeurMoteur[1]=127;
+                }
+            } else {
+                dacWrite(moteurDevant, 0);
+                valeurMoteur[1]=0;
+            }
+        } 
+    }
+
+    for (int j = 0; j < 3; j++){
+        valueDevant = sensorValues[1][j];
+        if (valueDevant<DANGER){
+            if (valeurMoteur[1]!=255){
+                dacWrite(moteurDevant,255);
+                valeurMoteur[1]=255;
+            }
+        } else{
+            if (valueDevant < WARNING && valueDevant >= DANGER){
+                if (valeurMoteur[1]!=127){
+                    dacWrite(moteurDevant, 127);
+                    valeurMoteur[1]=127;
+                }
+            } else {
+                dacWrite(moteurDevant, 0);
+                valeurMoteur[1]=0;
+            }
+        } 
+    }
+
+    /* moteur devant-droit */
+    for (int j = 3; j < 5; j++){
+        valueCoteDroit = sensorValues[1][j];
+        if (valueCoteDroit<DANGER){
+            if (valeurMoteur[1]!=255){
+                dacWrite(moteurDevant,255);
+                valeurMoteur[1]=255;
+                if (valeurMoteur[2]!=255){
+                    dacWrite(moteurDroit, 255);
+                    valeurMoteur[2]=255;
+                }
+            }
+        } else{
+            if (valueCoteDroit < WARNING && valueCoteDroit >= DANGER){
+                if (valeurMoteur[1]!=127){
+                    dacWrite(moteurDevant, 127);
+                    valeurMoteur[1]=127;
+                    if (valeurMoteur[2]!=127){
+                        dacWrite(moteurDroit, 127);
+                        valeurMoteur[2]=127;
+                    }
+                }
+            } else {
+                dacWrite(moteurDevant, 0);
+                valeurMoteur[1]=0;
+                dacWrite(moteurDroit, 0);
+                valeurMoteur[2]=0;
+            }
+        } 
+    }
+
+     /* moteur devant-gauche */
+    for (int j = 1; j < 3; j++){
+        valueCoteGauche = sensorValues[0][j];
+        if (valueCoteGauche<DANGER){
+            if (valeurMoteur[1]!=255){
+                dacWrite(moteurDevant,255);
+                valeurMoteur[1]=255;
+                if (valeurMoteur[0]!=255){
+                    dacWrite(moteurGauche, 255);
+                    valeurMoteur[0]=255;
+                }
+            }
+        } else{
+            if (valueCoteGauche < WARNING && valueCoteGauche >= DANGER){
+                if (valeurMoteur[1]!=127){
+                    dacWrite(moteurDevant, 127);
+                    valeurMoteur[1]=127;
+                    if (valeurMoteur[0]!=127){
+                        dacWrite(moteurGauche, 127);
+                        valeurMoteur[0]=127;
+                    }
+                }
+            } else {
+                dacWrite(moteurDevant, 0);
+                valeurMoteur[1]=0;
+                dacWrite(moteurGauche, 0);
+                valeurMoteur[0]=0;
+            }
+        } 
+    }
+    
+
+
 }

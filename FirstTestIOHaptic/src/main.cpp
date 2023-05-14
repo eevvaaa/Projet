@@ -19,14 +19,10 @@ This module has 3 pins:
 
 /* On définit une constante MotorPin qui sera le numéro sur lequel on branche notre module
 et sensorPin pour le port des sensors */
-/*#define motorPin1 16
-#define motorPin2 17
-#define motorPin3 2*/
-#define motorPin4 5
-/*#define motorPin5 25
-#define motorPin6 26
-#define motorPin7 35
-#define motorPin8 36*/
+#define moteurGauche 17
+#define moteurDroit 25
+#define moteurDevant 2
+#define moteurDerrière 5
 
 /* On définit nos limites de vibrations */
 //#define LIMITE_DANGER 30
@@ -64,6 +60,7 @@ void setup() {
   pinMode(motorPin6, OUTPUT); 
   pinMode(motorPin7, OUTPUT); 
   pinMode(motorPin8, OUTPUT); */
+
 
 }
 
