@@ -149,7 +149,7 @@
         android:id="@+id/fauteuil"
         android:layout_width="229dp"
         android:layout_height="173dp"
-        android:src="@drawable/fauteuil"
+        android:src="@drawable/fauteuil2"
         app:layout_constraintBottom_toTopOf="@+id/message_already_there"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
