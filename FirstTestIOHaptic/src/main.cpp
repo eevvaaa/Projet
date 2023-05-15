@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <M5Stack.h>
 #include <sensors.h>
+#include <haptique.h>
 
 //initialiser les motors à LOW
 // enlever le serial.begin ?
@@ -68,7 +69,12 @@ void setup() {
   ledcAttachPin(moteurDroit, pwmChannelDroit);
   ledcAttachPin(moteurGauche, pwmChannelGauche);
   ledcAttachPin(moteurDevant, pwmChannelDevant);
-  ledcAttachPin(moteurDerriere, pwmChannelDerriere);  
+  ledcAttachPin(moteurDerriere, pwmChannelDerriere); 
+
+  ledcWrite(pwmChannelDerriere, 0);
+  ledcWrite(pwmChannelDevant, 0);
+  ledcWrite(pwmChannelDroit,0);
+  ledcWrite(pwmChannelGauche, 0);
 
 }
 
@@ -76,11 +82,15 @@ void loop() {
 
   M5.update();
 
-  
+  Serial.print(processSensors());
   if(processSensors()){ //je récupère les données des capteurs
-    getNewSensorValues();    
+    //activationMoteurAvecCapteurs();
+    testAutomatique();
+    delay(100000);
+    //activationMoteurFauteuilComplet();
   }
   
   
 
 }
+

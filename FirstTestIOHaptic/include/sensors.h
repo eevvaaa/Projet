@@ -3,8 +3,11 @@
 
 bool initSensors();
 bool processSensors();
-bool getNewSensorValues();
-void processSensorsDeux();
 
+//NBOARD = le nombre de barres de capteurs dans 1 barre de capteurs
+#define NBBOARD 8
+
+#define DANGER 30
+#define WARNING 60
 
 #endif
