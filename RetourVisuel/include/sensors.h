@@ -2,7 +2,11 @@
 #define SENSORS_H
 
 bool initSensors();
-bool processSensors();
-void getNewSensorValues();
+int processSensors();
+
+#define NBBOARD 8
+
+#define ALERTE 0
+#define DANGER 1
 
 #endif

@@ -3,56 +3,94 @@
 #include <BluetoothSerial.h>
 #include <SPIFFS.h>
 #include <led.h>
-
-#define LIMITE_DANGER 10
-#define LIMITE_WARNING 40
-#define NBBOARD 2
+#include <visuel.h>
 
 BluetoothSerial SerialBT;
-int mode;
 
-void initAffichage();
+// Démarrage par défaut en Visuel Activé, autres désactivés
+
+// mode Visuel a plusieurs états : 0 (désactivé), 1 (activé), 2 (activé + LED)
+int modeVisuel = 1;
+
+// mode Sonore a 2 états : 0 (désactivé), 1 (activé)
+int modeSonore = 0;
+
+// mode Haptique a 2 états : 0 (désactivé), 1 (activé)
+int modeHaptique = 0;
+
+
+
+// Déclaration des fonctions utilisées dans le setup
+
+void affichageBarreBoutons();
+void affichageModeVisuel();
+
 
 void setup()
 {
     // Init de la M5STack
     M5.begin(true, false, true, true);
-    // Démarrage du SPIFFS permettant dl'affichage d'image
+    // Démarrage du SPIFFS permettant d'affichage d'image
     SPIFFS.begin();
     // Démarrage de la M5Stack
     M5.Power.begin();
 
-    // Taille de la police
-    M5.Lcd.setTextSize(2);
-
     // Démarrage du Bluetooth
     SerialBT.begin("M5Stack");
 
-    // Démarrage en mode 0 (affichage capteurs)
-    mode = 0;
+    // Taille de la police 
+    M5.Lcd.setTextSize(2);
+    M5.Lcd.setCursor(0,185);
 
-    // Si l'init des capteurs a réussi :
-    if (initSensors())
-    {
-        M5.Lcd.print("MCP2515 Initialized\nSuccessfully!\n");
+    // Affichage de l'écran de démarrage
+    M5.Lcd.fillScreen(0x92E8);
+    M5.Lcd.drawPngFile(SPIFFS, "/logo.png", 82, 18);
+    M5.Lcd.println("Bienvenue sur FREEWHEEL !");
+
+    M5.Lcd.println("Verification module CAN...");
+
+    // Si l'init du bus CAN a réussi, c'est-à-dire si le module CAN est bien branché :
+    while(!initSensors()){
+        delay(100);
     }
-    else
-    {
-        M5.Lcd.println("Error Initializing\nMCP2515...");
-    }
-    initAffichage();
 
-    initLED();
+    M5.Lcd.println("Module CAN trouve !");
 
+    // Attente
+    delay(2300);
+
+    // Remplissage en noir 
+    M5.Lcd.fillScreen(BLACK);
+
+    // Initialisation de l'affichage 
+    affichageBarreBoutons();
+    affichageModeVisuel();
+
+    M5.Lcd.setCursor(0,0);
 }
 
-void initAffichage()
-{
-    for (int i = 0; i < NBBOARD * 6; i++)
-    {
-        M5.Lcd.printf("Board[%d] :\n", (int)(i / 6));
-    }
+// Affiche la barre des boutons, commune à tous les modes
+void affichageBarreBoutons()
+{   
+    // Remplacement si besoin des param. visuels
+    M5.Lcd.fillRect(0,204,320,36,BLACK);
+    
+    // Affichage de la barre supérieure horizontale des boutons
+    M5.Lcd.drawFastHLine(0,204,320,WHITE);
+
+    // Affichage des barres verticales à 1 et 2 tiers de l'écran pour la séparation des 3 boutons
+    M5.Lcd.drawFastVLine(106,204,36,WHITE);
+    M5.Lcd.drawFastVLine(214,204,36,WHITE); 
+
+    // Affichage des noms des retours aux boutons correspondants
+    // x et y sont calculés pour centrer sur le bouton après tests
+    M5.Lcd.drawString("Visuel",16, 214);
+    
+    M5.Lcd.drawString("Sonore",106 + 19,214);
+
+    M5.Lcd.drawString("Haptique",214 + 8,214);
 }
+
 
 void bluetoot()
 {
@@ -73,31 +111,50 @@ void bluetoot()
     }
 }
 
-void displayImage()
-{
-    M5.Lcd.drawPngFile(SPIFFS, "/image.png", 19, 0);
-}
+
 
 void ButtonCheck()
 {
-    if (M5.BtnA.wasPressed())
+    // Permet d'éteindre la M5Stack, ce qui n'est pas possible sinon
+    if (M5.BtnA.isPressed() && M5.BtnB.isPressed())
     {
         turnOffLEDs();
         M5.Power.deepSleep();
     }
-
-    if (M5.BtnC.wasPressed())
-    {
-        mode = (mode + 1) % 2;
-        M5.Lcd.fillScreen(BLACK);
-
-        if(mode = 0) {
-            initAffichage();
+    
+    // BOUTON A
+    if (M5.BtnA.wasPressed())
+    {   
+        // Activation mode Visuel
+        if(!modeVisuel){
+            modeVisuel ++;
+            affichageModeVisuel();
         }else{
-            displayImage();
-        }
+            // Paramètres du mode visuel
+            if(modeVisuel == 1){
+                modeVisuel++;
+                affichageParametres();
+            }else{
+                // Quitter les paramètres visuels
+                modeVisuel--;
+                affichageBarreBoutons();
+            }
 
+        }
     }
+
+    // BOUTON A
+    if(M5.BtnB.wasPressed()){
+        // Paramètres mode visuel -> changer la palette
+        if(modeVisuel == 2){
+            changerPalette();
+        }
+    }
+
+    // Activation mode haptique OU quitter param visuels
+    if(M5.BtnC.wasPressed()){
+    }
+    
 }
 
 void loop()
@@ -105,12 +162,12 @@ void loop()
     M5.update();
     ButtonCheck();
 
-    if (mode == 0)
+    //ProcessSensor retourne bloc allant de 1 à NBBOARD si données reçues de bloc ou 0 sinon
+    if (int bloc = processSensors())
     {
-        if(processSensors()){
-            getNewSensorValues();
-            updateLED();
-            // bluetoot();
-        }
+        // On enlève 1 car la fonction prend un entier allant de 0 à NBBOARD -1
+        affichageBloc(bloc-1);
+        bluetoot();
     }
+        
 }

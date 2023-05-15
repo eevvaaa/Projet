@@ -1,22 +1,56 @@
 #include <mcp_can.h>
 #include <M5Stack.h>
-#include <led.h>
+#include <sensors.h>
 
 long unsigned int rxId;
 unsigned char len = 0;
 unsigned char rxBuf[8];
-#define NBBOARD 2
 
-MCP_CAN CAN0(&SPI, 12); // Set CS to pin 10
-#define CAN0_INT 15     // Set INT to pin 2
+MCP_CAN CAN0(&SPI, 12); // Set CS to pin 12
+#define CAN0_INT 15     // Set INT to pin 15
 
-int nextToRead;
+
+// DONNEES RELATIVES AUX CAPTEURS ------------------------------------------------
+
+// Commencer la lecture par le capteur 0
+int nextToRead = 0;
+
+// Données sur la position des capteurs relative au centre de l'image de fauteuil
+// X (de -60 à 60) ; Y (de -75 à 75) ; SensX (de + à -2) ; SensY (de + à -2)
+// La largeur d'un bloc de capteurs affiché est de 22
+int blocs[NBBOARD][4] = {
+    // Capteurs derrière
+    {14, 75, -2, 0},
+    {-14, 75, -2, 0},
+    // Capteurs sur roues
+    {60, 25, 0, 2},
+    {-60, 25, 0, -2},
+    // Capteurs sur côtés devant
+    {50,-35,1,2},
+    {-50,-35,1,-2},
+    // Capteurs devant
+    {14,-75, 2, 0},
+    {-14,-75, 2, 0} 
+};
+
+// Stocke les données provenant des capteurs
 int sensorValues[NBBOARD][6];
-bool newValues[NBBOARD];
 
-#define LIMITE_DANGER 20
-#define LIMITE_WARNING 60
 
+// DONNEES RELATIVES AUX DISTANCES -----------------------------------------------
+
+// Choix du type de distances LONG (0, défaut) ou COURT (1)
+int d = 0;
+
+// Limites des distances ALERTE et DANGER, pour LONG (défaut) et COURT
+int limites[2][2] = {
+    {60,30},
+    {25,10}
+};
+
+// FONCTIONS ---------------------------------------------------------------------
+
+// Initialise le bus CAN
 bool initSensors()
 {
     // si le bus CAN n'arrive pas à se lancer, alors retourner faux
@@ -29,14 +63,14 @@ bool initSensors()
     // Choix de l'entrée comme étant celle de CAN0_INT
     pinMode(CAN0_INT, INPUT);
 
-    // Commencer la lecture par le capteur 0
-    nextToRead = 0;
-
     // Init réussie
     return true;
 }
 
-bool processSensors()
+// Lis les messages reçus par le bus CAN
+// Retourne 0 si pas de nouvelles données
+// Retourne bloc (de 1 à NBBOARD) si nouvelles données
+int processSensors()
 {
     // If CAN0_INT pin is low, read receive buffer
     if (!digitalRead(CAN0_INT))
@@ -44,64 +78,34 @@ bool processSensors()
 
         // Read data: len = data length, buf = data byte(s)
         CAN0.readMsgBuf(&rxId, &len, rxBuf);
+
+        // DEBUG
+        Serial.print(rxId, HEX);
+        for(int i = 0 ; i < len ; i++){
+            Serial.print(rxBuf[i]);
+        }    
+
+        // Si le message est correct, continuer
         if ((rxId & 0x3F0) == 0x00)
         {
             unsigned int boardID = 0;
-            if ((boardID = (rxId & 0x07)) < NBBOARD && boardID == nextToRead)
-            {
+            // Si le message provient d'un bon board, continuer
+            if ((boardID = (rxId & 0x07)) < NBBOARD /*&& boardID == nextToRead*/)
+            {   
+                // update les donénes du tableau
                 for (int i = 0; i < 6; i++)
                 {   
                     sensorValues[boardID][i] = rxBuf[i];
                 }
                 // Mettre à jour le prochain capteur à lire dans la liste
-                nextToRead = (nextToRead + 1) % NBBOARD;
-                return true;
+                //nextToRead = (nextToRead + 1) % NBBOARD;
+
+                // Indique qu'il y a de nouvelles valeurs en boardID
+                return boardID+1;
             }
         }
     }
-    return false;
+    // Indique qu'il n'y a pas de nouvelles valeurs
+    return 0;
 }
 
-void getNewSensorValues()
-{
-    int value, hauteur;
-    for (int i = 0; i < 2; i++)
-    {
-        for (int j = 0; j < 6; j++)
-        {
-            value = sensorValues[i][j];
-            hauteur = (2 + 6 * i + j) * 16;
-            M5.Lcd.setCursor(128, hauteur);
-
-            // s'il y a update des données, alors traiter le tableau du demi capteur
-            // M5.Lcd.fillRect(130,hauteur+8,24,16,BLACK);
-            M5.Lcd.print(value);
-
-            // Affichage du carré représenté par le capteur
-            if (value < LIMITE_DANGER)
-            {
-                M5.Lcd.fillRect(220 - 10 * (i + j == 0 || i + j == 6), hauteur + 2, 5, 5, RED);
-                LEDLight(i*6+j,0);
-            }
-            else
-            {
-                if (value < LIMITE_WARNING && value >= LIMITE_DANGER)
-                {
-                    M5.Lcd.fillRect(220 - 10 * (i + j == 0 || i + j == 6), hauteur + 2, 5, 5, YELLOW);
-                    LEDLight(i*6+j,1);
-                }
-                else
-                {
-                    M5.Lcd.fillRect(220 - 10 * (i + j == 0 || i + j == 6), hauteur + 2, 5, 5, DARKCYAN);
-                    LEDLight(i*6+j,2);
-                }
-            }
-
-            // Envoi des infos du capteur 0 en bluetooth
-            if (i == 0 && j == 0)
-            {
-                // SerialBT.printf("%d\n",values[j]);
-            }
-        }
-    }
-}

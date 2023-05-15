@@ -4,7 +4,7 @@
   #include <avr/power.h>
 #endif
 
-#define PIN       21
+#define PIN       22
 #define NUMPIXELS 35
 
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB);
