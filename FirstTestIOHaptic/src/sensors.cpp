@@ -22,11 +22,10 @@ int sensorValues[NBBOARD][6];
 #define DANGER 30
 #define WARNING 60
 
-#define moteurGauche 17
-#define moteurDroit 16
-#define moteurDevant 2
-#define moteurDerriere 5
-
+extern int pwmChannelDroit; 
+extern int pwmChannelGauche; 
+extern int pwmChannelDevant; 
+extern int pwmChannelDerriere; 
 
 bool initSensors()
 {
@@ -68,9 +67,6 @@ void processSensorsDeux()
             M5.Lcd.print(boardID);
         }
         
-    }
-    else {
-        M5.Lcd.print("erreur");
     }
 }
 
@@ -120,18 +116,18 @@ void getNewSensorValues()
     M5.Lcd.print(valueGauche);       
 
     if (valueGauche<DANGER){
-        if (valeurMoteur[0]!=127){
-            ledcWrite(moteurGauche, 127); //1.65 V
-            valeurMoteur[0]=127;
+        if (valeurMoteur[0]!=170){
+            ledcWrite(pwmChannelGauche, 170); //1.65 V
+            valeurMoteur[0]=170;
         }
     } else{
         if (valueGauche < WARNING && valueGauche >= DANGER){
             if (valeurMoteur[0]!=63){
-                ledcWrite(moteurGauche, 63); 
+                ledcWrite(pwmChannelGauche, 63); 
                 valeurMoteur[0]=63;
             }
         } else {
-            ledcWrite(moteurGauche, 0); 
+            ledcWrite(pwmChannelGauche, 0); 
             valeurMoteur[0]=0;
         }
     }
@@ -144,18 +140,18 @@ void getNewSensorValues()
     M5.Lcd.print(valueDroite);
 
     if (valueDroite<DANGER){
-        if (valeurMoteur[2]!=127){
-            ledcWrite(moteurDroit, 127); 
-            valeurMoteur[2]=127;
+        if (valeurMoteur[2]!=170){
+            ledcWrite(pwmChannelDroit, 170); 
+            valeurMoteur[2]=170;
         }
     } else{
         if (valueDroite < WARNING && valueDroite >= DANGER){
             if (valeurMoteur[2]!=63){
-                ledcWrite(moteurDroit, 63); 
+                ledcWrite(pwmChannelDroit, 63); 
                 valeurMoteur[2]=63;
             }
         } else {
-            ledcWrite(moteurDroit, 0); 
+            ledcWrite(pwmChannelDroit, 0); 
             valeurMoteur[2]=0;
         }
     } 
@@ -169,18 +165,18 @@ void getNewSensorValues()
         M5.Lcd.print(valueDevant);
 
         if (valueDevant<DANGER){
-            if (valeurMoteur[1]!=127){
-                ledcWrite(moteurDevant, 127); 
-                valeurMoteur[1]=127;
+            if (valeurMoteur[1]!=170){
+                ledcWrite(pwmChannelDevant, 170); 
+                valeurMoteur[1]=170;
             }
         } else{
             if (valueDevant < WARNING && valueDevant >= DANGER){
                 if (valeurMoteur[1]!=63){
-                    ledcWrite(moteurDevant, 63); 
+                    ledcWrite(pwmChannelDevant, 63); 
                     valeurMoteur[1]=63;
                 }
             } else {
-                ledcWrite(moteurDevant, 0); 
+                ledcWrite(pwmChannelDevant, 0); 
                 valeurMoteur[1]=0;
             }
         } 
@@ -194,18 +190,18 @@ void getNewSensorValues()
         M5.Lcd.print(valueDevant);
 
         if (valueDevant<DANGER){
-            if (valeurMoteur[1]!=127){                
-                ledcWrite(moteurDevant, 127); 
-                valeurMoteur[1]=127;
+            if (valeurMoteur[1]!=170){                
+                ledcWrite(pwmChannelDevant, 170); 
+                valeurMoteur[1]=170;
             }
         } else{
             if (valueDevant < WARNING && valueDevant >= DANGER){
                 if (valeurMoteur[1]!=63){
-                    ledcWrite(moteurDevant, 63); 
+                    ledcWrite(pwmChannelDevant, 63); 
                     valeurMoteur[1]=63;
                 }
             } else {
-                ledcWrite(moteurDevant, 0); 
+                ledcWrite(pwmChannelDevant, 0); 
                 valeurMoteur[1]=0;
             }
         } 
@@ -220,24 +216,24 @@ void getNewSensorValues()
         M5.Lcd.print(valueCoteDroit);
 
         if (valueCoteDroit<DANGER){
-            if (valeurMoteur[1]!=127 || valeurMoteur[2]!=127){
-                ledcWrite(moteurDevant, 127);
-                valeurMoteur[1]=127;
-                ledcWrite(moteurDroit, 127); 
-                valeurMoteur[2]=127;
+            if (valeurMoteur[1]!=170 || valeurMoteur[2]!=170){
+                ledcWrite(pwmChannelDevant, 170);
+                valeurMoteur[1]=170;
+                ledcWrite(pwmChannelDroit, 170); 
+                valeurMoteur[2]=170;
             }
         } else{
             if (valueCoteDroit < WARNING && valueCoteDroit >= DANGER){
                 if (valeurMoteur[1]!=63 || valeurMoteur[2]!=63){
-                    ledcWrite(moteurDevant, 63);
+                    ledcWrite(pwmChannelDevant, 63);
                     valeurMoteur[1]=63;
-                    ledcWrite(moteurDroit, 63);
+                    ledcWrite(pwmChannelDroit, 63);
                     valeurMoteur[2]=63;
                 }
             } else {
-                ledcWrite(moteurDevant, 0);
+                ledcWrite(pwmChannelDevant, 0);
                 valeurMoteur[1]=0;
-                ledcWrite(moteurDroit, 0);
+                ledcWrite(pwmChannelDroit, 0);
                 valeurMoteur[2]=0;
             }
         } 
@@ -252,24 +248,24 @@ void getNewSensorValues()
         M5.Lcd.print(valueCoteGauche);
 
         if (valueCoteGauche<DANGER){
-            if (valeurMoteur[1]!=127 || valeurMoteur[0]!=127){
-                ledcWrite(moteurDevant, 127);
-                valeurMoteur[1]=127;
-                ledcWrite(moteurGauche, 127); 
-                valeurMoteur[0]=127;
+            if (valeurMoteur[1]!=170 || valeurMoteur[0]!=170){
+                ledcWrite(pwmChannelDevant, 170);
+                valeurMoteur[1]=170;
+                ledcWrite(pwmChannelGauche, 170); 
+                valeurMoteur[0]=170;
             }
         } else{
             if (valueCoteGauche < WARNING && valueCoteGauche >= DANGER){
                 if (valeurMoteur[1]!=63 || valeurMoteur[0]!=63){
-                    ledcWrite(moteurDevant, 63);
+                    ledcWrite(pwmChannelDevant, 63);
                     valeurMoteur[1]=63;
-                    ledcWrite(moteurGauche, 63);
+                    ledcWrite(pwmChannelGauche, 63);
                     valeurMoteur[0]=63;
                 }
             } else {
-                ledcWrite(moteurDevant, 0);
+                ledcWrite(pwmChannelDevant, 0);
                 valeurMoteur[1]=0;
-                ledcWrite(moteurGauche, 0);
+                ledcWrite(pwmChannelGauche, 0);
                 valeurMoteur[0]=0;
             }
         } 

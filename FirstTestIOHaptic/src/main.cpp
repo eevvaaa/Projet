@@ -76,12 +76,11 @@ void loop() {
 
   M5.update();
 
-  processSensorsDeux();
-  /*
+  
   if(processSensors()){ //je récupère les données des capteurs
     getNewSensorValues();    
   }
-  */
+  
   
 
 }
