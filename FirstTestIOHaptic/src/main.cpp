@@ -20,13 +20,21 @@ This module has 3 pins:
 /* On définit une constante MotorPin qui sera le numéro sur lequel on branche notre module
 et sensorPin pour le port des sensors */
 #define moteurGauche 17
-#define moteurDroit 25
+#define moteurDroit 16
 #define moteurDevant 2
-#define moteurDerrière 5
+#define moteurDerriere 5
 
 /* On définit nos limites de vibrations */
 //#define LIMITE_DANGER 30
 //#define LIMITE_WARNING 60
+
+int pwmChannelDroit = 0; //Choisit le canal 0-15
+int pwmChannelGauche = 1; //Choisit le canal 0-15
+int pwmChannelDevant = 2; //Choisit le canal 0-15
+int pwmChannelDerriere = 3; //Choisit le canal 0-15
+
+int frequence = 1000; //Fréquence PWM de 1 KHz
+int resolution = 8; // Résolution de 8 bits, 256 valeurs possibles
 
 
 void setup() {
@@ -49,29 +57,31 @@ void setup() {
   {
     M5.Lcd.println("Ohhh, ça n'a pas marché... ;((\n");
   } 
-   
-  /* On définit In comme la sortie --> là où on veut que la arduino envoie les instructions */
 
-  /*pinMode(motorPin1, OUTPUT); 
-  pinMode(motorPin2, OUTPUT); 
-  pinMode(motorPin3, OUTPUT); 
-  pinMode(motorPin4, OUTPUT); */
-  /*pinMode(motorPin5, OUTPUT); 
-  pinMode(motorPin6, OUTPUT); 
-  pinMode(motorPin7, OUTPUT); 
-  pinMode(motorPin8, OUTPUT); */
+  // Configuration du canal 0 avec la fréquence et la résolution choisie
+  ledcSetup(pwmChannelDroit, frequence, resolution);
+  ledcSetup(pwmChannelGauche, frequence, resolution);
+  ledcSetup(pwmChannelDevant, frequence, resolution);
+  ledcSetup(pwmChannelDerriere, frequence, resolution);
 
+  // Assigne le canal PWM au pin 
+  ledcAttachPin(moteurDroit, pwmChannelDroit);
+  ledcAttachPin(moteurGauche, pwmChannelGauche);
+  ledcAttachPin(moteurDevant, pwmChannelDevant);
+  ledcAttachPin(moteurDerriere, pwmChannelDerriere);  
 
 }
 
 void loop() {
 
   M5.update();
+
+  processSensorsDeux();
+  /*
   if(processSensors()){ //je récupère les données des capteurs
-  
-    getNewSensorValues();
-    
+    getNewSensorValues();    
   }
+  */
   
 
 }

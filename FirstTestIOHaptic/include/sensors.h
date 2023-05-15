@@ -4,6 +4,7 @@
 bool initSensors();
 bool processSensors();
 bool getNewSensorValues();
-bool motorState(int numMotor);
+void processSensorsDeux();
+
 
 #endif

@@ -11,8 +11,8 @@ unsigned char rxBuf[8];
 #define NBBOARD 2
 
 //CAN0 = tout ce qui gère (bus en protocole CAN) l'ini de la M5Stack
-MCP_CAN CAN0(&SPI, 12); // Set CS to pin 10
-#define CAN0_INT 15     // Set INT to pin 2
+MCP_CAN CAN0(&SPI, 12); // Set CS to pin 12
+#define CAN0_INT 15     // Set INT to pin 15
 
 //variable pour définir le prochain capteur à lire
 int nextToRead;
@@ -23,7 +23,7 @@ int sensorValues[NBBOARD][6];
 #define WARNING 60
 
 #define moteurGauche 17
-#define moteurDroit 25
+#define moteurDroit 16
 #define moteurDevant 2
 #define moteurDerriere 5
 
@@ -41,7 +41,7 @@ bool initSensors()
     pinMode(CAN0_INT, INPUT);
 
     // On initialise tous les moteurs à LOW
-    for (int i = 0; i<8; i++){
+    for (int i = 0; i<4; i++){
         digitalWrite(i,LOW);
     }
     // Commencer la lecture par le capteur 0
@@ -49,6 +49,29 @@ bool initSensors()
 
     // Init réussie
     return true;
+}
+
+
+void processSensorsDeux()
+{
+    // If CAN0_INT pin is low, read receive buffer
+    if (!digitalRead(CAN0_INT))
+    {
+
+        // Read data: len = data length, buf = data byte(s)
+        CAN0.readMsgBuf(&rxId, &len, rxBuf);
+
+        // Si le message est correct, continuer
+        if ((rxId & 0x3F0) == 0x00)
+        {
+            unsigned int boardID = rxId & 0x07;
+            M5.Lcd.print(boardID);
+        }
+        
+    }
+    else {
+        M5.Lcd.print("erreur");
+    }
 }
 
 bool processSensors()
@@ -67,7 +90,7 @@ bool processSensors()
             unsigned int boardID = 0;
             //RxId récupère le n° de port, qui doit être inférieur au nombre de board 
             //et égal au nextToRead pour ne pas ré-afficher le même
-            if ((boardID = (rxId & 0x07)) < NBBOARD && boardID == nextToRead)
+            if ((boardID = (rxId & 0x07)) < NBBOARD /*&& boardID == nextToRead*/)
             {
                 for (int i = 0; i < 6; i++)
                 {   
@@ -75,7 +98,7 @@ bool processSensors()
                     sensorValues[boardID][i] = rxBuf[i];
                 }
                 // Mettre à jour le prochain capteur à lire dans la liste
-                nextToRead = (nextToRead + 1) % NBBOARD;
+                //nextToRead = (nextToRead + 1) % NBBOARD;
                 return true;
             }
         }
@@ -86,43 +109,53 @@ bool processSensors()
 
 void getNewSensorValues()
 {
-    int valueGauche, valueDroite, valueDevant, valueCoteGauche, valueCoteDroit;
+    
+    int valueGauche, valueDroite, valueDevant, valueCoteGauche, valueCoteDroit, hauteur, value;
     int* valeurMoteur = new int[4]{0};
 
     /* moteur gauche */
     valueGauche = sensorValues[0][0];
+        
+    M5.Lcd.setCursor(128, 2*16);
+    M5.Lcd.print(valueGauche);       
+
     if (valueGauche<DANGER){
-        if (valeurMoteur[0]!=255){
-            dacWrite(moteurGauche,255);
-            valeurMoteur[0]=255;
+        if (valeurMoteur[0]!=127){
+            ledcWrite(moteurGauche, 127); //1.65 V
+            valeurMoteur[0]=127;
         }
     } else{
         if (valueGauche < WARNING && valueGauche >= DANGER){
-            if (valeurMoteur[0]!=127){
-                dacWrite(moteurGauche, 127);
-                valeurMoteur[0]=127;
+            if (valeurMoteur[0]!=63){
+                ledcWrite(moteurGauche, 63); 
+                valeurMoteur[0]=63;
             }
         } else {
-            dacWrite(moteurGauche, 0);
+            ledcWrite(moteurGauche, 0); 
             valeurMoteur[0]=0;
         }
     }
 
     /* moteur droit */
     valueDroite = sensorValues[1][5];
+
+    hauteur = (2 + 6 * 1 + 5) * 16;
+    M5.Lcd.setCursor(128, hauteur);
+    M5.Lcd.print(valueDroite);
+
     if (valueDroite<DANGER){
-        if (valeurMoteur[2]!=255){
-            dacWrite(moteurDroit,255);
-            valeurMoteur[2]=255;
+        if (valeurMoteur[2]!=127){
+            ledcWrite(moteurDroit, 127); 
+            valeurMoteur[2]=127;
         }
     } else{
         if (valueDroite < WARNING && valueDroite >= DANGER){
-            if (valeurMoteur[2]!=127){
-                dacWrite(moteurDroit, 127);
-                valeurMoteur[2]=127;
+            if (valeurMoteur[2]!=63){
+                ledcWrite(moteurDroit, 63); 
+                valeurMoteur[2]=63;
             }
         } else {
-            dacWrite(moteurDroit, 0);
+            ledcWrite(moteurDroit, 0); 
             valeurMoteur[2]=0;
         }
     } 
@@ -130,19 +163,24 @@ void getNewSensorValues()
     /* moteur devant */
     for (int j = 3; j < 6; j++){
         valueDevant = sensorValues[0][j];
+
+        hauteur = (2 + 6 * 0 + j) * 16;
+        M5.Lcd.setCursor(128, hauteur);
+        M5.Lcd.print(valueDevant);
+
         if (valueDevant<DANGER){
-            if (valeurMoteur[1]!=255){
-                dacWrite(moteurDevant,255);
-                valeurMoteur[1]=255;
+            if (valeurMoteur[1]!=127){
+                ledcWrite(moteurDevant, 127); 
+                valeurMoteur[1]=127;
             }
         } else{
             if (valueDevant < WARNING && valueDevant >= DANGER){
-                if (valeurMoteur[1]!=127){
-                    dacWrite(moteurDevant, 127);
-                    valeurMoteur[1]=127;
+                if (valeurMoteur[1]!=63){
+                    ledcWrite(moteurDevant, 63); 
+                    valeurMoteur[1]=63;
                 }
             } else {
-                dacWrite(moteurDevant, 0);
+                ledcWrite(moteurDevant, 0); 
                 valeurMoteur[1]=0;
             }
         } 
@@ -150,19 +188,24 @@ void getNewSensorValues()
 
     for (int j = 0; j < 3; j++){
         valueDevant = sensorValues[1][j];
+
+        hauteur = (2 + 6 * 1 + j) * 16;
+        M5.Lcd.setCursor(128, hauteur);
+        M5.Lcd.print(valueDevant);
+
         if (valueDevant<DANGER){
-            if (valeurMoteur[1]!=255){
-                dacWrite(moteurDevant,255);
-                valeurMoteur[1]=255;
+            if (valeurMoteur[1]!=127){                
+                ledcWrite(moteurDevant, 127); 
+                valeurMoteur[1]=127;
             }
         } else{
             if (valueDevant < WARNING && valueDevant >= DANGER){
-                if (valeurMoteur[1]!=127){
-                    dacWrite(moteurDevant, 127);
-                    valeurMoteur[1]=127;
+                if (valeurMoteur[1]!=63){
+                    ledcWrite(moteurDevant, 63); 
+                    valeurMoteur[1]=63;
                 }
             } else {
-                dacWrite(moteurDevant, 0);
+                ledcWrite(moteurDevant, 0); 
                 valeurMoteur[1]=0;
             }
         } 
@@ -171,29 +214,30 @@ void getNewSensorValues()
     /* moteur devant-droit */
     for (int j = 3; j < 5; j++){
         valueCoteDroit = sensorValues[1][j];
+
+        hauteur = (2 + 6 * 1 + j) * 16;
+        M5.Lcd.setCursor(128, hauteur);
+        M5.Lcd.print(valueCoteDroit);
+
         if (valueCoteDroit<DANGER){
-            if (valeurMoteur[1]!=255){
-                dacWrite(moteurDevant,255);
-                valeurMoteur[1]=255;
-                if (valeurMoteur[2]!=255){
-                    dacWrite(moteurDroit, 255);
-                    valeurMoteur[2]=255;
-                }
+            if (valeurMoteur[1]!=127 || valeurMoteur[2]!=127){
+                ledcWrite(moteurDevant, 127);
+                valeurMoteur[1]=127;
+                ledcWrite(moteurDroit, 127); 
+                valeurMoteur[2]=127;
             }
         } else{
             if (valueCoteDroit < WARNING && valueCoteDroit >= DANGER){
-                if (valeurMoteur[1]!=127){
-                    dacWrite(moteurDevant, 127);
-                    valeurMoteur[1]=127;
-                    if (valeurMoteur[2]!=127){
-                        dacWrite(moteurDroit, 127);
-                        valeurMoteur[2]=127;
-                    }
+                if (valeurMoteur[1]!=63 || valeurMoteur[2]!=63){
+                    ledcWrite(moteurDevant, 63);
+                    valeurMoteur[1]=63;
+                    ledcWrite(moteurDroit, 63);
+                    valeurMoteur[2]=63;
                 }
             } else {
-                dacWrite(moteurDevant, 0);
+                ledcWrite(moteurDevant, 0);
                 valeurMoteur[1]=0;
-                dacWrite(moteurDroit, 0);
+                ledcWrite(moteurDroit, 0);
                 valeurMoteur[2]=0;
             }
         } 
@@ -202,34 +246,35 @@ void getNewSensorValues()
      /* moteur devant-gauche */
     for (int j = 1; j < 3; j++){
         valueCoteGauche = sensorValues[0][j];
+
+        hauteur = (2 + 6 * 0 + j) * 16;
+        M5.Lcd.setCursor(128, hauteur);
+        M5.Lcd.print(valueCoteGauche);
+
         if (valueCoteGauche<DANGER){
-            if (valeurMoteur[1]!=255){
-                dacWrite(moteurDevant,255);
-                valeurMoteur[1]=255;
-                if (valeurMoteur[0]!=255){
-                    dacWrite(moteurGauche, 255);
-                    valeurMoteur[0]=255;
-                }
+            if (valeurMoteur[1]!=127 || valeurMoteur[0]!=127){
+                ledcWrite(moteurDevant, 127);
+                valeurMoteur[1]=127;
+                ledcWrite(moteurGauche, 127); 
+                valeurMoteur[0]=127;
             }
         } else{
             if (valueCoteGauche < WARNING && valueCoteGauche >= DANGER){
-                if (valeurMoteur[1]!=127){
-                    dacWrite(moteurDevant, 127);
-                    valeurMoteur[1]=127;
-                    if (valeurMoteur[0]!=127){
-                        dacWrite(moteurGauche, 127);
-                        valeurMoteur[0]=127;
-                    }
+                if (valeurMoteur[1]!=63 || valeurMoteur[0]!=63){
+                    ledcWrite(moteurDevant, 63);
+                    valeurMoteur[1]=63;
+                    ledcWrite(moteurGauche, 63);
+                    valeurMoteur[0]=63;
                 }
             } else {
-                dacWrite(moteurDevant, 0);
+                ledcWrite(moteurDevant, 0);
                 valeurMoteur[1]=0;
-                dacWrite(moteurGauche, 0);
+                ledcWrite(moteurGauche, 0);
                 valeurMoteur[0]=0;
             }
         } 
     }
     
-
+    
 
 }
