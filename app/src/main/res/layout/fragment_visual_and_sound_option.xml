@@ -153,38 +153,41 @@
         android:id="@+id/proche"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:text="@string/close"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/def_pal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/colorPalet"
-        app:layout_constraintVertical_bias="0.478" />
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/colorPalet" />
 
     <TextView
         android:id="@+id/loin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
         android:layout_marginBottom="8dp"
         android:text="@string/far"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/def_pal"
         app:layout_constraintEnd_toStartOf="@+id/fleche"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/colorPalet" />
 
     <ImageView
         android:id="@+id/fleche"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
         android:layout_marginBottom="5dp"
         android:rotationY="180"
         android:src="?attr/actionModeCloseDrawable"
         app:layout_constraintBottom_toTopOf="@+id/def_pal"
         app:layout_constraintEnd_toStartOf="@+id/proche"
+        app:layout_constraintHorizontal_bias="0.964"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/colorPalet"
+        app:layout_constraintVertical_bias="0.52"
         app:tint="#000000" />
 
 
