@@ -20,6 +20,10 @@ import com.example.testtt.databinding.FragmentSoundBinding
 class SoundFragment : Fragment() {
 
     private lateinit var binding: FragmentSoundBinding
+    
+    //Media player pour faire les sons
+    private lateinit var warning: MediaPlayer
+    private lateinit var danger: MediaPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,10 +35,6 @@ class SoundFragment : Fragment() {
     }
 
 
-
-    //Media player pour faire les sons
-    private lateinit var warning: MediaPlayer
-    private lateinit var danger: MediaPlayer
 
     val delay = 2000L // 2 secondes
     val handler = Handler(Looper.getMainLooper())
@@ -53,31 +53,8 @@ class SoundFragment : Fragment() {
         override fun run() {
             danger.seekTo(0)
             danger.start()
-            handler.postDelayed(this, 0)
+            handler.postDelayed(this, delay)
         }
-    }
-
-
-    //fct pour changer de son en fct de la valeur
-    //ça marche pas pour le moment
-    fun retourSon(valeur: Int){
-        if(valeur< DANGER_ZONE){
-            handler.removeCallbacks(warningRunnable)
-            handler.postDelayed(dangerRunnable,delay)}
-        if(valeur in DANGER_ZONE..WARNING_ZONE){
-            handler.removeCallbacks(dangerRunnable)
-            handler.postDelayed(warningRunnable,delay) }
-        if(valeur > WARNING_ZONE){
-            handler.removeCallbacks(warningRunnable)
-            handler.removeCallbacks(dangerRunnable)
-        }
-    }
-
-    //truc obligatoire pour pas surcharger
-    override fun onDestroy() {
-        warning.release()
-        danger.release()
-        super.onDestroy()
     }
 
 
@@ -92,32 +69,66 @@ class SoundFragment : Fragment() {
 
         //création des mediaplayer
         warning = MediaPlayer.create(requireContext(), R.raw.warning)
-        warning.isLooping=true
+        warning.isLooping=false
         danger = MediaPlayer.create(requireContext(), R.raw.danger)
-        danger.isLooping=true
+        danger.isLooping=false
 
 
         //runnable quand le valeur du capteur changer
-        val runnable = object : Runnable{
-            val capteur = arrayOf(1,2,6,4,68,62,62,62,50,50,50,50,12,12,12,12)
+        val runnableSon = object : Runnable{
+            val capteur = arrayOf(intArrayOf(90,90,90,90,90,45,34,24,11,4,38,49,68,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(91,90,59,45,36,29,12,35,40,69,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(92,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(93,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(94,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,45,36,20,10,17,34,69),intArrayOf(95,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,35,34,27,12,19,49,68,90,90),intArrayOf(96,90,90,90,90,90,90,90,90,90,90,90,90,90,50,34,29,12,12,36,90,90,90,90,90,),intArrayOf(97,90,90,90,90,90,90,90,46,12,25,34,56,94,90,90,90,90,90,90,90,90,90,90,90))
             var i =0
             override fun run() {
-                retourSon(capteur[i])
-                i++
-                if(i == capteur.size) {
+               var i=0
+            var j=0
+            var k=0
+            var l=0
+            var m=0
+            var n=0
+            var p=0
+            var q=0
+            override fun run() {
+                retourSon(capteur[0][i],capteur[1][j],capteur[2][k],capteur[3][l],capteur[4][m],capteur[5][n],capteur[6][p],capteur[7][q])
+                i++;j++;k++;l++;m++;n++;p++;q++
+                if (i == capteur[0].size) {
                     i = 0
                 }
+                if (j == capteur[1].size) {
+                    j = 0
+                }
+                if (k == capteur[2].size) {
+                    k = 0
+                }
+                if (l == capteur[3].size) {
+                    l = 0
+                }
+                if (m == capteur[4].size) {
+                    m = 0
+                }
+                if (n == capteur[5].size) {
+                    n= 0
+                }
+                if (p == capteur[6].size) {
+                    p= 0
+                }
+                if (q == capteur[7].size) {
+                    q = 0
+                }
                 handler.postDelayed(this, delay)
-                Log.d("hello","tour : " + i + "\nvaleur : " + capteur[i])
             }
         }
 
-       // handler.postDelayed(runnable,delay)
+        handler.postDelayed(runnableSon,delay)
 
         // Définir le listener pour les éléments de la Bottom Navigation View
         binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.perso -> {
+                    handler.removeCallbacks(dangerRunnable)
+                    handler.removeCallbacks(warningRunnable)
+                    handler.removeCallbacks(runnableSon)
+                    danger.isLooping = false
+                    warning.isLooping =false
                     findNavController().navigate(R.id.persoFragment)
                     true
                 }
@@ -129,10 +140,20 @@ class SoundFragment : Fragment() {
                     true
                 }
                 R.id.eyes -> {
+                    handler.removeCallbacks(dangerRunnable)
+                    handler.removeCallbacks(warningRunnable)
+                    handler.removeCallbacks(runnableSon)
+                    danger.isLooping = false
+                    warning.isLooping =false
                     findNavController().navigate(R.id.visualFragment)
                     true
                 }
                 R.id.urgences -> {
+                    handler.removeCallbacks(dangerRunnable)
+                    handler.removeCallbacks(warningRunnable)
+                    handler.removeCallbacks(runnableSon)
+                    danger.isLooping = false
+                    warning.isLooping =false
                     findNavController().navigate(R.id.urgencesFragment)
                     true
                 }
@@ -152,6 +173,11 @@ class SoundFragment : Fragment() {
             dialogBuilder.setPositiveButton("OK") { _, _ ->
                 // Naviguer vers le fragment approprié en fonction de l'état du bouton on/off
                 if (toggleSwitch.isChecked) {
+                    handler.removeCallbacks(dangerRunnable)
+                    handler.removeCallbacks(warningRunnable)
+                    handler.removeCallbacks(runnableSon)
+                    danger.isLooping = false
+                    warning.isLooping =false
                     findNavController().navigate(R.id.soundAndVisualFragment)
                 } else {
                     findNavController().navigate(R.id.soundFragment)
@@ -163,5 +189,12 @@ class SoundFragment : Fragment() {
             dialog.show()
 
         }
+    }
+    
+       //truc obligatoire pour pas surcharger
+    override fun onDestroy() {
+        warning.release()
+        danger.release()
+        super.onDestroy()
     }
 }
