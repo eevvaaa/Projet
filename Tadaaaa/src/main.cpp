@@ -69,8 +69,7 @@ void setup()
     initLED();
     affichageDistances(true);
 
-    // RETOUR SONORE
-    initSonore();
+    // RETOUR SONORE n'a pas besoin d'initialisation
 
     // RETOUR HAPTIQUE 
     initHaptique();

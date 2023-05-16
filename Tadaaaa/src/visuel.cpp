@@ -146,8 +146,10 @@ void changerPalette()
     affichageLegende();
 
     for (int i = 0; i < NBBOARD; i++)
-    {
-        affichageBloc(i);
+    {   
+        if(modeVisuelEcran){
+            affichageBloc(i);
+        }
         affichageLEDs(i);
     }
 }

@@ -68,21 +68,28 @@ void affichageBoutons()
 
 // Affiche les distances en cours d'utilisation
 void affichageDistances(bool init){
+
+    // Nouvelle taille de police
+    M5.Lcd.setTextSize(1);
+
+    // Si c'est l'init, on affiche "Distances :" en plus
     if(init){
         M5.Lcd.drawString("Distances :", 240, 70);
     }
     // Distances longues par défaut
     if(!modeDistance){
-        M5.Lcd.drawString("LONGUES", 240, 70);
+        M5.Lcd.drawString("LONGUES", 240, 85);
     }else{
         // Sinon distances courtes
-        M5.Lcd.drawString("COURTES", 240, 70);
+        M5.Lcd.drawString("COURTES", 240, 85);
     }
 
     //Affichage des distances au niveau de la légende
     M5.Lcd.drawNumber(limites[modeDistance][1], 300, 10);
-    M5.Lcd.drawNumber(limites[modeDistance][0], 300, 40);
+    M5.Lcd.drawNumber(limites[modeDistance][0], 300, 25);
 
+    // Retour à la taille de base
+    M5.Lcd.setTextSize(2);
 }
 
 void buttonCheck()
@@ -140,6 +147,8 @@ void buttonCheck()
         }else{
             modeVisuelEcran = !modeVisuelEcran;
             changerAffichageModeVisuel();
+            // Le temps de changer de mode 
+            delay(200);
         }
     }
 }

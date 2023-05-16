@@ -37,23 +37,18 @@ bool modeSonore = 0;
 
 // FONCTIONS ---------------------------------------------------------------------
 
-
-// Cette fonction permet l'initialisation du mode Sonore
-void initSonore()
-{
-    // Mettre à jour le volume pour les sons
-    a2dp_source.set_volume(50);
-
-    // Envoi d'un son "Connected to M5Stack" pour confirmer la connexion Bluetooth
-    a2dp_source.write_data(connection);
-}
-
 // Lance connexion si activation
 void activerSonore(){
     M5.Lcd.setCursor(0, 0);
 
     // Connexion au casque grâce à son nom
     a2dp_source.start("OpenMove by Shokz");
+
+    // Mettre à jour le volume pour les sons
+    a2dp_source.set_volume(50);
+
+    // Envoi d'un son "Connected to M5Stack" pour confirmer la connexion Bluetooth
+    //a2dp_source.write_data(connection);
 }
 
 // Méthode qui permet d'envoyer le son de danger
