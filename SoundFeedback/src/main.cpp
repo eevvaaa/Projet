@@ -16,12 +16,14 @@ void setup()
 
   M5.Lcd.setTextSize(2.5);
 
+  initSonore();
+
 }
 
 void loop(){
   M5.update();
 
   if(processSensors()){
-    getNewSensorValues();
+    NewSoundValues();
   }
 }

@@ -4,5 +4,6 @@
 void initSonore();
 void sendDanger();
 void sendWarning();
+void NewSoundValues();
 
 #endif
