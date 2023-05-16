@@ -68,223 +68,69 @@ void initHaptique()
  */
 void activationMoteurAvecCapteurs()
 {
-
-    int valueGauche, valueDroite, valueDevant, valueCoteGauche, valueCoteDroit, hauteur, value;
-    int *valeurMoteur = new int[4]{0};
+    int hauteur, value;
+    int* valeurMoteur = new int[4]{0};
 
     /* moteur gauche */
-    valueGauche = sensorValues[0][0];
+    value = sensorValues[0][0];
+        
+    M5.Lcd.setCursor(80, 0*30);
+    M5.Lcd.print(value);       
 
-    M5.Lcd.setCursor(128, 2 * 16);
-    M5.Lcd.print(valueGauche);
-
-    if (valueGauche < limites[modeDistance][DANGER])
-    {
-        if (valeurMoteur[0] != 170)
-        {
-            ledcWrite(pwmChannelGauche, 170); // 1.65 V
-            valeurMoteur[0] = 170;
-        }
-    }
-    else
-    {
-        if (valueGauche < limites[modeDistance][ALERTE] && valueGauche >= limites[modeDistance][DANGER])
-        {
-            if (valeurMoteur[0] != 63)
-            {
-                ledcWrite(pwmChannelGauche, 63);
-                valeurMoteur[0] = 63;
-            }
-        }
-        else
-        {
-            ledcWrite(pwmChannelGauche, 0);
-            valeurMoteur[0] = 0;
-        }
-    }
+    testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);
 
     /* moteur droit */
-    valueDroite = sensorValues[1][5];
+    value = sensorValues[1][5];
 
-    hauteur = (2 + 6 * 1 + 5) * 16;
-    M5.Lcd.setCursor(128, hauteur);
-    M5.Lcd.print(valueDroite);
+    M5.Lcd.setCursor(130, 5*30);
+    M5.Lcd.print(value);       
 
-    if (valueDroite < limites[modeDistance][DANGER])
-    {
-        if (valeurMoteur[2] != 170)
-        {
-            ledcWrite(pwmChannelDroit, 170);
-            valeurMoteur[2] = 170;
-        }
-    }
-    else
-    {
-        if (valueDroite < limites[modeDistance][ALERTE] && valueDroite >= limites[modeDistance][DANGER])
-        {
-            if (valeurMoteur[2] != 63)
-            {
-                ledcWrite(pwmChannelDroit, 63);
-                valeurMoteur[2] = 63;
-            }
-        }
-        else
-        {
-            ledcWrite(pwmChannelDroit, 0);
-            valeurMoteur[2] = 0;
-        }
-    }
+    testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
 
     /* moteur devant */
-    for (int j = 3; j < 6; j++)
-    {
-        valueDevant = sensorValues[0][j];
+    for (int j = 3; j < 6; j++){
+        value = sensorValues[0][j];
+    
+        M5.Lcd.setCursor(80, j*30);
+        M5.Lcd.print(value);       
 
-        hauteur = (2 + 6 * 0 + j) * 16;
-        M5.Lcd.setCursor(128, hauteur);
-        M5.Lcd.print(valueDevant);
-
-        if (valueDevant < limites[modeDistance][DANGER])
-        {
-            if (valeurMoteur[1] != 170)
-            {
-                ledcWrite(pwmChannelDevant, 170);
-                valeurMoteur[1] = 170;
-            }
-        }
-        else
-        {
-            if (valueDevant < limites[modeDistance][ALERTE] && valueDevant >= limites[modeDistance][DANGER])
-            {
-                if (valeurMoteur[1] != 63)
-                {
-                    ledcWrite(pwmChannelDevant, 63);
-                    valeurMoteur[1] = 63;
-                }
-            }
-            else
-            {
-                ledcWrite(pwmChannelDevant, 0);
-                valeurMoteur[1] = 0;
-            }
-        }
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
     }
 
-    for (int j = 0; j < 3; j++)
-    {
-        valueDevant = sensorValues[1][j];
+    for (int j = 0; j < 3; j++){
+        value = sensorValues[1][j];
 
-        hauteur = (2 + 6 * 1 + j) * 16;
-        M5.Lcd.setCursor(128, hauteur);
-        M5.Lcd.print(valueDevant);
+        M5.Lcd.setCursor(130, j*30);
+        M5.Lcd.print(value);
 
-        if (valueDevant < limites[modeDistance][DANGER])
-        {
-            if (valeurMoteur[1] != 170)
-            {
-                ledcWrite(pwmChannelDevant, 170);
-                valeurMoteur[1] = 170;
-            }
-        }
-        else
-        {
-            if (valueDevant < limites[modeDistance][ALERTE] && valueDevant >= limites[modeDistance][DANGER])
-            {
-                if (valeurMoteur[1] != 63)
-                {
-                    ledcWrite(pwmChannelDevant, 63);
-                    valeurMoteur[1] = 63;
-                }
-            }
-            else
-            {
-                ledcWrite(pwmChannelDevant, 0);
-                valeurMoteur[1] = 0;
-            }
-        }
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
     }
 
     /* moteur devant-droit */
-    for (int j = 3; j < 5; j++)
-    {
-        valueCoteDroit = sensorValues[1][j];
+    for (int j = 3; j < 5; j++){
+        value = sensorValues[1][j];
 
-        hauteur = (2 + 6 * 1 + j) * 16;
-        M5.Lcd.setCursor(128, hauteur);
-        M5.Lcd.print(valueCoteDroit);
+        M5.Lcd.setCursor(130, j*30);
+        M5.Lcd.print(value);
 
-        if (valueCoteDroit < limites[modeDistance][DANGER])
-        {
-            if (valeurMoteur[1] != 170 || valeurMoteur[2] != 170)
-            {
-                ledcWrite(pwmChannelDevant, 170);
-                valeurMoteur[1] = 170;
-                ledcWrite(pwmChannelDroit, 170);
-                valeurMoteur[2] = 170;
-            }
-        }
-        else
-        {
-            if (valueCoteDroit < limites[modeDistance][ALERTE] && valueCoteDroit >= limites[modeDistance][DANGER])
-            {
-                if (valeurMoteur[1] != 63 || valeurMoteur[2] != 63)
-                {
-                    ledcWrite(pwmChannelDevant, 63);
-                    valeurMoteur[1] = 63;
-                    ledcWrite(pwmChannelDroit, 63);
-                    valeurMoteur[2] = 63;
-                }
-            }
-            else
-            {
-                ledcWrite(pwmChannelDevant, 0);
-                valeurMoteur[1] = 0;
-                ledcWrite(pwmChannelDroit, 0);
-                valeurMoteur[2] = 0;
-            }
-        }
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+        testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
+
     }
 
-    /* moteur devant-gauche */
-    for (int j = 1; j < 3; j++)
-    {
-        valueCoteGauche = sensorValues[0][j];
+     /* moteur devant-gauche */
+    for (int j = 1; j < 3; j++){
+        value = sensorValues[0][j];
 
-        hauteur = (2 + 6 * 0 + j) * 16;
-        M5.Lcd.setCursor(128, hauteur);
-        M5.Lcd.print(valueCoteGauche);
+        
+        M5.Lcd.setCursor(80, j*30);
+        M5.Lcd.print(value);       
 
-        if (valueCoteGauche < limites[modeDistance][DANGER])
-        {
-            if (valeurMoteur[1] != 170 || valeurMoteur[0] != 170)
-            {
-                ledcWrite(pwmChannelDevant, 170);
-                valeurMoteur[1] = 170;
-                ledcWrite(pwmChannelGauche, 170);
-                valeurMoteur[0] = 170;
-            }
-        }
-        else
-        {
-            if (valueCoteGauche < limites[modeDistance][ALERTE] && valueCoteGauche >= limites[modeDistance][DANGER])
-            {
-                if (valeurMoteur[1] != 63 || valeurMoteur[0] != 63)
-                {
-                    ledcWrite(pwmChannelDevant, 63);
-                    valeurMoteur[1] = 63;
-                    ledcWrite(pwmChannelGauche, 63);
-                    valeurMoteur[0] = 63;
-                }
-            }
-            else
-            {
-                ledcWrite(pwmChannelDevant, 0);
-                valeurMoteur[1] = 0;
-                ledcWrite(pwmChannelGauche, 0);
-                valeurMoteur[0] = 0;
-            }
-        }
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+        testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);    
     }
+    
+    
 }
 
 /**
@@ -330,30 +176,16 @@ void testDistanceVibration(int pwmChannel, int numMoteur, int value, int *valeur
  * i correspond au numéro du bloc, j correspond aux numéros des 6 capteurs sur le bloc testé
  * en fonction de i, ajuster le moteur correspondant, soit les deux premiers paramètres de testDistanceVibration
  */
-void testBoard()
+void testBoard(int boardATester)
 {
-    int hauteur, value;
-    int i = 6;
-
-    for (int j = 0; j < 6; j++)
-    {
-        value = sensorValues[i][j];
-
-        hauteur = (2 + 6 * i + j) * 16;
-        M5.Lcd.setCursor(128, hauteur);
+    int value;
+    for(int j=0; j<6; j++){
+        M5.Lcd.setCursor(20,j*30);
+        M5.Lcd.printf("[%d][%d] : ", boardATester, j);
+        value = sensorValues[boardATester][j];
         M5.Lcd.print(value);
-
-        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
     }
-
-    // BOARD 0 seul le capteur 0 en parteant de la gauche marche
-    // BOARD 1 seul le plus à gauche (gauche-arrière) marche le reste vibre très très faiblement
-    // BOARD 2 il est au max tout le temps
-    // BOARD 3 au max tout le temps
-    // BOARD 4 seul le plus vers le derrière capte (0 ?)
-    // BOARD 5 au max tout le temps
-    // BOARD 6 seul le 0 marche ( le plus à gauche sur la board de droite)
-    // BOARD 7 gauche : seul le plus à droite marche (le 0 ?)
+    
 }
 
 /**
@@ -363,44 +195,16 @@ void testBoard()
  * i correspond au numéro du bloc, j correspond au numéro du capteur testé sur le bloc
  * en fonction de i, ajuster le moteur correspondant, soit les deux premiers paramètres de testDistanceVibration
  */
-void testCapteurHaptique()
+void testCapteurIndiv(int board, int capteur)
 {
-    int hauteur, value;
-    int i = 6;
-    int j = 0;
-
-    value = sensorValues[i][j];
-
-    hauteur = (2 + 6 * i + j) * 16;
-    M5.Lcd.setCursor(128, hauteur);
+    int value;
+    M5.Lcd.setCursor(20,80);
+    M5.Lcd.printf("[%d][%d] : ", board, capteur);
+    value = sensorValues[board][capteur];
     M5.Lcd.print(value);
 
-    testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
-
-    //[7][0] ok à activer pour devant et gauche
-    //[7][1-5] OSError: [Errno 71] Protocol error
 }
 
-/**
- * Permet de noter les numéros des capteurs qui fonctionnent
- */
-void testAutomatiqueHaptique()
-{
-    M5.Lcd.clear();
-
-    for (int i = 0; i < NBBOARD; i++)
-    {
-        for (int j = 0; j < 6; j++)
-        {
-            M5.Lcd.print(i + " : ");
-            if (sensorValues[i][j] != 0)
-            {
-                M5.Lcd.print(j + " ");
-            }
-            M5.Lcd.printf(" ");
-        }
-    }
-}
 
 /**
  * Cette fonction permet de tester le retour haptique sur le fauteuil complet, en prenant en compte 8 blocs de 6 capteurs
@@ -508,30 +312,57 @@ void activationMoteursCapteursOKFauteuil()
     int value;
 
     /* Activation du moteur derrière */
-    /* arrière board 0 --> seul le capteur 5 marche */
-    value = sensorValues[0][5];
-    testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
+    /* arrière board 0*/
+    for (int j = 0; j < 6; j++){
+        value = sensorValues[0][j];
+        testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
+        if (j<3){
+            testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
+        }
+    }
     /* arrière board 1 --> seul le capteur 5 marche*/
-    value = sensorValues[1][0];
-    testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
+    for (int j = 0; j < 6; j++){
+        value = sensorValues[1][j];
+        testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
+        if (j>=3){
+            testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);
+        }
+    }
 
     /* Activation du moteur devant */
     /* devant board 7 --> seul le capteur 5 marche*/
-    value = sensorValues[7][5];
-    testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+    for (int j = 0; j < 6; j++){
+        value = sensorValues[7][j];
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+        if (j<3){
+            testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);
+        }
+    }
     /* devant board 6 --> seul le capteur 0 marche */
-    value = sensorValues[6][0];
-    testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+    for (int j = 0; j < 6; j++){
+        value = sensorValues[6][j];
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+        if (j>=3){
+            testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
+        }
+    }
 
     /* Activation du moteur droit */
-    /* droit board 4 --> seul le capteur 5 marche */
-    value = sensorValues[4][5];
-    testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
+    /* droit board 4 */
+    for (int j = 0; j < 6; j++){
+        value = sensorValues[4][j];
+        testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
+        if (j<3){
+            testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+        }
+    }  
+
     /* droit board 2 --> rien ne marche*/
 
     /* Activation du moteur gauche */
-    /* gauche board 3 --> toujours au max*/
-    /* gauche board 5 --> toujours au max*/
+    /* gauche board 3 --> toujours au max donc on n'active pas*/
+    /* gauche board 5 --> toujours au max donc on n'active pas*/
+
 }
 
 // Permet d'activer ou désactiver le mode haptique

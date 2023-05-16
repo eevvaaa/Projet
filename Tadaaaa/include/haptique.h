@@ -2,9 +2,8 @@
 #define HAPTIQUE_H
 
 //fonctions de test 
-void testBoard();
-void testCapteurHaptique();
-void testAutomatiqueHaptique();
+void testBoard(int boardATester);
+void testCapteurIndiv(int board, int capteur);
 
 // Initialisation
 void initHaptique(); 

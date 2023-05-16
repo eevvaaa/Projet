@@ -84,8 +84,11 @@ void loop() {
   M5.update();
 
   if(processSensors()){ //je récupère les données des capteurs
-    activationMoteurAvecCapteurs();
+    //activationMoteurAvecCapteurs();
     //activationMoteurFauteuilComplet();
+    activationMoteursCapteursOKFauteuil();
+
+    
   }
 
 }

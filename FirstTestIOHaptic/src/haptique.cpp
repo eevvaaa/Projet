@@ -16,178 +16,6 @@ extern int sensorValues[NBBOARD][6];
 */
 int* valeurMoteur = new int[4]{0};
 
-/** 
- * Cette fonction permet de faire fonctionner (position+proximité) 3 moteurs (gauche-devant-droite) en fonction de 2 boards
-*/
-void activationMoteurAvecCapteurs(){
-    
-    int valueGauche, valueDroite, valueDevant, valueCoteGauche, valueCoteDroit, hauteur, value;
-    int* valeurMoteur = new int[4]{0};
-
-    /* moteur gauche */
-    valueGauche = sensorValues[0][0];
-        
-    M5.Lcd.setCursor(128, 2*16);
-    M5.Lcd.print(valueGauche);       
-
-    if (valueGauche<DANGER){
-        if (valeurMoteur[0]!=170){
-            ledcWrite(pwmChannelGauche, 170); //1.65 V
-            valeurMoteur[0]=170;
-        }
-    } else{
-        if (valueGauche < WARNING && valueGauche >= DANGER){
-            if (valeurMoteur[0]!=63){
-                ledcWrite(pwmChannelGauche, 63); 
-                valeurMoteur[0]=63;
-            }
-        } else {
-            ledcWrite(pwmChannelGauche, 0); 
-            valeurMoteur[0]=0;
-        }
-    }
-
-    /* moteur droit */
-    valueDroite = sensorValues[1][5];
-
-    hauteur = (2 + 6 * 1 + 5) * 16;
-    M5.Lcd.setCursor(128, hauteur);
-    M5.Lcd.print(valueDroite);
-
-    if (valueDroite<DANGER){
-        if (valeurMoteur[2]!=170){
-            ledcWrite(pwmChannelDroit, 170); 
-            valeurMoteur[2]=170;
-        }
-    } else{
-        if (valueDroite < WARNING && valueDroite >= DANGER){
-            if (valeurMoteur[2]!=63){
-                ledcWrite(pwmChannelDroit, 63); 
-                valeurMoteur[2]=63;
-            }
-        } else {
-            ledcWrite(pwmChannelDroit, 0); 
-            valeurMoteur[2]=0;
-        }
-    } 
-
-    /* moteur devant */
-    for (int j = 3; j < 6; j++){
-        valueDevant = sensorValues[0][j];
-
-        hauteur = (2 + 6 * 0 + j) * 16;
-        M5.Lcd.setCursor(128, hauteur);
-        M5.Lcd.print(valueDevant);
-
-        if (valueDevant<DANGER){
-            if (valeurMoteur[1]!=170){
-                ledcWrite(pwmChannelDevant, 170); 
-                valeurMoteur[1]=170;
-            }
-        } else{
-            if (valueDevant < WARNING && valueDevant >= DANGER){
-                if (valeurMoteur[1]!=63){
-                    ledcWrite(pwmChannelDevant, 63); 
-                    valeurMoteur[1]=63;
-                }
-            } else {
-                ledcWrite(pwmChannelDevant, 0); 
-                valeurMoteur[1]=0;
-            }
-        } 
-    }
-
-    for (int j = 0; j < 3; j++){
-        valueDevant = sensorValues[1][j];
-
-        hauteur = (2 + 6 * 1 + j) * 16;
-        M5.Lcd.setCursor(128, hauteur);
-        M5.Lcd.print(valueDevant);
-
-        if (valueDevant<DANGER){
-            if (valeurMoteur[1]!=170){                
-                ledcWrite(pwmChannelDevant, 170); 
-                valeurMoteur[1]=170;
-            }
-        } else{
-            if (valueDevant < WARNING && valueDevant >= DANGER){
-                if (valeurMoteur[1]!=63){
-                    ledcWrite(pwmChannelDevant, 63); 
-                    valeurMoteur[1]=63;
-                }
-            } else {
-                ledcWrite(pwmChannelDevant, 0); 
-                valeurMoteur[1]=0;
-            }
-        } 
-    }
-
-    /* moteur devant-droit */
-    for (int j = 3; j < 5; j++){
-        valueCoteDroit = sensorValues[1][j];
-
-        hauteur = (2 + 6 * 1 + j) * 16;
-        M5.Lcd.setCursor(128, hauteur);
-        M5.Lcd.print(valueCoteDroit);
-
-        if (valueCoteDroit<DANGER){
-            if (valeurMoteur[1]!=170 || valeurMoteur[2]!=170){
-                ledcWrite(pwmChannelDevant, 170);
-                valeurMoteur[1]=170;
-                ledcWrite(pwmChannelDroit, 170); 
-                valeurMoteur[2]=170;
-            }
-        } else{
-            if (valueCoteDroit < WARNING && valueCoteDroit >= DANGER){
-                if (valeurMoteur[1]!=63 || valeurMoteur[2]!=63){
-                    ledcWrite(pwmChannelDevant, 63);
-                    valeurMoteur[1]=63;
-                    ledcWrite(pwmChannelDroit, 63);
-                    valeurMoteur[2]=63;
-                }
-            } else {
-                ledcWrite(pwmChannelDevant, 0);
-                valeurMoteur[1]=0;
-                ledcWrite(pwmChannelDroit, 0);
-                valeurMoteur[2]=0;
-            }
-        } 
-    }
-
-     /* moteur devant-gauche */
-    for (int j = 1; j < 3; j++){
-        valueCoteGauche = sensorValues[0][j];
-
-        hauteur = (2 + 6 * 0 + j) * 16;
-        M5.Lcd.setCursor(128, hauteur);
-        M5.Lcd.print(valueCoteGauche);
-
-        if (valueCoteGauche<DANGER){
-            if (valeurMoteur[1]!=170 || valeurMoteur[0]!=170){
-                ledcWrite(pwmChannelDevant, 170);
-                valeurMoteur[1]=170;
-                ledcWrite(pwmChannelGauche, 170); 
-                valeurMoteur[0]=170;
-            }
-        } else{
-            if (valueCoteGauche < WARNING && valueCoteGauche >= DANGER){
-                if (valeurMoteur[1]!=63 || valeurMoteur[0]!=63){
-                    ledcWrite(pwmChannelDevant, 63);
-                    valeurMoteur[1]=63;
-                    ledcWrite(pwmChannelGauche, 63);
-                    valeurMoteur[0]=63;
-                }
-            } else {
-                ledcWrite(pwmChannelDevant, 0);
-                valeurMoteur[1]=0;
-                ledcWrite(pwmChannelGauche, 0);
-                valeurMoteur[0]=0;
-            }
-        } 
-    }
-    
-    
-}
 
 /**
  * Cette fonction est celle qui permet d'envoyer une vibration ou non en fonction de la proximité pour un capteur, un moteur et un channel donnés
@@ -214,6 +42,76 @@ void testDistanceVibration(int pwmChannel, int numMoteur, int value, int* valeur
                 valeurMoteur[numMoteur]=0;
             }
         } 
+}
+
+
+/** 
+ * Cette fonction permet de faire fonctionner (position+proximité) 3 moteurs (gauche-devant-droite) en fonction de 2 boards
+*/
+void activationMoteurAvecCapteurs(){
+    
+    int hauteur, value;
+    int* valeurMoteur = new int[4]{0};
+
+    /* moteur gauche */
+    value = sensorValues[0][0];
+        
+    M5.Lcd.setCursor(80, 0*30);
+    M5.Lcd.print(value);       
+
+    testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);
+
+    /* moteur droit */
+    value = sensorValues[1][5];
+
+    M5.Lcd.setCursor(130, 5*30);
+    M5.Lcd.print(value);       
+
+    testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
+
+    /* moteur devant */
+    for (int j = 3; j < 6; j++){
+        value = sensorValues[0][j];
+    
+        M5.Lcd.setCursor(80, j*30);
+        M5.Lcd.print(value);       
+
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+    }
+
+    for (int j = 0; j < 3; j++){
+        value = sensorValues[1][j];
+
+        M5.Lcd.setCursor(130, j*30);
+        M5.Lcd.print(value);
+
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+    }
+
+    /* moteur devant-droit */
+    for (int j = 3; j < 5; j++){
+        value = sensorValues[1][j];
+
+        M5.Lcd.setCursor(130, j*30);
+        M5.Lcd.print(value);
+
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+        testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
+
+    }
+
+     /* moteur devant-gauche */
+    for (int j = 1; j < 3; j++){
+        value = sensorValues[0][j];
+
+        
+        M5.Lcd.setCursor(80, j*30);
+        M5.Lcd.print(value);       
+
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+        testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);    }
+    
+    
 }
 
 /**
@@ -351,31 +249,31 @@ void activationMoteurFauteuilComplet(){
         }
     }    
     /* droit board 2*/
-    /*for (int j = 0; j < 6; j++){
+    for (int j = 0; j < 6; j++){
         value = sensorValues[2][j];
         testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
         if (j>=3){
             testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
         }
-    }*/
+    }
 
     /* Activation du moteur gauche */
     /* gauche board 3*/
-    /*for (int j = 0; j < 6; j++){
+    for (int j = 0; j < 6; j++){
         value = sensorValues[3][j];
         testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);
         if (j<3){
             testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
         }
-    }*/
+    }
     /* gauche board 5 */
-    /*for (int j = 0; j < 6; j++){
+    for (int j = 0; j < 6; j++){
         value = sensorValues[5][j];
         testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);
         if (j>=3){
             testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
         }
-    }*/
+    }
 }
 
 /**
@@ -395,25 +293,46 @@ void activationMoteursCapteursOKFauteuil(){
         }
     }
     /* arrière board 1 --> seul le capteur 5 marche*/
-    value = sensorValues[1][0];
-    testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
+    for (int j = 0; j < 6; j++){
+        value = sensorValues[1][j];
+        testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
+        if (j>=3){
+            testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);
+        }
+    }
 
     /* Activation du moteur devant */
     /* devant board 7 --> seul le capteur 5 marche*/
-    value = sensorValues[7][5];
-    testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+    for (int j = 0; j < 6; j++){
+        value = sensorValues[7][j];
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+        if (j<3){
+            testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);
+        }
+    }
     /* devant board 6 --> seul le capteur 0 marche */
-    value = sensorValues[6][0];
-    testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+    for (int j = 0; j < 6; j++){
+        value = sensorValues[6][j];
+        testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+        if (j>=3){
+            testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
+        }
+    }
 
     /* Activation du moteur droit */
-    /* droit board 4 --> seul le capteur 5 marche */
-    value = sensorValues[4][5];
-    testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
+    /* droit board 4 */
+    for (int j = 0; j < 6; j++){
+        value = sensorValues[4][j];
+        testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
+        if (j<3){
+            testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
+        }
+    }  
+
     /* droit board 2 --> rien ne marche*/
 
     /* Activation du moteur gauche */
-    /* gauche board 3 --> toujours au max*/
-    /* gauche board 5 --> toujours au max*/
+    /* gauche board 3 --> toujours au max donc on n'active pas*/
+    /* gauche board 5 --> toujours au max donc on n'active pas*/
 
 }
