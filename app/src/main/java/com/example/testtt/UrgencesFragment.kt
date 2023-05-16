@@ -1,5 +1,6 @@
 package com.example.testtt
 
+import PersoFragment
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -19,18 +20,16 @@ import com.example.testtt.databinding.FragmentUrgencesBinding
 import com.google.android.material.button.MaterialButton
 
 
-class UrgencesFragment : Fragment() {
+class UrgencesFragment () : Fragment() {
 
     private lateinit var binding: FragmentUrgencesBinding
-
     private var countDownTimer: CountDownTimer? = null
-
     private lateinit var countdownTextView: TextView
     private lateinit var letsGoButton: MaterialButton
     private lateinit var rootView: FrameLayout
+    private lateinit var phoneNumber : String
     private var countdownTimer: CountDownTimer? = null
-    private val phoneNumber = "0633534469" +
-            "" // numéro de téléphone à appeler
+    private lateinit var bdperso: BDInfoPerso
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +37,7 @@ class UrgencesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUrgencesBinding.inflate(inflater, container, false)
+        bdperso = BDInfoPerso(requireContext())
         return binding.root
     }
 
@@ -71,12 +71,26 @@ class UrgencesFragment : Fragment() {
             }
 
 
-            @SuppressLint("ResourceAsColor", "SetTextI18n")
+            @SuppressLint("ResourceAsColor", "SetTextI18n", "Range")
             override fun onFinish() {
                 binding.countdownTextview.text = getString(R.string.done)
                 binding.root.setBackgroundColor(R.color.teal_700)
                 binding.countdownTextview.isEnabled = true
                 val callIntent = Intent(Intent.ACTION_DIAL)
+
+                // Récupération du numero d'urgence de la BD
+                var bdRead = bdperso.readableDatabase
+                var cursor = bdRead.rawQuery("SELECT ug FROM MonTableau WHERE id = 1", null)
+                if (cursor.moveToFirst()) {
+                    val contenuEnregistre5 = cursor.getString(cursor.getColumnIndex("ug"))
+
+                    // Mettre à jour le contenu avec le nouveau texte
+                    phoneNumber = contenuEnregistre5
+
+                }
+                cursor.close()
+                bdRead.close()
+
                 callIntent.data = Uri.parse("tel:$phoneNumber")
                 startActivity(callIntent)
 
