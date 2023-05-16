@@ -59,7 +59,7 @@ class HomepageFragment : Fragment() {
                     index = 0
                 }
                 // post the runnable again after 2 seconds
-                handler.postDelayed(this, delay)
+                handler.post(this)
             }
         }
         // start the runnable
