@@ -10,6 +10,9 @@ void sendDanger();
 // Méthode qui permet d'envoyer le son d'alerte
 void sendWarning();
 
+//Cette fonction est celle qui permet d'envoyer un signal sonore ou non en fonction de la proximité entre un capteur et un bloc de capteurs
+void NewSoundValues1Board();
+
 //Cette fonction est celle qui permet d'envoyer un signal sonore ou non en fonction de la proximité entre un capteur et le fauteuil roulant électrique
 void NewSoundValues();
 
