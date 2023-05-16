@@ -18,7 +18,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.testtt.databinding.FragmentSoundAndVisualBinding
 
 class SoundAndVisualFragment : Fragment() {
+    
     private lateinit var binding: FragmentSoundAndVisualBinding
+    
+    //Media player pour faire les sons
+    private lateinit var warning: MediaPlayer
+    private lateinit var danger: MediaPlayer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentSoundAndVisualBinding.inflate(inflater, container, false)
@@ -54,7 +59,7 @@ class SoundAndVisualFragment : Fragment() {
            binding.capteur3.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
        if(valeur3 in DANGER_ZONE.. WARNING_ZONE){
            binding.capteur3.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
-       if(valeur3 > DANGER_ZONE){
+       if(valeur3 > WARNING_ZONE){
            binding.capteur3.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
        }
 
@@ -320,8 +325,27 @@ class SoundAndVisualFragment : Fragment() {
     }
 
 
+    // pour afficher la distance quand la valeur change
+        val delay = 2000L // 2 secondes
+        val handler = Handler(Looper.getMainLooper())
+        
+        //runnable pour boucler le son warning
+    var warningRunnable = object : Runnable{
+        override fun run() {
+            warning.seekTo(0)
+            warning.start()
+            handler.postDelayed(this, delay)
+        }
+    }
 
-
+    //runnable pour boucler le son danger
+    var dangerRunnable = object : Runnable{
+        override fun run() {
+            danger.seekTo(0)
+            danger.start()
+            handler.postDelayed(this, delay)
+        }
+    }
 
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -333,15 +357,10 @@ class SoundAndVisualFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-
-        // pour afficher la distance quand la valeur change
-        val delay = 2000L // 2 secondes
-        val handler = Handler(Looper.getMainLooper())
-
-
+    
         //par defaut
         val runnable = object : Runnable {
-            val capteur = arrayOf(intArrayOf(156,32,93,44,45,168),intArrayOf(1,145,93,14,45,68),intArrayOf(1,5,25,69,84,68),intArrayOf(195,322,93,84,445,68),intArrayOf(1,32,25,4,45,68),intArrayOf(24,32,93,68,74,68),intArrayOf(45,32,93,56,45,68),intArrayOf(1,32,93,4,45,68))
+            val capteur = arrayOf(intArrayOf(90,90,90,90,90,45,34,24,11,4,38,49,68,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(91,90,59,45,36,29,12,35,40,69,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(92,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(93,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(94,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,45,36,20,10,17,34,69),intArrayOf(95,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,35,34,27,12,19,49,68,90,90),intArrayOf(96,90,90,90,90,90,90,90,90,90,90,90,90,90,50,34,29,12,12,36,90,90,90,90,90,),intArrayOf(97,90,90,90,90,90,90,90,46,12,25,34,56,94,90,90,90,90,90,90,90,90,90,90,90))
             var i=0
             var j=0
             var k=0
@@ -388,7 +407,7 @@ class SoundAndVisualFragment : Fragment() {
 
         //quand boutton defaut
         val runnable1 = object : Runnable {
-            val capteur = arrayOf(intArrayOf(156,32,93,44,45,168),intArrayOf(1,145,93,14,45,68),intArrayOf(1,5,25,69,84,68),intArrayOf(195,322,93,84,445,68),intArrayOf(1,32,25,4,45,68),intArrayOf(24,32,93,68,74,68),intArrayOf(45,32,93,56,45,68),intArrayOf(1,32,93,4,45,68))
+            val capteur = arrayOf(intArrayOf(90,90,90,90,90,45,34,24,11,4,38,49,68,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(91,90,59,45,36,29,12,35,40,69,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(92,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(93,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(94,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,45,36,20,10,17,34,69),intArrayOf(95,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,35,34,27,12,19,49,68,90,90),intArrayOf(96,90,90,90,90,90,90,90,90,90,90,90,90,90,50,34,29,12,12,36,90,90,90,90,90,),intArrayOf(97,90,90,90,90,90,90,90,46,12,25,34,56,94,90,90,90,90,90,90,90,90,90,90,90))
             var i=0
             var j=0
             var k=0
@@ -431,7 +450,7 @@ class SoundAndVisualFragment : Fragment() {
 
         //quand boutton deut
         val runnable2 = object : Runnable {
-            val capteur = arrayOf(intArrayOf(156,32,93,44,45,168),intArrayOf(1,145,93,14,45,68),intArrayOf(1,5,25,69,84,68),intArrayOf(195,322,93,84,445,68),intArrayOf(1,32,25,4,45,68),intArrayOf(24,32,93,68,74,68),intArrayOf(45,32,93,56,45,68),intArrayOf(1,32,93,4,45,68))
+            val capteur = arrayOf(intArrayOf(90,90,90,90,90,45,34,24,11,4,38,49,68,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(91,90,59,45,36,29,12,35,40,69,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(92,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(93,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(94,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,45,36,20,10,17,34,69),intArrayOf(95,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,35,34,27,12,19,49,68,90,90),intArrayOf(96,90,90,90,90,90,90,90,90,90,90,90,90,90,50,34,29,12,12,36,90,90,90,90,90,),intArrayOf(97,90,90,90,90,90,90,90,46,12,25,34,56,94,90,90,90,90,90,90,90,90,90,90,90))
             var i=0
             var j=0
             var k=0
@@ -474,7 +493,7 @@ class SoundAndVisualFragment : Fragment() {
 
         //qaund boutton pro
         val runnable3 = object : Runnable {
-            val capteur = arrayOf(intArrayOf(156,32,93,44,45,168),intArrayOf(1,145,93,14,45,68),intArrayOf(1,5,25,69,84,68),intArrayOf(195,322,93,84,445,68),intArrayOf(1,32,25,4,45,68),intArrayOf(24,32,93,68,74,68),intArrayOf(45,32,93,56,45,68),intArrayOf(1,32,93,4,45,68))
+            val capteur = arrayOf(intArrayOf(90,90,90,90,90,45,34,24,11,4,38,49,68,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(91,90,59,45,36,29,12,35,40,69,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(92,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(93,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(94,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,45,36,20,10,17,34,69),intArrayOf(95,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,35,34,27,12,19,49,68,90,90),intArrayOf(96,90,90,90,90,90,90,90,90,90,90,90,90,90,50,34,29,12,12,36,90,90,90,90,90,),intArrayOf(97,90,90,90,90,90,90,90,46,12,25,34,56,94,90,90,90,90,90,90,90,90,90,90,90))
             var i=0
             var j=0
             var k=0
@@ -518,7 +537,7 @@ class SoundAndVisualFragment : Fragment() {
 
         //quand boutton tri
         val runnable4 = object : Runnable {
-            val capteur = arrayOf(intArrayOf(156,32,93,44,45,168),intArrayOf(1,145,93,14,45,68),intArrayOf(1,5,25,69,84,68),intArrayOf(195,322,93,84,445,68),intArrayOf(1,32,25,4,45,68),intArrayOf(24,32,93,68,74,68),intArrayOf(45,32,93,56,45,68),intArrayOf(1,32,93,4,45,68))
+            val capteur = arrayOf(intArrayOf(90,90,90,90,90,45,34,24,11,4,38,49,68,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(91,90,59,45,36,29,12,35,40,69,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(92,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(93,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(94,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,45,36,20,10,17,34,69),intArrayOf(95,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,35,34,27,12,19,49,68,90,90),intArrayOf(96,90,90,90,90,90,90,90,90,90,90,90,90,90,50,34,29,12,12,36,90,90,90,90,90,),intArrayOf(97,90,90,90,90,90,90,90,46,12,25,34,56,94,90,90,90,90,90,90,90,90,90,90,90))
             var i=0
             var j=0
             var k=0
@@ -558,6 +577,57 @@ class SoundAndVisualFragment : Fragment() {
                 handler.postDelayed(this, delay)
             }
         }
+        
+           //création des mediaplayer
+        warning = MediaPlayer.create(requireContext(), R.raw.warning)
+        warning.isLooping=false
+        danger = MediaPlayer.create(requireContext(), R.raw.danger)
+        danger.isLooping=false
+
+        //runnable pour le son quand le valeur du capteur changer
+        val runnableSon = object : Runnable{
+            val capteur = arrayOf(intArrayOf(90,90,90,90,90,45,34,24,11,4,38,49,68,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(91,90,59,45,36,29,12,35,40,69,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90), intArrayOf(92,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(93,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90),intArrayOf(94,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,45,36,20,10,17,34,69),intArrayOf(95,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,35,34,27,12,19,49,68,90,90),intArrayOf(96,90,90,90,90,90,90,90,90,90,90,90,90,90,50,34,29,12,12,36,90,90,90,90,90,),intArrayOf(97,90,90,90,90,90,90,90,46,12,25,34,56,94,90,90,90,90,90,90,90,90,90,90,90))
+            var i=0
+            var j=0
+            var k=0
+            var l=0
+            var m=0
+            var n=0
+            var p=0
+            var q=0
+            override fun run() {
+                retourSon(capteur[0][i],capteur[1][j],capteur[2][k],capteur[3][l],capteur[4][m],capteur[5][n],capteur[6][p],capteur[7][q])
+                i++;j++;k++;l++;m++;n++;p++;q++
+                if (i == capteur[0].size) {
+                    i = 0
+                }
+                if (j == capteur[1].size) {
+                    j = 0
+                }
+                if (k == capteur[2].size) {
+                    k = 0
+                }
+                if (l == capteur[3].size) {
+                    l = 0
+                }
+                if (m == capteur[4].size) {
+                    m = 0
+                }
+                if (n == capteur[5].size) {
+                    n= 0
+                }
+                if (p == capteur[6].size) {
+                    p= 0
+                }
+                if (q == capteur[7].size) {
+                    q = 0
+                }
+                handler.postDelayed(this, delay)
+                Log.d("hello","tour : " + k )
+            }
+        }
+
+        handler.postDelayed(runnableSon,delay)
 
 
         binding.setting.setOnClickListener {
@@ -574,28 +644,7 @@ class SoundAndVisualFragment : Fragment() {
             val RBtritanopia = switchView.findViewById<RadioButton>(R.id.radioButtonTri)
 
             // Ajouter un bouton OK pour fermer la fenêtre
-            dialogBuilder.setPositiveButton("OK") { _, _ ->
-                // Naviguer vers le fragment approprié en fonction de l'état des boutons
-
-                //switch option visuel/son
-
-                if (toggleSwitchVis.isChecked) {
-                    if(!toggleSwitchSo.isChecked){
-                        findNavController().navigate(R.id.visualFragment)
-                    }
-                } else {
-                    if(toggleSwitchSo.isChecked){
-                        findNavController().navigate(R.id.soundFragment)
-                    } else {
-                        findNavController().navigate(R.id.homepageFragment)
-                    }
-                }
-
-            }
-
-
-
-            dialogBuilder.setPositiveButton("OK") { _, _ ->
+           dialogBuilder.setPositiveButton("OK") { _, _ ->
 
                 //coche des palettes
 
@@ -672,12 +721,27 @@ class SoundAndVisualFragment : Fragment() {
 
                 if (toggleSwitchVis.isChecked) {
                     if(!toggleSwitchSo.isChecked){
+                        handler.removeCallbacks(dangerRunnable)
+                        handler.removeCallbacks(warningRunnable)
+                        handler.removeCallbacks(runnableSon)
+                        danger.isLooping = false
+                        warning.isLooping =false
                         findNavController().navigate(R.id.visualFragment)
                     }
                 } else {
                     if(toggleSwitchSo.isChecked){
+                        handler.removeCallbacks(dangerRunnable)
+                        handler.removeCallbacks(warningRunnable)
+                        handler.removeCallbacks(runnableSon)
+                        danger.isLooping = false
+                        warning.isLooping =false
                         findNavController().navigate(R.id.soundFragment)
                     } else {
+                        handler.removeCallbacks(dangerRunnable)
+                        handler.removeCallbacks(warningRunnable)
+                        handler.removeCallbacks(runnableSon)
+                        danger.isLooping = false
+                        warning.isLooping = false
                         findNavController().navigate(R.id.homepageFragment)
                     }
                 }
@@ -696,10 +760,20 @@ class SoundAndVisualFragment : Fragment() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.perso -> {
+                    handler.removeCallbacks(dangerRunnable)
+                    handler.removeCallbacks(warningRunnable)
+                    handler.removeCallbacks(runnableSon)
+                    danger.isLooping = false
+                    warning.isLooping =false
                     findNavController().navigate(R.id.persoFragment)
                     true
                 }
                 R.id.sound -> {
+                    handler.removeCallbacks(dangerRunnable)
+                    handler.removeCallbacks(warningRunnable)
+                    handler.removeCallbacks(runnableSon)
+                    danger.isLooping = false
+                    warning.isLooping =false
                     findNavController().navigate(R.id.soundFragment)
                     true
                 }
@@ -711,6 +785,11 @@ class SoundAndVisualFragment : Fragment() {
                     true
                 }
                 R.id.urgences -> {
+                    handler.removeCallbacks(dangerRunnable)
+                    handler.removeCallbacks(warningRunnable)
+                    handler.removeCallbacks(runnableSon)
+                    danger.isLooping = false
+                    warning.isLooping =false
                     findNavController().navigate(R.id.urgencesFragment)
                     true
                 }
