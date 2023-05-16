@@ -19,262 +19,123 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 
-@SuppressLint("SetTextI18n")
+
 class MainActivity : AppCompatActivity() {
 
-    val statusText : TextView = findViewById(R.id.StatusText)
-    val enableBluetooth : Button = findViewById(R.id.enableBluetooth)
-    val connectSystem : Button = findViewById(R.id.connect)
-    val lvDiscovered: ListView = findViewById(R.id.discoveredDevice)
-    val lvPaired : ListView = findViewById(R.id.pairedDevices)
-    val scanBluetooth : ToggleButton = findViewById(R.id.toggleScan)
-    var connectBluetooth: ConnectThread? = null
-    var bluetoothDevice: BluetoothDevice? = null
-
-    val bluetoothManager = this.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-    val bluetoothAdapter = bluetoothManager.adapter
-
-    val btArrayAdapter = ArrayAdapter<Any>(this, android.R.layout.simple_list_item_1)
-    val btPairedDevice = ArrayAdapter<Any>(this,android.R.layout.simple_list_item_1)
+    private val REQUEST_ENABLE_BT = 1 // Request code for enabling Bluetooth
+    private val DEVICE_ADDRESS = "78:21:84:A6:8E:42"//"08:B6:1F:C1:B1:02" // M5Stack's Bluetooth address
+    private val SERVICE_UUID =
+        UUID.fromString("00001101-0000-1000-8000-00805F9B34FB") // Replace with your desired UUID
 
 
+    private lateinit var bluetoothAdapter: BluetoothAdapter
+    private lateinit var m5StackDevice: BluetoothDevice
+    private var connectThread: ConnectThread? = null
+    private var connectedThread: ConnectedThread? = null
+
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Initialize Bluetooth adapter
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
-        lvPaired.adapter = btPairedDevice
-        lvDiscovered.adapter = btArrayAdapter
+        // Check if Bluetooth is enabled, and request to enable it if not
+        if (!bluetoothAdapter.isEnabled) {
+            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+            log("bluettoth enabled")
 
-        //fonction a faire
-        enableBluetooth.setOnClickListener(btnEnableBluetoothOnClickListener)
-        scanBluetooth.setOnCheckedChangeListener(btnScanDeviceOnCheckedListener)
-        connectSystem.setOnClickListener(btnConnectOnCLickListener)
-
-
-        connectSystem.isEnabled = false
-
-
-        //pb avec ACCESS_COARSE_LOCATION
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  // Only ask for these permissions on runtime when running Android 6.0 or higher
-            when (ContextCompat.checkSelfPermission(
-                baseContext,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )) {
-                PackageManager.PERMISSION_DENIED -> AlertDialog.Builder(this)
-                    .setTitle("Runtime Permissions up ahead")
-                    .setMessage("Permission is needed to scan for bluetooth devices")
-                    .setPositiveButton("Okay", DialogInterface.OnClickListener { dialog, which ->
-                        if (ContextCompat.checkSelfPermission(
-                                baseContext,
-                                Manifest.permission.ACCESS_COARSE_LOCATION
-                            ) != PackageManager.PERMISSION_GRANTED
-                        ) {
-                            ActivityCompat.requestPermissions(
-                                this@MainActivity,
-                                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                                1
-                            )
-                        }
-                    })
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show()
-                PackageManager.PERMISSION_GRANTED -> {}
-            }
         }
 
-        CheckAndEnableBluetoothState()
+        log("bluetooth already enabled")
 
-        val filter : IntentFilter = IntentFilter()
-        filter.addAction(BluetoothDevice.ACTION_FOUND)
-        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED)
-        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)
-        filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED)
-        filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED)
-        registerReceiver(ActionFoundReceiver, filter)
+        // Get the M5Stack device by its address
+        m5StackDevice = bluetoothAdapter.getRemoteDevice(DEVICE_ADDRESS)
 
+        // Start the connection process
+        connectToM5Stack()
     }
 
+    private fun connectToM5Stack() {
+        connectThread = ConnectThread(m5StackDevice)
+        connectThread?.start()
+    }
 
+    // Thread for establishing the Bluetooth connection
+    @SuppressLint("MissingPermission")
+    private inner class ConnectThread(device: BluetoothDevice) : Thread() {
+        private val socket: BluetoothSocket? by lazy(LazyThreadSafetyMode.NONE) {
+            device.createRfcommSocketToServiceRecord(SERVICE_UUID)
+        }
 
-    fun CheckAndEnableBluetoothState(){
-        if(bluetoothAdapter == null){
-            statusText.setText("Bluetooth NOT supported by phone")
-            AlertDialog.Builder(this)
-                .setTitle("Not compatible")
-                .setMessage("Your phone does not support Bluetooth")
-                .setPositiveButton("Exit") { dialog, which -> System.exit(0) }
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show()
-        } else {
-            if (bluetoothAdapter.isEnabled()) {
-                //aucune idee de ce que c'est
-                listPairedDevices()
+        @SuppressLint("MissingPermission")
+        override fun run() {
+            // Cancel discovery as it slows down the connection
+            bluetoothAdapter.cancelDiscovery()
+            log("discovery disabled")
 
-                if (bluetoothAdapter.isDiscovering()) {     //PERMISSION CHECK
-                    statusText.text = "Bluetooth is currently in device discovery process.";
-                    scanBluetooth.isChecked = true
-                } else {
-                    statusText.text = "Bluetooth is Enabled."
-                    enableBluetooth.isEnabled = false
-                    scanBluetooth.isEnabled = true
-                    scanBluetooth.isChecked = false
+            try {
+                // Connect to the M5Stack device
+                socket?.connect()
+                log("socket connected")
+            } catch (connectException: IOException) {
+                // Unable to connect; close the socket and return
+                try {
+                    socket?.close()
+                    log("Unable to connect, socket closed")
+                } catch (closeException: IOException) {
+                    closeException.printStackTrace()
                 }
-            } else {
-                statusText.text = "Bluetooth is Disabled."
-                scanBluetooth.isChecked = false
-                scanBluetooth.isEnabled = false
-                connectSystem.isEnabled = false
-                val enableBtIntent: Intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-                requestBluetooth.launch(enableBtIntent)
+                return
+            }
 
+            // Start the connected thread for communication
+            connectedThread = ConnectedThread(socket!!)
+            connectedThread?.start()
+            log("thred connected")
+        }
 
+        fun cancel() {
+            try {
+                socket?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
         }
     }
 
-    private fun listPairedDevices() {
-        val pairedDevices = bluetoothAdapter.bondedDevices      //PERMISSION CHECK
-        if (pairedDevices.size > 0) {
-            for (device in pairedDevices) {
-                btPairedDevice.add(""" ${device.name} ${device.address} """.trimIndent())
-            }
-            btPairedDevice.notifyDataSetChanged()
-        }
-    }
+    // Thread for handling the Bluetooth communication
+    private inner class ConnectedThread(private val socket: BluetoothSocket) : Thread() {
+        private val inputStream: InputStream = socket.inputStream
 
-    private val btnEnableBluetoothOnClickListener =
-        View.OnClickListener{
-            fun onClick(view: View?) {
-                CheckAndEnableBluetoothState()
-            }
-        }
+        override fun run() {
+            val buffer = ByteArray(1024)
+            var bytesRead: Int
 
-    private val btnConnectOnCLickListener =
-        View.OnClickListener {
-        statusText.text = "Establishing connection..."
-        connectBluetooth = ConnectThread(bluetoothDevice, bluetoothAdapter)
-        connectBluetooth.start()}   //A VOIR DANS CLASSE CONNECTIONTHREAD
-
-
-    @SuppressLint("SetTextI18n")
-    val btnScanDeviceOnCheckedListener =
-        CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                if (ContextCompat.checkSelfPermission(
-                        baseContext,
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    AlertDialog.Builder(this)
-                        .setTitle("Error")
-                        .setMessage("Permission is needed to scan for bluetooth devices.\nPlease allow the App to access the device's location in order to proceed.")
-                        .setPositiveButton(
-                            "Okay"
-                        ) { dialog, which ->
-                            if (ContextCompat.checkSelfPermission(
-                                    baseContext,
-                                    android.Manifest.permission.ACCESS_COARSE_LOCATION
-                                ) != PackageManager.PERMISSION_GRANTED
-                            ) {
-                                ActivityCompat.requestPermissions(
-                                    this,
-                                    arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
-                                    1
-                                )
-                            }
-                        }
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show()
-                    scanBluetooth.isChecked = false
-                } else {
-                    btArrayAdapter.clear()
-                    bluetoothAdapter.startDiscovery()   //PERMISSION CHECK
-                    statusText.text = "Bluetooth is currently in device discovery process."
+            // Keep listening to the InputStream until an exception occurs
+            while (true) {
+                try {
+                    // Read from the InputStream
+                    bytesRead = inputStream.read(buffer)
+                    // Handle the received data
+                    val receivedData = buffer.copyOf(bytesRead)
+                    // Process the received data as needed
+                    log(receivedData.toString())
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    break
                 }
-            } else {
-                bluetoothAdapter.cancelDiscovery() //PERMISSION CHECK
-                statusText.text = "Bluetooth has ended discovery process."
-            }
-        }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                listPairedDevices()
-                if (bluetoothAdapter.isDiscovering()) {     //PERMISSION CHECK
-                    statusText.setText("Bluetooth is currently in device discovery process.")
-                    scanBluetooth.setChecked(true)
-                } else {
-                    statusText.setText("Bluetooth is Enabled.")
-                    enableBluetooth.setEnabled(false)
-                    scanBluetooth.setEnabled(true)
-                    scanBluetooth.setChecked(false)
-                }
-            } else {
-                statusText.setText("Bluetooth is Disabled.")
-                scanBluetooth.setChecked(false)
-                scanBluetooth.setEnabled(false)
-                connectSystem.setEnabled(false)
             }
         }
     }
 
-    private val ActionFoundReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            val action = intent.action
-            if (BluetoothDevice.ACTION_FOUND == action) {
-                val device =
-                    intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-                btArrayAdapter.add(
-                    """ ${device!!.name} ${device.address} """.trimIndent()) //PERMISSION CHECK
-                btArrayAdapter.notifyDataSetChanged()
-                if (device.name.matches("BlueMilk")) {      //CHANGER FORMAT REGEX
-                    bluetoothDevice = device
-                    connectSystem.isEnabled = true
-                    bluetoothAdapter.cancelDiscovery()      //PERMISSION CHECK
-                }
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED == action) {
-                scanBluetooth.isChecked = false
-                statusText.text = "Bluetooth has ended discovery process."
-            } else if (BluetoothAdapter.ACTION_STATE_CHANGED == action) {
-                if (bluetoothAdapter.isEnabled) {
-                    enableBluetooth.isEnabled = false
-                    scanBluetooth.isEnabled = true
-                    statusText.text = "Bluetooth is Enabled."
-                } else {
-                    enableBluetooth.isEnabled = true
-                    scanBluetooth.isEnabled = false
-                    connectSystem.isEnabled = false
-                    statusText.text = "Bluetooth is Disabled."
-                }
-            } else if (BluetoothDevice.ACTION_ACL_CONNECTED == action) {
-                statusText.text = "Connected to Plant Watering System"
-                if (connectBluetooth.mmSocket != null) {        //A VOIR AVEC CONNECTIONTHREAD
-                    Log.d("Socket", "Successfully created!")
-                    SocketSingleton.setSocket(connectBluetooth.mmSocket)
-                    startActivity(Intent(this@MainActivity, PlantWateringActivity::class.java)) //CHANGER CLASSE POUR CORRESPINDRE PROJET
-                }
-            } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED == action) {
-                statusText.text = "Disconnected from Plant Watering System"
-            }
-        }
+
+    fun log(message:String){
+        Log.d("hello", message)
     }
+
 
 }
-
-
-
-
-    private var requestBluetooth = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            //granted
-        }else{
-            //deny
-        }
-    }
-
 
