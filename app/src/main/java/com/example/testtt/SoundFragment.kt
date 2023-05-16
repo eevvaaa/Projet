@@ -118,7 +118,7 @@ class SoundFragment : Fragment() {
             }
         }
 
-        handler.postDelayed(runnableSon,delay)
+        handler.post(runnableSon)
 
         // Définir le listener pour les éléments de la Bottom Navigation View
         binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
