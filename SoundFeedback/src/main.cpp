@@ -27,6 +27,6 @@ void loop(){
   // Récupération des données des capteurs
   if(processSensors()){
    //Envoi ou non d'un son en fonction des données
-    NewSoundValues();
+    NewSoundValues1Board();
   }
 }
