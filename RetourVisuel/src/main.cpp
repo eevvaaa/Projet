@@ -9,8 +9,11 @@ BluetoothSerial SerialBT;
 
 // Démarrage par défaut en Visuel Activé, autres désactivés
 
-// mode Visuel a plusieurs états : 0 (désactivé), 1 (activé), 2 (activé + LED)
+// mode Visuel a plusieurs états : 
+// 0 (désactivé), 1 (activé), 2 (activé + paramètres)
 int modeVisuel = 1;
+
+extern int modeLED;
 
 // mode Sonore a 2 états : 0 (désactivé), 1 (activé)
 int modeSonore = 0;
@@ -18,7 +21,8 @@ int modeSonore = 0;
 // mode Haptique a 2 états : 0 (désactivé), 1 (activé)
 int modeHaptique = 0;
 
-
+// ESSAI
+extern int sensorValues[NBBOARD][6];
 
 // Déclaration des fonctions utilisées dans le setup
 
@@ -56,15 +60,18 @@ void setup()
 
     M5.Lcd.println("Module CAN trouve !");
 
-    // Attente
-    delay(2300);
+    // Attente 
+    delay(1500);
 
     // Remplissage en noir 
     M5.Lcd.fillScreen(BLACK);
 
     // Initialisation de l'affichage 
     affichageBarreBoutons();
+
+    // INITIALISATION DE TOUS LES RETOURS
     affichageModeVisuel();
+    initLED();
 
     M5.Lcd.setCursor(0,0);
 }
@@ -91,9 +98,17 @@ void affichageBarreBoutons()
     M5.Lcd.drawString("Haptique",214 + 8,214);
 }
 
-
-void bluetoot()
+// Cette fonction permet d'envoyer des informations sur les capteurs en Bluetooth à l'application
+void bluetoot(int i)
 {
+    
+    SerialBT.printf("%d %d %d %d %d %d %d\n",i,sensorValues[i][0],
+    sensorValues[i][1],
+    sensorValues[i][2],
+    sensorValues[i][3],
+    sensorValues[i][4],
+    sensorValues[i][5]);
+    
     if (M5.BtnB.read())
     {
         SerialBT.println("Hello world, from M5Stack - Key B!");
@@ -153,6 +168,11 @@ void ButtonCheck()
 
     // Activation mode haptique OU quitter param visuels
     if(M5.BtnC.wasPressed()){
+
+        // Paramètres mode visuel -> Activer/désactiver LEDs
+        if(modeVisuel == 2){
+            changerModeLED();
+        }
     }
     
 }
@@ -165,9 +185,16 @@ void loop()
     //ProcessSensor retourne bloc allant de 1 à NBBOARD si données reçues de bloc ou 0 sinon
     if (int bloc = processSensors())
     {
-        // On enlève 1 car la fonction prend un entier allant de 0 à NBBOARD -1
-        affichageBloc(bloc-1);
-        bluetoot();
+        if(modeVisuel){
+            affichageBloc(bloc-1);
+            // On enlève 1 car la fonction prend un entier allant de 0 à NBBOARD -1
+        }
+        if(modeLED){
+            affichageLEDs(bloc-1);
+        }
+
+        bluetoot(bloc-1);
+
     }
         
 }

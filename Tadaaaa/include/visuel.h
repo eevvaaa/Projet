@@ -3,7 +3,7 @@
 
 void affichageParametres();
 void affichageLegende();
-void affichageModeVisuel();
+void changerAffichageModeVisuel();
 int affichageBloc(int bloc);
 void changerPalette();
 uint16_t getCouleurVisuel();

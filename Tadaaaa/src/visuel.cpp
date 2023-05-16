@@ -21,7 +21,7 @@ int pal = 0;
 extern int limites[2][2];
 
 // Choix type distances limites
-extern int d;
+extern int modeDistance;
 
 // Données venant des capteurs
 extern int sensorValues[NBBOARD][6];
@@ -39,22 +39,11 @@ extern int blocs[NBBOARD][5];
 #define FAUTEUIL_X 113
 #define FAUTEUIL_Y 98
 
+// MODE VISUEL ACTIF -----------------------
+// Initialisé à 1 (activé)
+bool modeVisuelEcran = 1;
+
 // FONCTIONS ---------------------------------------------------------------------
-
-// Permet d'afficher les paramètres sur le côté
-void affichageParametres()
-{
-    // Remplace les boutons classiques Vis/Son/Hapt
-
-    M5.Lcd.fillRect(0, 205, 105, 35, BLACK);
-    M5.Lcd.drawString("Quitter", 12, 214);
-
-    M5.Lcd.fillRect(107, 205, 105, 35, BLACK);
-    M5.Lcd.drawString("Palette", 106 + 14, 214);
-
-    M5.Lcd.fillRect(215, 205, 105, 35, BLACK);
-    M5.Lcd.drawString("LEDs", 214 + 30, 214);
-}
 
 // Permet d'afficher la légende sur le côté
 void affichageLegende()
@@ -70,24 +59,30 @@ void affichageLegende()
 }
 
 // Permet de gérer l'initialisation du mode visuel
-void affichageModeVisuel()
-{
-    // Affichage image fauteuil
-    M5.Lcd.drawPngFile(SPIFFS, "/fauteuil.png", FAUTEUIL_X - FAUTEUIL_L / 2, FAUTEUIL_Y - FAUTEUIL_H / 2);
+void changerAffichageModeVisuel()
+{   
+    // Si le mode visuel écran est activé, alors afficher
+    if(modeVisuelEcran){
+        // Affichage image fauteuil
+        M5.Lcd.drawPngFile(SPIFFS, "/fauteuil.png", FAUTEUIL_X - FAUTEUIL_L / 2, FAUTEUIL_Y - FAUTEUIL_H / 2);
 
-    // Petite police
-    M5.Lcd.setTextSize(1);
+        // Petite police
+        M5.Lcd.setTextSize(1);
 
-    // Affichage du texte
-    M5.Lcd.drawString("Danger", 240, 10);
-    M5.Lcd.drawString("Alerte", 240, 25);
-    M5.Lcd.drawString("  Rien", 240, 40);
+        // Affichage du texte
+        M5.Lcd.drawString("Danger", 240, 10);
+        M5.Lcd.drawString("Alerte", 240, 25);
+        M5.Lcd.drawString("  Rien", 240, 40);
 
-    // Police normale
-    M5.Lcd.setTextSize(2);
+        // Police normale
+        M5.Lcd.setTextSize(2);
 
-    // Affichage couleurs correspondantes
-    affichageLegende();
+        // Affichage couleurs correspondantes
+        affichageLegende();
+    }else{
+        // Désactivation du mode visuel -> suppression (on laisse la légende en cas de LED)
+        M5.Lcd.fillRect(40,20,145,145,BLACK);
+    }
 }
 
 // Fonction permettant de récupérer une couleur à partir d'une distance
@@ -95,13 +90,13 @@ uint16_t getCouleur(int dist)
 {
 
     // Si < DANGER : Danger
-    if (dist < limites[d][DANGER])
+    if (dist < limites[modeDistance][DANGER])
     {
         return palettesVisuel[pal][2];
     }
 
     // Sinon, si < ALERTE : Alerte
-    if (dist < limites[d][ALERTE])
+    if (dist < limites[modeDistance][ALERTE])
     {
         return palettesVisuel[pal][1];
     }
@@ -110,38 +105,36 @@ uint16_t getCouleur(int dist)
     return palettesVisuel[pal][0];
 }
 
-
 // Permet d'afficher un bloc ; les blocs vont de 0 à NBBOARD - 1
 // L'affichage est réalisé en prenant un point de départ (x y ajustés)
 // Et en le décalant à chaque capteur dans la boucle de (sensX, sensY)
 // On peut ainsi former des blocs verticaux, horizontaux ou même diagonaux,
 // dans le bon sens d'affichage
 int affichageBloc(int bloc)
-{   
-    //for(int j = 0 ; j < 4 ; j++){ /* bloc+j*2 quand test sur 2 capteurs */
-        int x = blocs[bloc][0];
-        int y = blocs[bloc][1]; 
-        int sensX = blocs[bloc][2]; 
-        int sensY = blocs[bloc][3]; 
+{
+    // for(int j = 0 ; j < 4 ; j++){ /* bloc+j*2 quand test sur 2 capteurs */
+    int x = blocs[bloc][0];
+    int y = blocs[bloc][1];
+    int sensX = blocs[bloc][2];
+    int sensY = blocs[bloc][3];
 
-        // Réajustement
-        x = x - 1 + FAUTEUIL_X - 5*(sensX); 
-        y = y - 1 + FAUTEUIL_Y - 5*(sensY); 
+    // Réajustement
+    x = x - 1 + FAUTEUIL_X - 5 * (sensX);
+    y = y - 1 + FAUTEUIL_Y - 5 * (sensY);
 
-        // Pour chaque capteur du bloc, faire
-        for (int i = 0; i < 6; i++)
-        {
-            // Afficher
-            M5.Lcd.fillRect(x, y, 2, 2, getCouleur(sensorValues[bloc][i]));
-            
-            // Actualiser x et y
-            x = x + 2*sensX;
-            y = y + 2*sensY;
-        }
+    // Pour chaque capteur du bloc, faire
+    for (int i = 0; i < 6; i++)
+    {
+        // Afficher
+        M5.Lcd.fillRect(x, y, 2, 2, getCouleur(sensorValues[bloc][i]));
+
+        // Actualiser x et y
+        x = x + 2 * sensX;
+        y = y + 2 * sensY;
+    }
     //}
     // Pour test Bluetooth
     return sensorValues[bloc][0];
-
 }
 
 void changerPalette()
@@ -152,7 +145,8 @@ void changerPalette()
     // Affiche la nouvelle légende
     affichageLegende();
 
-    for(int i = 0 ; i < NBBOARD ; i++){
+    for (int i = 0; i < NBBOARD; i++)
+    {
         affichageBloc(i);
         affichageLEDs(i);
     }

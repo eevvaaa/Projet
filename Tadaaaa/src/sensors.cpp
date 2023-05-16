@@ -11,9 +11,6 @@ MCP_CAN CAN0(&SPI, 12); // Set CS to pin 12
 
 // DONNEES RELATIVES AUX CAPTEURS ------------------------------------------------
 
-// Commencer la lecture par n'importe quel capteur : évite les doublons de messages
-int prevLu = -1;
-
 // Données sur la position des capteurs relative au centre de l'image de fauteuil
 // X (de -60 à 60) ; Y (de -75 à 75) ; SensX (de + à -2) ; SensY (de + à -2)
 // La largeur d'un bloc de capteurs affiché est de 22
@@ -22,14 +19,14 @@ int blocs[NBBOARD][5] = {
     {14, 75, -2, 0, 14},
     {-14, 75, -2, 0, 18},
     // Capteurs sur roues
-    {60, 25, 0, 2,10},
-    {-60, 25, 0, -2,22},
+    {60, 25, 0, 2, 10},
+    {-60, 25, 0, -2, 22},
     // Capteurs sur côtés devant
-    {50, -35, 1, 2,5},
-    {-50, -35, 1, -2,27},
+    {50, -35, 1, 2, 5},
+    {-50, -35, 1, -2, 27},
     // Capteurs devant
-    {14, -75, 2, 0,1},
-    {-14, -75, 2, 0,31}};
+    {14, -75, 2, 0, 1},
+    {-14, -75, 2, 0, 31}};
 
 // Stocke les données provenant des capteurs
 int sensorValues[NBBOARD][6];
@@ -37,7 +34,7 @@ int sensorValues[NBBOARD][6];
 // DONNEES RELATIVES AUX DISTANCES -----------------------------------------------
 
 // Choix du type de distances LONG (0, défaut) ou COURT (1)
-int d = 0;
+bool modeDistance = 0;
 
 // Limites des distances ALERTE et DANGER, pour LONG (défaut) et COURT
 int limites[2][2] = {
@@ -80,15 +77,13 @@ int processSensors()
         {
             unsigned int boardID = 0;
             // Si le message provient d'un bon board, continuer
-            if ((boardID = (rxId & 0x07)) < NBBOARD /*&& boardID != prevLu*/)
+            if ((boardID = (rxId & 0x07)) < NBBOARD)
             {
                 // update les donénes du tableau
                 for (int i = 0; i < 6; i++)
                 {
                     sensorValues[boardID][i] = rxBuf[i];
                 }
-                // Mettre à jour le prochain capteur à ne pas lire dans la liste
-                //prevLu = boardID;
 
                 // Indique qu'il y a de nouvelles valeurs en boardID
                 return boardID + 1;
