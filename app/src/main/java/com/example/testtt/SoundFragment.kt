@@ -112,7 +112,7 @@ class SoundFragment : Fragment() {
             }
         }
 
-       handler.postDelayed(runnable,delay)
+       // handler.postDelayed(runnable,delay)
 
 
 

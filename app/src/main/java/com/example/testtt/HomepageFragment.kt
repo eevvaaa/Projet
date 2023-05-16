@@ -1,10 +1,6 @@
 package com.example.testtt
 
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,21 +8,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Switch
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.example.testtt.databinding.FragmentHomepageBinding
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.google.android.material.button.MaterialButton
 
 class HomepageFragment : Fragment() {
 
     private lateinit var binding: FragmentHomepageBinding
 
     // array of image IDs
-    private val images = arrayOf(R.drawable.logo_app, R.drawable.logo_app, R.drawable.logo_app, R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4)
+    private val images = arrayOf(R.drawable.logo_app, R.drawable.logo_app1, R.drawable.logo_app, R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4)
 
     // global variables to store button state and ID of last clicked button
     private var isSoundButtonSelected = false

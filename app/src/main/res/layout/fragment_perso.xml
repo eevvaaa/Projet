@@ -49,23 +49,6 @@
                 app:strokeColor="@color/purple_500"
                 app:strokeWidth="2dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/setting_visual"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="60dp"
-                android:layout_marginEnd="0dp"
-                app:backgroundTint="@color/white"
-                app:cornerRadius="8dp"
-                app:icon="@drawable/setting_icon"
-                app:iconSize="30dp"
-                app:iconTint="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:rippleColor="@color/purple_200"
-                app:strokeColor="@color/purple_500"
-                app:strokeWidth="2dp" />
-
             <TextView
                 android:id="@+id/nom"
                 android:layout_width="match_parent"
