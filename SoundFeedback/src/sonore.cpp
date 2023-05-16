@@ -5,7 +5,7 @@
 #include "sonore.h"
 #include "sensors.h"
 
-BluetoothA2DPSource headphones;
+BluetoothA2DPSource a2dp_source;
 
 extern const unsigned char connectionCheck_wav[];
 extern const unsigned int connectionCheck_wav_len;
@@ -27,24 +27,32 @@ void initSonore(){
 
     M5.Lcd.println("Tentative de connexion au casque...");
 
-// Connexion au casque
-    headphones.start("OpenMove by Shokz");
+// Connexion au casque grâce à son nom
+    a2dp_source.start("OpenMove by Shokz");
 
-  // Mettre à jour le volume pour les sons
-    headphones.set_volume(50);
+// Mettre à jour le volume pour les sons
+    a2dp_source.set_volume(50);
 
-  // Envoi d'un son "Connected to M5Stack" pour confirmer la connexion Bluetooth
-    headphones.write_data(connection);
+// Envoi d'un son "Connected to M5Stack" pour confirmer la connexion Bluetooth
+    a2dp_source.write_data(connection);
 }
 
+
+// Méthode qui permet d'envoyer le son de danger 
 void sendDanger(){
-    headphones.write_data(danger);
+    a2dp_source.write_data(danger);
 }
 
+// Méthode qui permet d'envoyer le son d'alerte
 void sendWarning(){
-    headphones.write_data(warning);
+    a2dp_source.write_data(warning);
 }
 
+/**
+ * Cette fonction est celle qui permet d'envoyer un signal sonore ou non en fonction de la proximité entre un capteur et le fauteuil roulant électrique
+ * 
+ * @param value permet d'indiquer la valeur (distance) reçue par un capteur précis
+*/
 void NewSoundValues()
 {
     int value0, value1, value4, value5;
@@ -79,3 +87,20 @@ void NewSoundValues()
         }
     }*/
 } 
+
+/**
+ * Permet de noter les numéros des capteurs qui fonctionnent 
+*/
+void testAutomatique(){
+    M5.Lcd.clear();
+
+    for (int i=0; i<NBBOARD; i++){
+        for (int j=0; j<6; j++){
+            M5.Lcd.print(i+" : ");
+            if (sensorValues[i][j]!=0){
+                M5.Lcd.print(j+" ");
+            }
+            M5.Lcd.printf(" ");
+        }
+    }
+}

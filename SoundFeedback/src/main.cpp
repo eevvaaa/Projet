@@ -14,6 +14,7 @@ void setup()
   // Démarrage de la M5Stack
   M5.Power.begin();
 
+  // Taille de la police
   M5.Lcd.setTextSize(2.5);
 
   initSonore();
@@ -23,6 +24,7 @@ void setup()
 void loop(){
   M5.update();
 
+  // Récupération des données des capteurs
   if(processSensors()){
     NewSoundValues();
   }

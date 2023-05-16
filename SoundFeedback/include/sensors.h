@@ -3,10 +3,11 @@
 
 bool initSensors();
 bool processSensors();
-void getNewSensorValues();
 
+//NBOARD = le nombre de barres de capteurs
 #define NBBOARD 8
 
+// Distances de danger (danger) et d'alerte (warning)
 #define DANGER 30
 #define WARNING 60
 
