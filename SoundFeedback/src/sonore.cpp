@@ -49,58 +49,51 @@ void sendWarning(){
 }
 
 /**
+ * Cette fonction est celle qui permet d'envoyer un signal sonore ou non en fonction de la proximité entre un capteur et un bloc de capteurs
+ * 
+ * @param value permet d'indiquer la valeur (distance) reçue par un capteur précis
+*/
+void NewSoundValues1Board()
+{
+    int value;
+
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 6; j++){
+            value = sensorValues[i][j];
+            
+            // Envoi du son aigu avec value inférieure à 30 cm (DANGER)
+            if (value < DANGER){ 
+                    sendDanger();
+            }
+
+            // Envoi du son aigu avec value inférieure à 60 cm (WARNING)
+            else if (value < WARNING && value >= DANGER){
+                sendWarning();
+                }
+        }
+    }
+    
+/**
  * Cette fonction est celle qui permet d'envoyer un signal sonore ou non en fonction de la proximité entre un capteur et le fauteuil roulant électrique
  * 
  * @param value permet d'indiquer la valeur (distance) reçue par un capteur précis
 */
 void NewSoundValues()
 {
-    int value0, value1, value4, value5;
+    int value;
 
-    for(int j = 0; j < 6; j++){
-        //value0 = sensorValues[0][j];
-        //value1 = sensorValues[1][j];
-        //value4 = sensorValues[4][j];
-        value5 = sensorValues[5][1];
-
-        if (/*value0 < DANGER || value1 < DANGER ||*/ value5 < DANGER){ 
-                M5.Lcd.print("danger");
-                sendDanger();
+    for(int i = 0; i < NBBOARD; i++){
+        for(int j = 0; j < 6; j++){
+            value = sensorValues[i][j];
+            
+            // Envoi du son aigu avec value inférieure à 30 cm (DANGER)
+            if (value < DANGER){ 
+                    sendDanger();
             }
 
             // Envoi du son aigu avec value inférieure à 60 cm (WARNING)
-            else if (/*value0 < WARNING && value0 >= DANGER || value1 < WARNING && value1 >= DANGER ||*/ value5 < WARNING && value5 >= DANGER){
-                M5.Lcd.print("warning");
+            else if (value < WARNING && value >= DANGER){
                 sendWarning();
-            }
-    }
-    
-    
-    /* for (int i = 0; i < NBBOARD; i++)
-    {
-        for (int j = 0; j < 6; j++)
-        {
-            value = sensorValues[i][j];
-
-            // Envoi du son aigu avec value inférieure à 30 cm (DANGER)
-            
-        }
-    }*/
-} 
-
-/**
- * Permet de noter les numéros des capteurs qui fonctionnent 
-*/
-void testAutomatique(){
-    M5.Lcd.clear();
-
-    for (int i=0; i<NBBOARD; i++){
-        for (int j=0; j<6; j++){
-            M5.Lcd.print(i+" : ");
-            if (sensorValues[i][j]!=0){
-                M5.Lcd.print(j+" ");
-            }
-            M5.Lcd.printf(" ");
+                }
         }
     }
-}
