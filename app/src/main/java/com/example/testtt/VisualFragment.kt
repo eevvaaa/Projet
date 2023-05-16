@@ -53,7 +53,7 @@ class VisualFragment : Fragment() {
             binding.capteur3.setColorFilter(resources.getColor(R.color.red), PorterDuff.Mode.MULTIPLY) }
         if(valeur3 in DANGER_ZONE.. WARNING_ZONE){
             binding.capteur3.setColorFilter( resources.getColor(R.color.yellow),PorterDuff.Mode.MULTIPLY)}
-        if(valeur3 > DANGER_ZONE){
+        if(valeur3 > WARNING_ZONE){
             binding.capteur3.setColorFilter(resources.getColor(R.color.green), PorterDuff.Mode.MULTIPLY)
         }
 
