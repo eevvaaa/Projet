@@ -274,21 +274,29 @@ void testCapteur(){
 /**
  * Permet de noter les numéros des capteurs qui fonctionnent 
 */
-void testAutomatique(){
-    M5.Lcd.clear();
-
-    for (int i=0; i<NBBOARD; i++){
-        for (int j=0; j<6; j++){
-            M5.Lcd.print(i+" : ");
-            if (sensorValues[i][j]!=0){
-                M5.Lcd.print(j+" ");
-            }
-            M5.Lcd.printf(" ");
-        }
+void testCapteurRapide(int i){
+    int value;
+    for(int j=0; j<6; j++){
+        M5.Lcd.setCursor(20,j*30);
+        M5.Lcd.printf("[%d][%d] : ", i, j);
+        value = sensorValues[i][j];
+        M5.Lcd.print(value);
     }
+    
+}
 
+/**
+ * Permet de noter les numéros des capteurs qui fonctionnent 
+*/
+void testCapteurRapideIndiv(int i, int j){
+    int value;
+    M5.Lcd.setCursor(20,80);
+    M5.Lcd.printf("[%d][%d] : ", i, j);
+    value = sensorValues[i][j];
+    M5.Lcd.print(value);
 
 }
+
 
 /**
  * Cette fonction permet de tester le retour haptique sur le fauteuil complet, en prenant en compte 8 blocs de 6 capteurs
@@ -343,31 +351,31 @@ void activationMoteurFauteuilComplet(){
         }
     }    
     /* droit board 2*/
-    for (int j = 0; j < 6; j++){
+    /*for (int j = 0; j < 6; j++){
         value = sensorValues[2][j];
         testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
         if (j>=3){
             testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
         }
-    }
+    }*/
 
     /* Activation du moteur gauche */
     /* gauche board 3*/
-    for (int j = 0; j < 6; j++){
+    /*for (int j = 0; j < 6; j++){
         value = sensorValues[3][j];
         testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);
         if (j<3){
             testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
         }
-    }
+    }*/
     /* gauche board 5 */
-    for (int j = 0; j < 6; j++){
+    /*for (int j = 0; j < 6; j++){
         value = sensorValues[5][j];
         testDistanceVibration(pwmChannelGauche, 0, value, valeurMoteur);
         if (j>=3){
             testDistanceVibration(pwmChannelDevant, 1, value, valeurMoteur);
         }
-    }
+    }*/
 }
 
 /**
@@ -378,9 +386,14 @@ void activationMoteursCapteursOKFauteuil(){
     int value;
 
     /* Activation du moteur derrière */
-    /* arrière board 0 --> seul le capteur 5 marche */
-    value = sensorValues[0][5];
-    testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
+    /* arrière board 0*/
+    for (int j = 0; j < 6; j++){
+        value = sensorValues[0][j];
+        testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);
+        if (j<3){
+            testDistanceVibration(pwmChannelDroit, 2, value, valeurMoteur);
+        }
+    }
     /* arrière board 1 --> seul le capteur 5 marche*/
     value = sensorValues[1][0];
     testDistanceVibration(pwmChannelDerriere, 3, value, valeurMoteur);

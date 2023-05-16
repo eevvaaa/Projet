@@ -37,7 +37,6 @@ int pwmChannelDerriere = 3; //Choisit le canal 0-15
 int frequence = 1000; //Fréquence PWM de 1 KHz
 int resolution = 8; // Résolution de 8 bits, 256 valeurs possibles
 
-
 void setup() {
 
   // Init de la M5STack
@@ -76,21 +75,18 @@ void setup() {
   ledcWrite(pwmChannelDroit,0);
   ledcWrite(pwmChannelGauche, 0);
 
+  M5.Lcd.clear();
+
 }
 
 void loop() {
 
   M5.update();
 
-  Serial.print(processSensors());
   if(processSensors()){ //je récupère les données des capteurs
-    //activationMoteurAvecCapteurs();
-    testAutomatique();
-    delay(100000);
+    activationMoteurAvecCapteurs();
     //activationMoteurFauteuilComplet();
   }
-  
-  
 
 }
 

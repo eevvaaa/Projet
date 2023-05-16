@@ -15,7 +15,7 @@ MCP_CAN CAN0(&SPI, 12); // Set CS to pin 12
 #define CAN0_INT 15     // Set INT to pin 15
 
 //variable pour définir le prochain capteur à lire
-int nextToRead;
+//int nextToRead;
 
 
 // Données sur la position des capteurs relative au centre de l'image de fauteuil
@@ -57,7 +57,7 @@ bool initSensors()
         digitalWrite(i,LOW);
     }
     // Commencer la lecture par le capteur 0
-    nextToRead = 0;
+    //nextToRead = 0;
 
     // Init réussie
     return true;

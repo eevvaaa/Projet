@@ -4,7 +4,8 @@
 //fonctions de test 
 void testBoard();
 void testCapteur();
-void testAutomatique();
+void testCapteurRapide(int i);
+void testCapteurRapideIndiv(int i, int j);
 
 //activation des moteurs avec 2 blocs/boards de capteurs
 void activationMoteurAvecCapteurs();
