@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper
 class BDInfoPerso(context: Context) : SQLiteOpenHelper(context, "BDInfoPerso", null, 1) {
 
     override fun onCreate(db: SQLiteDatabase) {
+        // Creation de la table si elle n'existe pas déjà necessaire
         db.execSQL("CREATE TABLE IF NOT EXISTS MonTableau (id INTEGER PRIMARY KEY, nom TEXT, dob DATE, difficulte TEXT, gs TEXT, ug TEXT)")
 
         // Insérer une ligne avec ID = 1 si elle n'existe pas déjà

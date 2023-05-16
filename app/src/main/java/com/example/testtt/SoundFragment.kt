@@ -114,10 +114,6 @@ class SoundFragment : Fragment() {
 
        // handler.postDelayed(runnable,delay)
 
-
-
-
-
         // Définir le listener pour les éléments de la Bottom Navigation View
         binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -165,6 +161,7 @@ class SoundFragment : Fragment() {
             // Créer et afficher la fenêtre
             val dialog = dialogBuilder.create()
             dialog.show()
+
         }
     }
 }

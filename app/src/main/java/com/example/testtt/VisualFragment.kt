@@ -692,10 +692,5 @@ class VisualFragment : Fragment() {
             }
         }
 
-
-
-
-
-
     }
 }

@@ -186,24 +186,4 @@ class PersoFragment() : Fragment() {
             builder.show()        }
 
     }
-
-
-//    fun modifyItems(contenu : String){
-//        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-//        builder.setTitle("Modifier le contenu")
-//        val input = EditText(context)
-//        input.setText(contenu) // contenuActuel est le texte à modifier
-//
-//        builder.setView(input)
-//        builder.setPositiveButton("Enregistrer",
-//            DialogInterface.OnClickListener { dialog, which ->
-//                val nouveauContenu: String = input.getText().toString()
-//                // Mettre à jour le contenu avec le nouveau texte
-//                binding.textviewNom.setText(nouveauContenu)
-//            })
-//        builder.setNegativeButton("Annuler",
-//            DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-//        builder.show()
-//    }
-//
 }
