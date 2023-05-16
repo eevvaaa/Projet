@@ -32,6 +32,7 @@
     <string name="stop">STOP</string>
     <string name="Mode_son">MODE SONORE</string>
     <string name="Mode_visuel">MODE VISUEL</string>
+    <string name="Mode_S_et_V">MODE SON ET VISUEL</string>
     <string name="Mode_perso">MES INFOS PERSO</string>
     <string name="opt">Options</string>
     <string name="done">C\'est fait !</string>
