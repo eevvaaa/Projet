@@ -4,7 +4,7 @@
 #include "BluetoothA2DPSource.h"
 #include "sonore.h"
 
-extern BluetoothA2DPSource headphones;
+extern BluetoothA2DPSource a2dp_source;
 
 void setup()
 {
