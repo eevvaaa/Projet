@@ -382,7 +382,7 @@ class VisualFragment : Fragment() {
 
         }
         // start the runnable
-        handler.postDelayed(runnable, delay)
+        handler.post(runnable)
 
         //quand boutton defaut
         val runnable1 = object : Runnable {
@@ -587,7 +587,7 @@ class VisualFragment : Fragment() {
 
 
                     // start the runnable
-                    handler.postDelayed(runnable1, delay)
+                    handler.post(runnable1)
 
 
                     //stop les autres runnable
@@ -607,7 +607,7 @@ class VisualFragment : Fragment() {
 
 
                     // start the runnable
-                    handler.postDelayed(runnable2, delay)
+                    handler.post(runnable2)
 
                     //stop le runnable par defaut
                     handler.removeCallbacks(runnable)
@@ -625,7 +625,7 @@ class VisualFragment : Fragment() {
 
 
                     // start the runnable
-                    handler.postDelayed(runnable3, delay)
+                    handler.post(runnable3)
 
                     //stop le runnable par defaut
                     handler.removeCallbacks(runnable)
@@ -642,7 +642,7 @@ class VisualFragment : Fragment() {
 
 
                     // start the runnable
-                    handler.postDelayed(runnable4, delay)
+                    handler.post(runnable4)
 
                     //stop les autres runnable
                     handler.removeCallbacks(runnable)
