@@ -663,6 +663,10 @@ class SoundAndVisualFragment : Fragment() {
                     handler.removeCallbacks(runnable2)
                     handler.removeCallbacks(runnable3)
                     handler.removeCallbacks(runnable4)
+                    
+                    //redémarrer le son
+                    handler.removeCallbacks(runnableSon)
+                    handler.post(runnableSonBis)
 
                 }
 
@@ -681,6 +685,10 @@ class SoundAndVisualFragment : Fragment() {
                     handler.removeCallbacks(runnable1)
                     handler.removeCallbacks(runnable3)
                     handler.removeCallbacks(runnable4)
+                    
+                    //redémarrer le son
+                    handler.removeCallbacks(runnableSon)
+                    handler.post(runnableSonBis)
 
                 }
 
@@ -699,6 +707,10 @@ class SoundAndVisualFragment : Fragment() {
                     handler.removeCallbacks(runnable1)
                     handler.removeCallbacks(runnable2)
                     handler.removeCallbacks(runnable4)
+                    
+                    //redémarrer le son
+                    handler.removeCallbacks(runnableSon)
+                    handler.post(runnableSonBis)
                 }
 
 
@@ -716,6 +728,10 @@ class SoundAndVisualFragment : Fragment() {
                     handler.removeCallbacks(runnable1)
                     handler.removeCallbacks(runnable2)
                     handler.removeCallbacks(runnable3)
+                    
+                    //redémarrer le son
+                    handler.removeCallbacks(runnableSon)
+                    handler.post(runnableSonBis)
                 }
 
 
@@ -724,8 +740,7 @@ class SoundAndVisualFragment : Fragment() {
                         handler.removeCallbacks(dangerRunnable)
                         handler.removeCallbacks(warningRunnable)
                         handler.removeCallbacks(runnableSon)
-                        danger.isLooping = false
-                        warning.isLooping =false
+                        handler.removeCallbacks(runnableSonBis)
                         findNavController().navigate(R.id.visualFragment)
                     }
                 } else {
@@ -733,15 +748,13 @@ class SoundAndVisualFragment : Fragment() {
                         handler.removeCallbacks(dangerRunnable)
                         handler.removeCallbacks(warningRunnable)
                         handler.removeCallbacks(runnableSon)
-                        danger.isLooping = false
-                        warning.isLooping =false
+                        handler.removeCallbacks(runnableSonBis)
                         findNavController().navigate(R.id.soundFragment)
                     } else {
                         handler.removeCallbacks(dangerRunnable)
                         handler.removeCallbacks(warningRunnable)
                         handler.removeCallbacks(runnableSon)
-                        danger.isLooping = false
-                        warning.isLooping = false
+                        handler.removeCallbacks(runnableSonBis)
                         findNavController().navigate(R.id.homepageFragment)
                     }
                 }
@@ -760,36 +773,34 @@ class SoundAndVisualFragment : Fragment() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.perso -> {
-                    handler.removeCallbacks(dangerRunnable)
-                    handler.removeCallbacks(warningRunnable)
-                    handler.removeCallbacks(runnableSon)
-                    danger.isLooping = false
-                    warning.isLooping =false
+                     handler.removeCallbacks(dangerRunnable)
+                     handler.removeCallbacks(warningRunnable)
+                     handler.removeCallbacks(runnableSon)
+                     handler.removeCallbacks(runnableSonBis)
                     findNavController().navigate(R.id.persoFragment)
                     true
                 }
                 R.id.sound -> {
                     handler.removeCallbacks(dangerRunnable)
-                    handler.removeCallbacks(warningRunnable)
-                    handler.removeCallbacks(runnableSon)
-                    danger.isLooping = false
-                    warning.isLooping =false
+                     handler.removeCallbacks(warningRunnable)
+                     handler.removeCallbacks(runnableSon)
+                     handler.removeCallbacks(runnableSonBis)
                     findNavController().navigate(R.id.soundFragment)
                     true
                 }
                 R.id.eyes -> {
-                    binding.messageAlreadyThere.visibility = View.VISIBLE
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        binding.messageAlreadyThere.visibility = View.INVISIBLE
-                    }, 3000)
+                    handler.removeCallbacks(dangerRunnable)
+                    handler.removeCallbacks(warningRunnable)
+                    handler.removeCallbacks(runnableSon)
+                    handler.removeCallbacks(runnableSonBis)
+                    bfindNavController().navigate(R.id.soundFragment)
                     true
                 }
                 R.id.urgences -> {
                     handler.removeCallbacks(dangerRunnable)
-                    handler.removeCallbacks(warningRunnable)
-                    handler.removeCallbacks(runnableSon)
-                    danger.isLooping = false
-                    warning.isLooping =false
+                     handler.removeCallbacks(warningRunnable)
+                     handler.removeCallbacks(runnableSon)
+                     handler.removeCallbacks(runnableSonBis)
                     findNavController().navigate(R.id.urgencesFragment)
                     true
                 }
