@@ -64,6 +64,42 @@ void initHaptique()
 }
 
 /**
+ * Cette fonction est celle qui permet d'envoyer une vibration ou non en fonction de la proximité pour un capteur, un moteur et un channel donnés
+ *
+ * @param pwmChannel permet de préciser le canal utilisé pour le moteur
+ * @param numMoteur permet d'indiquer quel moteur est concerné par la vibration possible d'un capteur précis
+ * @param value permet d'indiquer la valeur (distance) reçue par un capteur précis
+ * @param valeurMoteur permet de mettre à jour l'amplitude actuelle de vibration du moteur
+ */
+void testDistanceVibration(int pwmChannel, int numMoteur, int value, int *valeurMoteur)
+{
+    if (value < limites[modeDistance][DANGER])
+    {
+        if (valeurMoteur[numMoteur] != 170)
+        {
+            ledcWrite(pwmChannel, 170);
+            valeurMoteur[numMoteur] = 170;
+        }
+    }
+    else
+    {
+        if (value < limites[modeDistance][ALERTE])
+        {
+            if (valeurMoteur[numMoteur] != 63)
+            {
+                ledcWrite(pwmChannel, 63);
+                valeurMoteur[numMoteur] = 63;
+            }
+        }
+        else
+        {
+            ledcWrite(pwmChannel, 0);
+            valeurMoteur[numMoteur] = 0;
+        }
+    }
+}
+
+/**
  * Cette fonction permet de faire fonctionner (position+proximité) 3 moteurs (gauche-devant-droite) en fonction de 2 boards
  */
 void activationMoteurAvecCapteurs()
@@ -131,42 +167,6 @@ void activationMoteurAvecCapteurs()
     }
     
     
-}
-
-/**
- * Cette fonction est celle qui permet d'envoyer une vibration ou non en fonction de la proximité pour un capteur, un moteur et un channel donnés
- *
- * @param pwmChannel permet de préciser le canal utilisé pour le moteur
- * @param numMoteur permet d'indiquer quel moteur est concerné par la vibration possible d'un capteur précis
- * @param value permet d'indiquer la valeur (distance) reçue par un capteur précis
- * @param valeurMoteur permet de mettre à jour l'amplitude actuelle de vibration du moteur
- */
-void testDistanceVibration(int pwmChannel, int numMoteur, int value, int *valeurMoteur)
-{
-    if (value < limites[modeDistance][DANGER])
-    {
-        if (valeurMoteur[numMoteur] != 170)
-        {
-            ledcWrite(pwmChannel, 170);
-            valeurMoteur[numMoteur] = 170;
-        }
-    }
-    else
-    {
-        if (value < limites[modeDistance][ALERTE])
-        {
-            if (valeurMoteur[numMoteur] != 63)
-            {
-                ledcWrite(pwmChannel, 63);
-                valeurMoteur[numMoteur] = 63;
-            }
-        }
-        else
-        {
-            ledcWrite(pwmChannel, 0);
-            valeurMoteur[numMoteur] = 0;
-        }
-    }
 }
 
 /**

@@ -101,6 +101,7 @@ void buttonCheck()
     // Aller dans les paramètres visuels et les quitter
     if (M5.BtnA.wasPressed())
     {
+        modeHaptique=0;
         paramVisuels = !paramVisuels;
         affichageBoutons();
     }
@@ -109,6 +110,7 @@ void buttonCheck()
     // Activation mode sonore OU changer palette
     if (M5.BtnB.wasPressed())
     {
+        modeHaptique=0;
         if(!paramVisuels){
             modeSonore = !modeSonore;
             if(modeSonore){
@@ -134,6 +136,7 @@ void buttonCheck()
     // Permet d'éteindre la M5Stack, ce qui n'est pas possible sinon
     if (M5.BtnA.isPressed() && M5.BtnB.isPressed())
     {
+        modeHaptique=0;
         turnOffLEDs();
         M5.Power.deepSleep();
     }

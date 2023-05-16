@@ -109,10 +109,10 @@ void loop()
         // RETOUR HAPTIQUE
         if (modeHaptique)
         {
-            // activationMoteurAvecCapteurs();
-            testAutomatiqueHaptique();
-            delay(100000);
+            activationMoteurAvecCapteurs();
             // activationMoteurFauteuilComplet();
+        }else{
+            initHaptique();
         }
 
         //Cette fonction gère les échanges bluetooth avec l'appli
